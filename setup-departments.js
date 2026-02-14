@@ -1,7 +1,20 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
+import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-const MONGODB_URI = process.env.MONGO_URI || 'mongodb+srv://vikash123:vikash123@cluster0.xnyoasb.mongodb.net/?appName=Cluster0';
+// Load environment variables
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+dotenv.config({ path: path.join(__dirname, '.env') });
+
+const MONGODB_URI = process.env.MONGODB_URI || process.env.MONGO_URI;
+
+if (!MONGODB_URI) {
+    console.error('❌ Error: MONGODB_URI or MONGO_URI not found in environment variables.');
+    console.error('Please create a .env file with your MongoDB connection string.');
+    process.exit(1);
+}
 
 const departmentSchema = new mongoose.Schema({
     name: { type: String, required: true },
@@ -87,9 +100,12 @@ async function setupDepartments() {
 
     } catch (error) {
         console.error('❌ Error:', error);
+        process.exit(1);
     } finally {
-        await mongoose.connection.close();
-        console.log('\n✓ Database connection closed');
+        if (mongoose.connection.readyState !== 0) {
+            await mongoose.connection.close();
+            console.log('\n✓ Database connection closed');
+        }
     }
 }
 
