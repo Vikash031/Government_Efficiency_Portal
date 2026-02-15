@@ -116,7 +116,7 @@ export default function ResourceTracker({ departmentId }: { departmentId: string
                                                 <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                                             ))}
                                         </Pie>
-                                        <Tooltip formatter={(value) => `₹${value.toLocaleString()}`} />
+                                        <Tooltip formatter={(value: any) => `₹${(value ?? 0).toLocaleString()}`} />
                                     </PieChart>
                                 </ResponsiveContainer>
                             </div>
