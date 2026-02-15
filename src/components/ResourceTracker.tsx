@@ -39,7 +39,7 @@ export default function ResourceTracker({ departmentId }: { departmentId: string
                 departmentId,
                 expenditure: newExp
             });
-            setDepartment(prev => ({ ...prev, expenditure: data.expenditure }));
+            setDepartment((prev: any) => ({ ...prev, expenditure: data.expenditure }));
         } catch (error) {
             alert("Failed to update expenditure");
         }
@@ -58,7 +58,7 @@ export default function ResourceTracker({ departmentId }: { departmentId: string
                 departmentId,
                 resources: newResources
             });
-            setDepartment(prev => ({ ...prev, resources: data.resources }));
+            setDepartment((prev: any) => ({ ...prev, resources: data.resources }));
             setNewItemName('');
             setNewItemAllocated('');
         } catch (error) {
@@ -75,7 +75,7 @@ export default function ResourceTracker({ departmentId }: { departmentId: string
                 departmentId,
                 resources: updatedResources
             });
-            setDepartment(prev => ({ ...prev, resources: data.resources }));
+            setDepartment((prev: any) => ({ ...prev, resources: data.resources }));
         } catch (error) {
             alert("Failed to update usage");
         }
