@@ -3,7 +3,7 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { LayoutDashboard, Settings, User, Newspaper, LogOut } from 'lucide-react';
+import { LayoutDashboard, Settings, User, Newspaper, LogOut, ShieldCheck } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { useEffect, useState } from 'react';
@@ -42,19 +42,26 @@ export function Sidebar({ children }: { children: React.ReactNode }) {
     }
 
     return (
-        <div className="flex h-screen w-full bg-background overflow-hidden relative">
-            <aside className="hidden w-64 flex-col border-r bg-red-950 text-white md:flex shadow-xl">
-                <div className="flex flex-col h-20 justify-center border-b border-red-800 px-6 bg-red-900/50">
-                    <div className="flex items-center gap-3">
-                        <span className="text-3xl">🏛️</span>
+        <div className="flex h-screen w-full bg-black overflow-hidden relative">
+            {/* Background Decorative Blobs */}
+            <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-red-900/10 blur-[120px] pointer-events-none" />
+            <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-red-600/5 blur-[120px] pointer-events-none" />
+
+            <aside className="hidden w-80 flex-col bg-black border-r border-red-900/20 md:flex shadow-[20px_0_40px_rgba(0,0,0,0.8)] z-10">
+                <div className="flex flex-col h-28 justify-center px-10">
+                    <div className="flex items-center gap-4 group cursor-pointer">
+                        <div className="p-3 bg-red-600 rounded-2xl shadow-2xl shadow-red-900/50 group-hover:scale-110 transition-transform duration-500 red-glow">
+                            <ShieldCheck className="h-6 w-6 text-white" />
+                        </div>
                         <div>
-                            <h1 className="text-sm font-bold tracking-tight text-white uppercase leading-tight">Government<br />of India</h1>
-                            <p className="text-[10px] text-yellow-500 font-serif mt-0.5">सत्यमेव जयते</p>
+                            <h1 className="text-sm font-black tracking-[0.25em] text-white uppercase leading-none">GEP Portal</h1>
+                            <p className="text-[10px] text-red-500 font-black mt-1.5 tracking-widest uppercase text-red-glow">Government Portal</p>
                         </div>
                     </div>
                 </div>
 
-                <nav className="flex-1 space-y-2 p-4">
+                <nav className="flex-1 space-y-2 p-6">
+                    <div className="text-[10px] font-black text-red-900 uppercase tracking-[0.3em] mb-6 px-4">Menu</div>
                     {sidebarItems.map((item) => {
                         const Icon = item.icon;
                         const isActive = pathname === item.path;
@@ -63,34 +70,75 @@ export function Sidebar({ children }: { children: React.ReactNode }) {
                                 key={item.name}
                                 href={item.path}
                                 className={cn(
-                                    "flex items-center gap-3 rounded-lg px-3 py-3 text-sm font-medium transition-all duration-200",
+                                    "flex items-center gap-4 rounded-2xl px-5 py-4 text-xs font-black uppercase tracking-widest transition-all duration-500 group relative overflow-hidden",
                                     isActive
-                                        ? "bg-red-600 text-white shadow-md shadow-red-900/20 translate-x-1"
-                                        : "text-red-100 hover:bg-red-800 hover:text-white"
+                                        ? "bg-red-600 text-white shadow-2xl shadow-red-900/40"
+                                        : "text-zinc-600 hover:bg-white/5 hover:text-white"
                                 )}
                             >
-                                <Icon className="h-5 w-5" />
+                                <Icon className={cn("h-5 w-5 transition-all duration-500", isActive ? "text-white" : "text-zinc-800 group-hover:text-red-500 group-hover:scale-110")} />
                                 {item.name}
+                                {isActive && (
+                                    <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-white/20 rounded-l-full" />
+                                )}
                             </Link>
                         );
                     })}
                 </nav>
 
-                <div className="border-t border-red-800 p-4 bg-red-900/30">
+                <div className="p-8 mt-auto">
+                    <div className="p-6 rounded-[2rem] bg-red-950/30 border border-red-900/30 text-white shadow-2xl mb-6 relative overflow-hidden group">
+                        <div className="absolute -top-4 -right-4 h-24 w-24 bg-red-600/20 rounded-full blur-2xl group-hover:bg-red-600/40 transition-all duration-700" />
+                        <div className="relative z-10">
+                            <p className="text-[10px] font-black text-red-500 uppercase tracking-widest mb-2">Support</p>
+                            <p className="text-xs font-bold text-zinc-400 leading-relaxed">Help Desk Available</p>
+                        </div>
+                    </div>
                     <Button
                         variant="ghost"
                         onClick={handleLogout}
-                        className="w-full justify-start text-red-100 hover:text-white hover:bg-red-800 pl-3 gap-3"
+                        className="w-full justify-start text-zinc-700 hover:text-white hover:bg-red-600 rounded-2xl h-14 px-6 gap-4 font-black text-[10px] uppercase tracking-widest transition-all"
                     >
                         <LogOut className="h-5 w-5" />
-                        Sign Out
+                        Logout
                     </Button>
                 </div>
             </aside>
 
-            <main className="flex-1 overflow-y-auto bg-gray-50">
+            <main className="flex-1 overflow-y-auto relative z-0 pb-20 md:pb-0">
                 {children}
             </main>
+
+            {/* Mobile Bottom Navigation */}
+            <nav className="md:hidden fixed bottom-0 left-0 right-0 h-20 bg-black/80 backdrop-blur-2xl border-t border-red-900/20 px-6 flex items-center justify-between z-50">
+                {sidebarItems.map((item) => {
+                    const Icon = item.icon;
+                    const isActive = pathname === item.path;
+                    return (
+                        <Link
+                            key={item.name}
+                            href={item.path}
+                            className={cn(
+                                "flex flex-col items-center justify-center gap-1 transition-all duration-300",
+                                isActive ? "text-red-500 scale-110" : "text-zinc-600 hover:text-white"
+                            )}
+                        >
+                            <Icon className={cn("h-6 w-6", isActive && "red-glow")} />
+                            <span className="text-[8px] font-black uppercase tracking-tighter">{item.name}</span>
+                            {isActive && (
+                                <div className="absolute -top-1 w-8 h-1 bg-red-600 rounded-full red-glow shadow-[0_0_10px_rgba(239,68,68,0.5)]" />
+                            )}
+                        </Link>
+                    );
+                })}
+                <button
+                    onClick={handleLogout}
+                    className="flex flex-col items-center justify-center gap-1 text-zinc-600 hover:text-red-500"
+                >
+                    <LogOut className="h-6 w-6" />
+                    <span className="text-[8px] font-black uppercase tracking-tighter">Exit</span>
+                </button>
+            </nav>
         </div>
     );
 }
