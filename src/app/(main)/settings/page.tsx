@@ -5,7 +5,9 @@ import type { ChangeEvent } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Eye, EyeOff, Settings as SettingsIcon } from 'lucide-react';
 import { updatePassword, updateProfile } from '@/lib/api';
+import { cn } from '@/lib/utils';
 
 export default function Settings() {
     // Safely get user/employee from localStorage in useEffect to avoid hydration mismatch
@@ -114,140 +116,233 @@ export default function Settings() {
     if (!mounted) return null;
 
     return (
-        <div className="container mx-auto p-6 space-y-6">
-            <h1 className="text-3xl font-bold text-red-900">Account Settings</h1>
-
-            <div className="grid gap-6 md:grid-cols-2">
-                {!isEmployee && (
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>Profile Details</CardTitle>
-                            <CardDescription>Update your personal information for official records.</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <form onSubmit={handleProfileUpdate} className="space-y-4">
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div className="space-y-2">
-                                        <label className="text-sm font-medium">Occupation</label>
-                                        <Input value={occupation} onChange={(e) => setOccupation(e.target.value)} placeholder="e.g. Teacher" />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-sm font-medium">Phone</label>
-                                        <Input value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="+91..." />
-                                    </div>
-                                </div>
-                                <div className="space-y-2">
-                                    <label className="text-sm font-medium">Address</label>
-                                    <Input value={address} onChange={(e) => setAddress(e.target.value)} placeholder="House No, Street..." />
-                                </div>
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div className="space-y-2">
-                                        <label className="text-sm font-medium">City</label>
-                                        <Input value={city} onChange={(e) => setCity(e.target.value)} placeholder="City" />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-sm font-medium">State</label>
-                                        <Input value={state} onChange={(e) => setState(e.target.value)} placeholder="State" />
-                                    </div>
-                                </div>
-
-                                {/* Additional Details Section */}
-                                <div className="pt-4 border-t border-red-100">
-                                    <h3 className="text-md font-bold text-red-800 mb-3">Additional Personal Details</h3>
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <div className="space-y-2">
-                                            <label className="text-sm font-medium">Age</label>
-                                            <Input type="number" value={age} onChange={(e) => setAge(e.target.value)} placeholder="Age" />
-                                        </div>
-                                        <div className="space-y-2">
-                                            <label className="text-sm font-medium">Annual Income (₹)</label>
-                                            <Input type="number" value={annualIncome} onChange={(e) => setAnnualIncome(e.target.value)} placeholder="Annual Income" />
-                                        </div>
-                                        <div className="space-y-2">
-                                            <label className="text-sm font-medium">Gender</label>
-                                            <select className="flex h-10 w-full rounded-md border border-input bg-background px-3" value={gender} onChange={(e) => setGender(e.target.value)}>
-                                                <option value="">Select Gender</option>
-                                                <option value="Male">Male</option>
-                                                <option value="Female">Female</option>
-                                                <option value="Other">Other</option>
-                                            </select>
-                                        </div>
-                                        <div className="space-y-2">
-                                            <label className="text-sm font-medium">Employment Status</label>
-                                            <select className="flex h-10 w-full rounded-md border border-input bg-background px-3" value={employmentStatus} onChange={(e) => setEmploymentStatus(e.target.value)}>
-                                                <option value="">Select Status</option>
-                                                <option value="Employed">Employed</option>
-                                                <option value="Unemployed">Unemployed</option>
-                                                <option value="Student">Student</option>
-                                                <option value="Retired">Retired</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <Button type="submit" className="w-full bg-red-600 hover:bg-red-700 text-white">Save Profile Details</Button>
-                            </form>
-                        </CardContent>
-                    </Card>
-                )}
-
-                <Card>
-                    <CardHeader>
-                        <CardTitle>Change Password</CardTitle>
-                        <CardDescription>Ensure your account is secure using a strong password.</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                        <form onSubmit={handlePasswordChange} className="space-y-4">
-                            <div className="space-y-2">
-                                <label className="text-sm font-medium">Current Password</label>
-                                <div className="relative">
-                                    <Input
-                                        type={showCurrent ? "text" : "password"}
-                                        value={currentPassword}
-                                        onChange={(e: ChangeEvent<HTMLInputElement>) => setCurrentPassword(e.target.value)}
-                                        required
-                                        className="pr-10"
-                                    />
-                                    <button type="button" onClick={() => setShowCurrent(!showCurrent)} className="absolute right-3 top-1/2 -translate-y-1/2">
-                                        {showCurrent ? "👁️" : "🙈"}
-                                    </button>
-                                </div>
-                            </div>
-                            <div className="space-y-2">
-                                <label className="text-sm font-medium">New Password</label>
-                                <div className="relative">
-                                    <Input
-                                        type={showNew ? "text" : "password"}
-                                        value={newPassword}
-                                        onChange={(e: ChangeEvent<HTMLInputElement>) => setNewPassword(e.target.value)}
-                                        required
-                                        className="pr-10"
-                                    />
-                                    <button type="button" onClick={() => setShowNew(!showNew)} className="absolute right-3 top-1/2 -translate-y-1/2">
-                                        {showNew ? "👁️" : "🙈"}
-                                    </button>
-                                </div>
-                            </div>
-                            <div className="space-y-2">
-                                <label className="text-sm font-medium">Confirm New Password</label>
-                                <div className="relative">
-                                    <Input
-                                        type={showConfirm ? "text" : "password"}
-                                        value={confirmPassword}
-                                        onChange={(e: ChangeEvent<HTMLInputElement>) => setConfirmPassword(e.target.value)}
-                                        required
-                                        className="pr-10"
-                                    />
-                                    <button type="button" onClick={() => setShowConfirm(!showConfirm)} className="absolute right-3 top-1/2 -translate-y-1/2">
-                                        {showConfirm ? "👁️" : "🙈"}
-                                    </button>
-                                </div>
-                            </div>
-                            <Button type="submit" className="w-full bg-gray-800 hover:bg-black text-white">Update Password</Button>
-                        </form>
-                    </CardContent>
-                </Card>
+        <div className="min-h-screen dashboard-container">
+            {/* Top Bar */}
+            <div className="sticky top-0 z-20 bg-black/60 backdrop-blur-xl border-b border-red-900/20 px-8 py-4 flex justify-between items-center">
+                <div>
+                    <h2 className="text-[10px] font-black text-red-500 uppercase tracking-[0.3em] text-red-glow">My Settings</h2>
+                    <p className="text-xl font-black text-white">Security & Profile</p>
+                </div>
+                <div className="flex items-center gap-4">
+                    <div className="h-10 w-10 rounded-2xl bg-red-500 flex items-center justify-center text-white font-black shadow-[0_0_20px_rgba(239,68,68,0.4)]">
+                        <SettingsIcon className="h-5 w-5" />
+                    </div>
+                </div>
             </div>
-        </div >
+
+            <div className="p-8 max-w-6xl mx-auto space-y-8 bg-grid-red">
+                <div className="grid gap-8 lg:grid-cols-12">
+                    {/* Left Column: Profile Details */}
+                    {!isEmployee && (
+                        <div className="lg:col-span-7 space-y-8 animate-in">
+                            <Card className="border border-red-900/20 bg-zinc-950/50 backdrop-blur-md shadow-2xl shadow-black overflow-hidden rounded-[2.5rem]">
+                                <div className="h-1 bg-gradient-to-r from-red-600 via-red-500 to-red-900" />
+                                <CardHeader className="px-8 pt-8">
+                                    <CardTitle className="text-2xl font-black text-white tracking-tight">Profile Details</CardTitle>
+                                    <CardDescription className="text-[10px] font-black text-zinc-300 uppercase tracking-widest mt-1">Update your home and contact information</CardDescription>
+                                </CardHeader>
+                                <CardContent className="px-8 pb-10">
+                                    <form onSubmit={handleProfileUpdate} className="space-y-8">
+                                        <div className="grid md:grid-cols-2 gap-6">
+                                            <div className="space-y-2">
+                                                <label className="text-[10px] font-black text-zinc-300 uppercase tracking-widest ml-1">Occupation</label>
+                                                <Input 
+                                                    value={occupation} 
+                                                    onChange={(e) => setOccupation(e.target.value)} 
+                                                    placeholder="e.g. Student, Officer, etc." 
+                                                    className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-700 h-14 rounded-2xl focus:ring-red-600 transition-all px-6 font-bold"
+                                                />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <label className="text-[10px] font-black text-zinc-300 uppercase tracking-widest ml-1">Phone Number</label>
+                                                <Input 
+                                                    value={phone} 
+                                                    onChange={(e) => setPhone(e.target.value)} 
+                                                    placeholder="+91 XXXXX XXXXX" 
+                                                    className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-700 h-14 rounded-2xl focus:ring-red-600 transition-all px-6 font-bold"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div className="space-y-2">
+                                            <label className="text-[10px] font-black text-zinc-300 uppercase tracking-widest ml-1">Home Address</label>
+                                            <Input 
+                                                value={address} 
+                                                onChange={(e) => setAddress(e.target.value)} 
+                                                placeholder="Street address as per official ID" 
+                                                className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-700 h-14 rounded-2xl focus:ring-red-600 transition-all px-6 font-bold"
+                                            />
+                                        </div>
+
+                                        <div className="grid md:grid-cols-2 gap-6">
+                                            <div className="space-y-2">
+                                                <label className="text-[10px] font-black text-zinc-300 uppercase tracking-widest ml-1">City</label>
+                                                <Input 
+                                                    value={city} 
+                                                    onChange={(e) => setCity(e.target.value)} 
+                                                    placeholder="e.g. New Delhi" 
+                                                    className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-700 h-14 rounded-2xl focus:ring-red-600 transition-all px-6 font-bold"
+                                                />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <label className="text-[10px] font-black text-zinc-300 uppercase tracking-widest ml-1">State</label>
+                                                <Input 
+                                                    value={state} 
+                                                    onChange={(e) => setState(e.target.value)} 
+                                                    placeholder="e.g. Delhi" 
+                                                    className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-700 h-14 rounded-2xl focus:ring-red-600 transition-all px-6 font-bold"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div className="pt-8 border-t border-red-900/10">
+                                            <h3 className="text-[10px] font-black text-red-500 uppercase tracking-[0.2em] mb-6">Additional Info</h3>
+                                            <div className="grid md:grid-cols-2 gap-6">
+                                                <div className="space-y-2">
+                                                    <label className="text-[10px] font-black text-zinc-300 uppercase tracking-widest ml-1">Age</label>
+                                                    <Input 
+                                                        type="number" 
+                                                        value={age} 
+                                                        onChange={(e) => setAge(e.target.value)} 
+                                                        className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-700 h-14 rounded-2xl focus:ring-red-600 transition-all px-6 font-bold"
+                                                    />
+                                                </div>
+                                                <div className="space-y-2">
+                                                    <label className="text-[10px] font-black text-zinc-300 uppercase tracking-widest ml-1">Annual Income (₹)</label>
+                                                    <Input 
+                                                        type="number" 
+                                                        value={annualIncome} 
+                                                        onChange={(e) => setAnnualIncome(e.target.value)} 
+                                                        className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-700 h-14 rounded-2xl focus:ring-red-600 transition-all px-6 font-bold"
+                                                    />
+                                                </div>
+                                                <div className="space-y-2">
+                                                    <label className="text-[10px] font-black text-zinc-300 uppercase tracking-widest ml-1">Gender</label>
+                                                    <select 
+                                                        className="flex h-14 w-full rounded-2xl border border-red-900/30 bg-black/40 px-6 font-bold text-white focus:bg-black transition-all appearance-none outline-none focus:ring-2 focus:ring-red-600" 
+                                                        value={gender} 
+                                                        onChange={(e) => setGender(e.target.value)}
+                                                    >
+                                                        <option value="" className="bg-zinc-950">Select Gender</option>
+                                                        <option value="Male" className="bg-zinc-950">Male</option>
+                                                        <option value="Female" className="bg-zinc-950">Female</option>
+                                                        <option value="Other" className="bg-zinc-950">Other</option>
+                                                    </select>
+                                                </div>
+                                                <div className="space-y-2">
+                                                    <label className="text-[10px] font-black text-zinc-300 uppercase tracking-widest ml-1">Employment Status</label>
+                                                    <select 
+                                                        className="flex h-14 w-full rounded-2xl border border-red-900/30 bg-black/40 px-6 font-bold text-white focus:bg-black transition-all appearance-none outline-none focus:ring-2 focus:ring-red-600" 
+                                                        value={employmentStatus} 
+                                                        onChange={(e) => setEmploymentStatus(e.target.value)}
+                                                    >
+                                                        <option value="" className="bg-zinc-950">Select Status</option>
+                                                        <option value="Employed" className="bg-zinc-950">Employed</option>
+                                                        <option value="Unemployed" className="bg-zinc-950">Unemployed</option>
+                                                        <option value="Student" className="bg-zinc-950">Student</option>
+                                                        <option value="Retired" className="bg-zinc-950">Retired</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <Button 
+                                            type="submit" 
+                                            className="w-full h-16 rounded-2xl bg-red-600 hover:bg-red-700 text-white font-black text-xs uppercase tracking-[0.2em] shadow-[0_10px_30px_rgba(255,0,0,0.2)] transition-all hover:scale-[1.02] active:scale-[0.98]"
+                                        >
+                                            Save Profile
+                                        </Button>
+                                    </form>
+                                </CardContent>
+                            </Card>
+                        </div>
+                    )}
+
+                    {/* Right Column: Security */}
+                    <div className={cn("space-y-8 animate-in", isEmployee ? "lg:col-span-12 max-w-2xl mx-auto" : "lg:col-span-5")}>
+                        <Card className="border border-red-900/20 bg-zinc-950/50 backdrop-blur-md shadow-2xl shadow-black overflow-hidden rounded-[2.5rem]">
+                            <div className="h-1 bg-gradient-to-r from-red-600 to-red-900" />
+                            <CardHeader className="px-8 pt-8">
+                                <CardTitle className="text-2xl font-black text-white tracking-tight">Password & Security</CardTitle>
+                                <CardDescription className="text-[10px] font-black text-zinc-300 uppercase tracking-widest mt-1">Update your login details</CardDescription>
+                            </CardHeader>
+                            <CardContent className="px-8 pb-10">
+                                <form onSubmit={handlePasswordChange} className="space-y-6">
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-black text-zinc-300 uppercase tracking-widest ml-1">Current Password</label>
+                                        <div className="relative group">
+                                            <Input
+                                                type={showCurrent ? "text" : "password"}
+                                                value={currentPassword}
+                                                onChange={(e: ChangeEvent<HTMLInputElement>) => setCurrentPassword(e.target.value)}
+                                                required
+                                                className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-700 h-14 rounded-2xl focus:ring-red-600 transition-all px-6 pr-14 font-bold"
+                                            />
+                                            <button 
+                                                type="button" 
+                                                onClick={() => setShowCurrent(!showCurrent)} 
+                                                className="absolute right-5 top-1/2 -translate-y-1/2 text-red-500 hover:text-red-400 transition-colors"
+                                            >
+                                                {showCurrent ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-black text-zinc-300 uppercase tracking-widest ml-1">New Password</label>
+                                        <div className="relative group">
+                                            <Input
+                                                type={showNew ? "text" : "password"}
+                                                value={newPassword}
+                                                onChange={(e: ChangeEvent<HTMLInputElement>) => setNewPassword(e.target.value)}
+                                                required
+                                                className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-700 h-14 rounded-2xl focus:ring-red-600 transition-all px-6 pr-14 font-bold"
+                                            />
+                                            <button 
+                                                type="button" 
+                                                onClick={() => setShowNew(!showNew)} 
+                                                className="absolute right-5 top-1/2 -translate-y-1/2 text-red-500 hover:text-red-400 transition-colors"
+                                            >
+                                                {showNew ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-black text-zinc-300 uppercase tracking-widest ml-1">Re-type Password</label>
+                                        <div className="relative group">
+                                            <Input
+                                                type={showConfirm ? "text" : "password"}
+                                                value={confirmPassword}
+                                                onChange={(e: ChangeEvent<HTMLInputElement>) => setConfirmPassword(e.target.value)}
+                                                required
+                                                className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-700 h-14 rounded-2xl focus:ring-red-600 transition-all px-6 pr-14 font-bold"
+                                            />
+                                            <button 
+                                                type="button" 
+                                                onClick={() => setShowConfirm(!showConfirm)} 
+                                                className="absolute right-5 top-1/2 -translate-y-1/2 text-red-500 hover:text-red-400 transition-colors"
+                                            >
+                                                {showConfirm ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <Button 
+                                        type="submit" 
+                                        className="w-full h-16 rounded-2xl bg-red-600 hover:bg-red-700 text-white font-black text-xs uppercase tracking-[0.2em] shadow-[0_10px_30px_rgba(255,0,0,0.2)] transition-all"
+                                    >
+                                        Change Password
+                                    </Button>
+                                </form>
+                            </CardContent>
+                        </Card>
+
+                        <div className="p-8 rounded-[2.5rem] bg-zinc-950/30 border border-red-900/20 relative overflow-hidden group">
+                            <div className="absolute -top-4 -right-4 h-24 w-24 bg-red-500/10 rounded-full blur-2xl transition-all duration-700" />
+                            <p className="text-[10px] font-black text-red-500 uppercase tracking-[0.2em] mb-4">Security Advice</p>
+                            <p className="text-xs font-bold text-zinc-200 leading-relaxed">Ensure your password contains mixed characters to keep your account safe.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     );
 }
