@@ -145,4 +145,14 @@ export const createScheme = async (data: any) => {
     return await api.post('/schemes', data);
 };
 
+// News
+export const getNews = async () => {
+    const response = await api.get('/news');
+    return response.data;
+};
+
+export const createNews = async (data: any) => {
+    return await api.post('/news', data);
+};
+
 export default api;
