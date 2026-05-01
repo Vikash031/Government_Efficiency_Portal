@@ -41,40 +41,41 @@ export default function AdminLogin() {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen animated-gradient relative overflow-hidden">
+        <div className="flex items-center justify-center min-h-screen bg-black relative overflow-hidden bg-grid-red">
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-20 left-20 w-72 h-72 bg-white/10 rounded-full blur-3xl"></div>
-                <div className="absolute bottom-20 right-20 w-96 h-96 bg-red-500/10 rounded-full blur-3xl"></div>
+                <div className="absolute top-20 left-20 w-72 h-72 bg-red-600/10 rounded-full blur-3xl"></div>
+                <div className="absolute bottom-20 right-20 w-96 h-96 bg-red-900/10 rounded-full blur-3xl"></div>
             </div>
 
-            <Card className="w-[420px] shadow-2xl border-0 glass relative z-10">
-                <CardHeader className="space-y-3 pb-6">
+            <Card className="w-full max-w-[420px] mx-4 bg-zinc-950/50 border border-red-900/20 backdrop-blur-2xl shadow-[0_0_50px_rgba(0,0,0,0.5)] relative z-10 rounded-[2.5rem] overflow-hidden">
+                <div className="h-1.5 bg-gradient-to-r from-red-600 via-red-500 to-red-900" />
+                <CardHeader className="space-y-4 pb-8 pt-10">
                     <div className="flex justify-center mb-2">
-                        <div className="w-20 h-20 bg-gradient-to-br from-red-800 to-red-900 rounded-2xl flex items-center justify-center shadow-lg shadow-red-900/40 float">
+                        <div className="w-20 h-20 bg-red-600 rounded-2xl flex items-center justify-center shadow-[0_0_30px_rgba(239,68,68,0.4)]">
                             <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                             </svg>
                         </div>
                     </div>
-                    <CardTitle className="text-3xl text-center font-bold bg-gradient-to-r from-red-800 to-red-900 bg-clip-text text-transparent">
-                        Department Portal
-                    </CardTitle>
-                    <p className="text-sm text-center text-gray-600 font-medium">Admin Access Only</p>
+                    <div className="space-y-1">
+                        <CardTitle className="text-3xl text-center font-black text-white uppercase tracking-tighter">
+                            ADMINISTRATION
+                        </CardTitle>
+                        <p className="text-[10px] text-center text-red-500 font-black uppercase tracking-[0.4em] ml-1">Official Personnel Only</p>
+                    </div>
                 </CardHeader>
-                <CardContent className="px-8">
+                <CardContent className="px-10 pb-10">
                     {error && (
-                        <div className="bg-red-50 border-l-4 border-red-800 text-red-900 px-4 py-3 rounded-lg text-sm mb-5 shadow-sm">
-                            <div className="flex items-center gap-2">
-                                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-                                </svg>
-                                <span className="font-medium">{error}</span>
-                            </div>
+                        <div className="bg-red-950/30 border border-red-600/50 text-red-500 px-4 py-3 rounded-xl text-xs font-bold uppercase tracking-wide flex items-center gap-3 mb-6">
+                            <svg className="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                            </svg>
+                            <span className="font-medium">{error}</span>
                         </div>
                     )}
-                    <form onSubmit={handleLogin} className="space-y-5">
+                    <form onSubmit={handleLogin} className="space-y-6">
                         <div className="space-y-2">
-                            <label htmlFor="username" className="text-sm font-semibold text-gray-700">Department Username</label>
+                            <label htmlFor="username" className="text-[10px] font-black text-zinc-500 uppercase tracking-widest ml-1">Username</label>
                             <Input
                                 id="username"
                                 type="text"
@@ -82,11 +83,12 @@ export default function AdminLogin() {
                                 value={username}
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
                                 required
-                                className="h-12 border-2 border-gray-200 focus:border-red-800 focus:ring-2 focus:ring-red-800/20 rounded-xl transition-all"
+                                autoCapitalize="none"
+                                className="h-14 bg-black/40 border-red-900/30 text-white placeholder:text-zinc-800 rounded-xl focus:ring-red-600 focus:border-red-600 transition-all font-bold"
                             />
                         </div>
                         <div className="space-y-2">
-                            <label htmlFor="password" className="text-sm font-semibold text-gray-700">Password</label>
+                            <label htmlFor="password" className="text-[10px] font-black text-zinc-500 uppercase tracking-widest ml-1">Password</label>
                             <div className="relative">
                                 <Input
                                     id="password"
@@ -95,12 +97,12 @@ export default function AdminLogin() {
                                     value={password}
                                     onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
                                     required
-                                    className="h-12 border-2 border-gray-200 focus:border-red-800 focus:ring-2 focus:ring-red-800/20 rounded-xl pr-12 transition-all"
+                                    className="h-14 bg-black/40 border-red-900/30 text-white placeholder:text-zinc-800 rounded-xl focus:ring-red-600 focus:border-red-600 pr-14 transition-all font-bold"
                                 />
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-red-800 transition-colors"
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-600 hover:text-red-500 transition-colors"
                                 >
                                     {showPassword ? (
                                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -117,7 +119,7 @@ export default function AdminLogin() {
                         </div>
                         <Button
                             type="submit"
-                            className="w-full h-12 bg-gradient-to-r from-red-800 to-red-900 hover:from-red-900 hover:to-red-950 text-white font-semibold rounded-xl shadow-lg shadow-red-900/30 hover:shadow-xl hover:shadow-red-900/40 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 transform hover:scale-[1.02]"
+                            className="w-full h-16 bg-red-600 hover:bg-red-700 text-white font-black text-xs uppercase tracking-[0.2em] rounded-xl shadow-[0_10px_30px_rgba(239,68,68,0.3)] disabled:opacity-50 transition-all active:scale-[0.98]"
                             disabled={isLoading}
                         >
                             {isLoading ? (
@@ -126,19 +128,19 @@ export default function AdminLogin() {
                                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                     </svg>
-                                    Logging in...
+                                    LOGGING IN...
                                 </span>
                             ) : (
-                                'Login as Admin'
+                                'LOGIN'
                             )}
                         </Button>
 
                         <div className="mt-6 text-center">
-                            <Link href="/login" className="text-sm text-gray-600 hover:text-red-800 hover:underline font-medium transition-colors inline-flex items-center gap-1">
+                            <Link href="/login" className="text-[10px] font-black text-zinc-400 hover:text-red-500 uppercase tracking-widest transition-colors inline-flex items-center gap-2">
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                                 </svg>
-                                Back to User Login
+                                BACK TO SERVICES
                             </Link>
                         </div>
                     </form>
