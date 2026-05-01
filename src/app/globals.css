@@ -1,12 +1,14 @@
 @import "tailwindcss";
 
 @theme {
-  /* Custom Colors */
+  /* Custom Colors - More Vibrant & Modern */
   --color-crimson: #DC143C;
   --color-deep-red: #8B0000;
   --color-burgundy: #800020;
   --color-rose: #C21E56;
   --color-light-red: #FFE5E5;
+  --color-accent-blue: #0ea5e9;
+  --color-accent-purple: #8b5cf6;
 
   /* Font Families */
   --font-sans: var(--font-inter);
@@ -14,26 +16,34 @@
 }
 
 :root {
-  --background: #FFFFFF;
-  --foreground: #343A40;
+  --background: #000000;
+  --foreground: #ffffff;
 
-  /* Universal Theme Colors */
-  --primary-gradient-start: #DC2626;
-  --primary-gradient-end: #991B1B;
-  --bg-gradient-start: #F9FAFB;
-  --bg-gradient-end: #F3F4F6;
+  /* Deep Imperial Red Palette */
+  --primary-red: #ff0000; /* Pure intense red */
+  --deep-red: #8b0000;    /* Blood red */
+  --blood-red: #450a0a;   /* Very dark red */
+  --glow-red: rgba(255, 0, 0, 0.3);
+  
+  --primary-gradient-start: #ff0000;
+  --primary-gradient-end: #450a0a;
+  
+  --bg-gradient-start: #000000;
+  --bg-gradient-end: #111111;
 
-  /* Status Colors */
-  --status-success-bg: #DCFCE7;
-  --status-success-text: #166534;
-  --status-pending-bg: #FEF3C7;
-  --status-pending-text: #854D0E;
-  --status-rejected-bg: #FEE2E2;
-  --status-rejected-text: #991B1B;
+  /* Dark Mode Status Colors - High Contrast */
+  --status-success-bg: rgba(0, 255, 0, 0.1);
+  --status-success-text: #00ff00;
+  --status-pending-bg: rgba(255, 255, 0, 0.1);
+  --status-pending-text: #ffff00;
+  --status-rejected-bg: rgba(255, 0, 0, 0.1);
+  --status-rejected-text: #ff4d4d;
 
-  /* Card Styles */
-  --card-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-  --card-shadow-hover: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  /* Card Styles - Total Blackout */
+  --card-shadow: 0 0 50px rgba(0, 0, 0, 1);
+  --card-shadow-hover: 0 0 40px rgba(255, 0, 0, 0.2);
+  --glass-bg: rgba(15, 15, 15, 0.8);
+  --glass-border: rgba(255, 0, 0, 0.2);
 }
 
 body {
@@ -45,126 +55,77 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Typography */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font-poppins), system-ui, sans-serif;
-  font-weight: 600;
-  line-height: 1.2;
-}
-
-/* Animated Gradient Background */
-@keyframes gradient-shift {
-
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-}
-
-.animated-gradient {
-  background: linear-gradient(-45deg, #8B0000, #DC143C, #C21E56, #800020);
-  background-size: 400% 400%;
-  animation: gradient-shift 15s ease infinite;
-}
-
-/* Glassmorphism */
+/* Improved Glassmorphism for Dark Mode */
 .glass {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: var(--glass-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
 }
 
-/* Floating Animation */
-@keyframes float {
-
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-
-  50% {
-    transform: translateY(-10px);
-  }
+/* Red Glow Effect */
+.red-glow {
+  box-shadow: 0 0 20px var(--glow-red);
 }
 
-.float {
-  animation: float 3s ease-in-out infinite;
+.text-red-glow {
+  text-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: #E9ECEF;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #DC143C;
-  border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #8B0000;
-}
-
-/* Universal Dashboard Styles */
-.dashboard-header {
-  background: linear-gradient(to right, var(--primary-gradient-start), var(--primary-gradient-end));
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-}
-
+/* Dashboard Styles Overhaul */
 .dashboard-container {
-  background: linear-gradient(to bottom right, var(--bg-gradient-start), var(--bg-gradient-end));
+  background: radial-gradient(circle at top right, #0c0a09, #000000);
   min-height: 100vh;
 }
 
 .dashboard-card {
-  background: white;
-  border-radius: 0.5rem;
+  background: rgba(15, 15, 15, 0.8);
+  border-radius: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
   box-shadow: var(--card-shadow);
-  transition: box-shadow 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .dashboard-card:hover {
+  border-color: rgba(239, 68, 68, 0.3);
   box-shadow: var(--card-shadow-hover);
+  transform: translateY(-2px);
 }
 
-.status-badge-resolved {
-  background-color: var(--status-success-bg);
-  color: var(--status-success-text);
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
-  font-size: 0.75rem;
-  font-weight: 700;
+/* Custom Scrollbar for Dark Theme */
+::-webkit-scrollbar {
+  width: 6px;
 }
 
-.status-badge-pending {
-  background-color: var(--status-pending-bg);
-  color: var(--status-pending-text);
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
-  font-size: 0.75rem;
-  font-weight: 700;
+::-webkit-scrollbar-track {
+  background: #000000;
 }
 
-.status-badge-rejected {
-  background-color: var(--status-rejected-bg);
-  color: var(--status-rejected-text);
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
-  font-size: 0.75rem;
-  font-weight: 700;
+::-webkit-scrollbar-thumb {
+  background: #1e1e1e;
+  border-radius: 10px;
 }
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-red);
+}
+
+/* Smooth Transitions */
+* {
+  transition-property: background-color, border-color, color, opacity, box-shadow, transform;
+  transition-duration: 300ms;
+}
+
+/* Typography Gradient for Dark Theme */
+.text-gradient {
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(to right, #ffffff, #ef4444);
+}
+
+/* Red Grid Pattern for Dark Theme */
+.bg-grid-red {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='rgba(239, 68, 68, 0.05)'%3E%3Cpath d='M0 .5H31.5V32'/%3E%3C/svg%3E");
+}
