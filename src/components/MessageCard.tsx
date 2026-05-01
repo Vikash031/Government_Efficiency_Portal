@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { Shield, X, AlertCircle } from 'lucide-react';
 import axios from 'axios';
 
 interface MessageCardProps {
@@ -68,64 +69,61 @@ export default function MessageCard({ isOpen, onClose, recipient, departmentId, 
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
-            <div className="w-full max-w-lg mx-4 animate-in zoom-in-95 duration-200">
-                <Card className="shadow-2xl border-0 bg-white/95 backdrop-blur-sm">
-                    <CardHeader className="space-y-1 bg-gradient-to-r from-red-50 to-orange-50 border-b border-red-100">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-xl animate-in fade-in duration-300 p-4">
+            <div className="w-full max-w-xl animate-in zoom-in-95 slide-in-from-bottom-8 duration-500">
+                <Card className="overflow-hidden border border-red-900/30 shadow-[0_0_50px_rgba(0,0,0,1)] bg-zinc-950/90 backdrop-blur-2xl rounded-[2.5rem]">
+                    <div className="h-1.5 bg-gradient-to-r from-red-600 via-orange-500 to-red-600" />
+                    <CardHeader className="pb-4">
                         <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-3">
-                                <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
-                                    <span className="text-2xl">✉️</span>
+                            <div className="flex items-center gap-4">
+                                <div className="p-3 bg-red-950/30 border border-red-900/30 rounded-2xl text-red-500 shadow-inner">
+                                    <Shield className="h-6 w-6" />
                                 </div>
                                 <div>
-                                    <CardTitle className="text-xl text-red-900">Send Private Message</CardTitle>
-                                    <p className="text-sm text-gray-700 mt-1">
-                                        To: <span className="font-semibold text-red-700">{recipient.name}</span>
-                                    </p>
+                                    <CardTitle className="text-xl font-black text-white tracking-tight uppercase">Direct Message</CardTitle>
+                                    <p className="text-[10px] font-black text-red-500 uppercase tracking-widest mt-0.5">Private Communication</p>
                                 </div>
                             </div>
-                            <button
+                            <Button 
+                                variant="ghost" 
+                                size="icon" 
                                 onClick={onClose}
-                                className="text-gray-600 hover:text-gray-800 transition-colors"
+                                className="rounded-full hover:bg-red-950/30 text-zinc-500 hover:text-red-500"
                                 disabled={loading}
                             >
-                                <span className="text-2xl">×</span>
-                            </button>
+                                <X className="h-5 w-5" />
+                            </Button>
                         </div>
                     </CardHeader>
-                    <CardContent className="pt-6">
-                        <form onSubmit={handleSubmit} className="space-y-5">
+                    <CardContent className="pt-2">
+                        <form onSubmit={handleSubmit} className="space-y-6">
                             {error && (
-                                <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg text-sm animate-in slide-in-from-top-2">
-                                    <div className="flex items-center gap-2">
-                                        <span>⚠️</span>
-                                        <span>{error}</span>
-                                    </div>
+                                <div className="bg-red-950/30 border border-red-600/50 text-red-500 px-4 py-3 rounded-2xl text-xs font-black uppercase tracking-wide flex items-center gap-2 animate-in slide-in-from-top-2">
+                                    <AlertCircle className="h-4 w-4" />
+                                    {error}
                                 </div>
                             )}
 
                             {/* Recipient Info Card */}
-                            <div className="bg-gradient-to-r from-red-50 to-orange-50 p-4 rounded-lg border border-red-100">
-                                <div className="flex items-start gap-3">
-                                    <div className="bg-red-100 text-red-700 h-10 w-10 rounded-full flex items-center justify-center font-bold text-sm shrink-0">
-                                        {recipient.name.charAt(0)}
-                                    </div>
-                                    <div className="flex-1">
-                                        <p className="font-bold text-gray-900">{recipient.name}</p>
-                                        <p className="text-sm text-red-600 font-medium">{recipient.role}</p>
-                                        <p className="text-xs text-gray-700 mt-1">{recipient.email}</p>
-                                    </div>
+                            <div className="p-5 rounded-2xl bg-black/40 border border-red-900/10 flex items-center gap-4 group transition-all hover:bg-black/60 hover:border-red-600/30 shadow-inner">
+                                <div className="h-14 w-14 rounded-2xl bg-red-600 shadow-[0_0_20px_rgba(239,68,68,0.3)] flex items-center justify-center font-black text-xl text-white transition-all">
+                                    {recipient.name.charAt(0)}
+                                </div>
+                                <div className="flex-1">
+                                    <p className="text-[10px] font-black text-zinc-500 uppercase tracking-widest mb-1">Recipient</p>
+                                    <p className="text-lg font-black text-white leading-none mb-1">{recipient.name}</p>
+                                    <p className="text-xs font-black text-red-500 uppercase tracking-wider">{recipient.role}</p>
                                 </div>
                             </div>
 
                             {/* Anonymous Toggle */}
-                            <div className="flex items-center justify-between p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-                                <div className="flex-1">
-                                    <label htmlFor="anonymous" className="text-sm font-semibold text-gray-900 cursor-pointer">
-                                        Send Anonymously
+                            <div className="flex items-center justify-between p-5 bg-red-950/10 border border-red-900/20 rounded-2xl">
+                                <div>
+                                    <label htmlFor="anonymous" className="text-xs font-black text-white uppercase tracking-widest cursor-pointer">
+                                        Anonymous Message
                                     </label>
-                                    <p className="text-xs text-gray-800 mt-1">
-                                        Your identity will be hidden from the recipient
+                                    <p className="text-[10px] font-black text-zinc-500 mt-1 uppercase tracking-wider">
+                                        Hide sender details from recipient
                                     </p>
                                 </div>
                                 <div className="relative">
@@ -139,77 +137,76 @@ export default function MessageCard({ isOpen, onClose, recipient, departmentId, 
                                     />
                                     <label
                                         htmlFor="anonymous"
-                                        className="block w-14 h-8 bg-gray-200 peer-checked:bg-red-600 rounded-full cursor-pointer transition-all duration-200 peer-disabled:opacity-50 peer-disabled:cursor-not-allowed"
+                                        className="block w-14 h-8 bg-black/60 border border-red-900/30 peer-checked:bg-red-600 rounded-full cursor-pointer transition-all duration-300"
                                     >
-                                        <span className="block w-6 h-6 bg-white rounded-full shadow-md transform transition-transform duration-200 translate-x-1 translate-y-1 peer-checked:translate-x-7"></span>
+                                        <span className="block w-6 h-6 bg-white rounded-full shadow-lg transform transition-transform duration-300 translate-x-1 translate-y-1 peer-checked:translate-x-7" />
                                     </label>
                                 </div>
                             </div>
 
                             {/* Title Input */}
                             <div className="space-y-2">
-                                <label htmlFor="title" className="text-sm font-medium text-gray-900">
+                                <label htmlFor="title" className="text-[10px] font-black text-zinc-300 uppercase tracking-widest ml-1">
                                     Subject <span className="text-red-500">*</span>
                                 </label>
                                 <Input
                                     id="title"
-                                    placeholder="Brief subject of your message"
+                                    placeholder="BRIEF SUBJECT"
                                     value={title}
                                     onChange={(e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)}
                                     required
                                     disabled={loading}
-                                    className="border-red-200 focus-visible:ring-red-500"
+                                    className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-700 h-14 rounded-xl focus:ring-red-600 font-bold"
                                 />
                             </div>
 
                             {/* Message Textarea */}
                             <div className="space-y-2">
-                                <label htmlFor="message" className="text-sm font-medium text-gray-900">
-                                    Message <span className="text-red-500">*</span>
+                                <label htmlFor="message" className="text-[10px] font-black text-zinc-300 uppercase tracking-widest ml-1">
+                                    Message Content <span className="text-red-500">*</span>
                                 </label>
                                 <Textarea
                                     id="message"
                                     rows={5}
-                                    placeholder="Type your message here..."
+                                    placeholder="TYPE YOUR MESSAGE..."
                                     value={message}
                                     onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setMessage(e.target.value)}
                                     required
                                     disabled={loading}
-                                    className="border-red-200 focus-visible:ring-red-500 resize-none"
+                                    className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-700 rounded-xl focus:ring-red-600 font-bold resize-none p-4"
                                 />
-                                <p className="text-xs text-gray-700 text-right">
-                                    {message.length} characters
+                                <p className="text-[10px] font-black text-zinc-600 uppercase tracking-widest text-right">
+                                    {message.length} CHARS
                                 </p>
                             </div>
 
                             {/* Action Buttons */}
-                            <div className="flex gap-3 pt-2">
+                            <div className="flex gap-4 pt-2">
                                 <Button
-                                    type="button"
-                                    variant="outline"
-                                    onClick={onClose}
-                                    disabled={loading}
-                                    className="flex-1"
+                                     type="button"
+                                     variant="outline"
+                                     onClick={onClose}
+                                     disabled={loading}
+                                     className="flex-1 border-red-900/30 text-zinc-400 hover:bg-zinc-900 h-14 rounded-xl font-black text-[10px] uppercase tracking-widest"
                                 >
-                                    Cancel
+                                     Cancel
                                 </Button>
                                 <Button
-                                    type="submit"
-                                    disabled={loading}
-                                    className="flex-1 bg-red-700 hover:bg-red-800 text-white shadow-lg shadow-red-900/20 disabled:opacity-50 disabled:cursor-not-allowed"
+                                     type="submit"
+                                     disabled={loading}
+                                     className="flex-1 bg-red-600 hover:bg-red-700 text-white shadow-lg shadow-red-900/30 h-14 rounded-xl font-black text-[10px] uppercase tracking-widest"
                                 >
-                                    {loading ? (
-                                        <span className="flex items-center gap-2">
-                                            <span className="animate-spin">⏳</span>
-                                            Sending...
-                                        </span>
-                                    ) : (
-                                        <span className="flex items-center gap-2">
-                                            <span>📤</span>
-                                            Send Message
-                                        </span>
-                                    )}
-                                </Button>
+                                     {loading ? (
+                                         <span className="flex items-center gap-2">
+                                             <RefreshCw className="h-4 w-4 animate-spin" />
+                                             SENDING...
+                                         </span>
+                                     ) : (
+                                         <span className="flex items-center gap-2">
+                                             SEND MESSAGE
+                                         </span>
+                                     )}
+                                 </Button>
                             </div>
                         </form>
                     </CardContent>

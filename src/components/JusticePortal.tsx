@@ -73,20 +73,26 @@ export default function JusticePortal({ user }: { user: any }) {
         doc.text("GOVERNMENT OF INDIA", 105, 20, { align: "center" });
         doc.setFontSize(16);
         doc.setTextColor(0, 0, 0);
-        doc.text("DECENTRALIZED JUSTICE PORTAL", 105, 30, { align: "center" });
+        // Header
+        doc.setFontSize(22);
+        doc.setTextColor(220, 38, 38); // Red color
+        doc.text("GOVERNMENT OF INDIA", 105, 20, { align: "center" });
+        doc.setFontSize(16);
+        doc.setTextColor(0, 0, 0);
+        doc.text("INCIDENT REPORTING PORTAL", 105, 30, { align: "center" });
         doc.line(20, 35, 190, 35);
 
         // Official Report Title
         doc.setFontSize(18);
         doc.setFont("helvetica", "bold");
-        doc.text("FIRST INFORMATION REPORT (FIR)", 105, 50, { align: "center" });
+        doc.text("Official Incident Report", 105, 50, { align: "center" });
 
         // Reference Info
         doc.setFontSize(10);
         doc.setFont("courier", "normal");
         doc.text(`TRACKING ID: ${uniqueId}`, 20, 65);
         doc.text(`DATE FILED: ${new Date().toLocaleString()}`, 20, 70);
-        doc.text(`BLOCKCHAIN STATUS: PENDING INSERTION`, 20, 75);
+        doc.text(`STATUS: PENDING REVIEW`, 20, 75);
 
         // Content Box
         doc.setDrawColor(0);
@@ -105,10 +111,10 @@ export default function JusticePortal({ user }: { user: any }) {
             y += 10;
         };
 
-        addLine("REPORTER NAME", user.name || "N/A");
-        addLine("REPORTER EMAIL", user.email || "N/A");
+        addLine("CITIZEN NAME", user.name || "N/A");
+        addLine("EMAIL ADDRESS", user.email || "N/A");
         y += 5;
-        addLine("CRIME TYPE", crimeType);
+        addLine("REPORT TYPE", crimeType);
         addLine("INCIDENT DATE", incidentDate);
         addLine("LOCATION", `${city}, ${state}`);
 
@@ -124,7 +130,7 @@ export default function JusticePortal({ user }: { user: any }) {
         // Footer
         doc.setFontSize(10);
         doc.setTextColor(100);
-        doc.text("System Generated Report via Blockchain Relay Service.", 105, 280, { align: "center" });
+        doc.text("System Generated Report via Official Portal.", 105, 280, { align: "center" });
         doc.text("Verify authenticity using the provided Tracking ID on the portal.", 105, 285, { align: "center" });
 
         doc.save(`${uniqueId}_Report.pdf`);
@@ -141,19 +147,19 @@ export default function JusticePortal({ user }: { user: any }) {
             const uniqueId = generateUniqueID();
 
             // Generate PDF immediately for the user
-            if (confirm("Would you like to download an official PDF copy of your FIR now?")) {
+            if (confirm("Would you like to download a PDF copy of your report now?")) {
                 generatePDF({ description, crimeType, state, city, incidentDate }, uniqueId);
             }
 
-            // Construct a structured report for the blockchain
+            // Construct a structured report for the system
             const structuredReport = `
-**OFFICIAL FIR REPORT**
+**OFFICIAL INCIDENT REPORT**
 -----------------------
 ID: ${uniqueId}
 Type: ${crimeType}
 Location: ${city}, ${state}
 Date of Incident: ${incidentDate}
-Reporter: ${user.name || 'Citizen'} (${user.email || 'N/A'})
+Citizen: ${user.name || 'Citizen'} (${user.email || 'N/A'})
 
 **DETAILS**
 ${description}
@@ -168,82 +174,84 @@ ${description}
             setCity('');
             setIncidentDate('');
 
-            alert(`FIR Filed Successfully! Tracking ID: ${uniqueId}`);
+            alert(`Report Filed Successfully! Tracking ID: ${uniqueId}`);
             fetchFIRs();
         } catch (error) {
             console.error(error);
-            alert("Error filing FIR. Please check connection.");
+            alert("Error filing report. Please check connection.");
         } finally {
             setIsSubmitting(false);
         }
     };
 
     return (
-        <div className="space-y-6 max-w-7xl mx-auto">
-            {/* Header / Stats Section */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <Card className="border-l-4 border-indigo-500 shadow-sm">
-                    <CardContent className="pt-6">
-                        <div className="flex items-center justify-between">
-                            <div>
-                                <p className="text-sm font-medium text-gray-500">System Status</p>
-                                <div className="flex items-center gap-2 mt-1">
-                                    <div className="h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse"></div>
-                                    <span className="text-xl font-bold text-gray-900">Online</span>
-                                </div>
+        <div className="space-y-8 animate-in">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+                <div className="p-4 md:p-6 rounded-2xl bg-zinc-950/50 border border-red-900/20 backdrop-blur-md shadow-2xl transition-all hover:border-red-500/30 group">
+                    <div className="flex items-center justify-between">
+                        <div>
+                            <p className="text-xs font-black text-zinc-400 uppercase tracking-widest">Portal Status</p>
+                            <div className="flex items-center gap-2 mt-1">
+                                <div className="h-2.5 w-2.5 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
+                                <span className="text-white font-black uppercase tracking-tight">Active</span>
                             </div>
-                            <Shield className="h-8 w-8 text-indigo-500 opacity-20" />
                         </div>
-                    </CardContent>
-                </Card>
-                <Card className="border-l-4 border-indigo-500 shadow-sm">
-                    <CardContent className="pt-6">
-                        <div className="flex items-center justify-between">
-                            <div>
-                                <p className="text-sm font-medium text-gray-500">Total Records</p>
-                                <p className="text-2xl font-bold text-gray-900 mt-1">{firs.length}</p>
-                            </div>
-                            <FileText className="h-8 w-8 text-indigo-500 opacity-20" />
+                        <div className="p-3 bg-red-950/30 border border-red-900/30 rounded-xl text-red-500 group-hover:scale-110 transition-all duration-500 shadow-[0_0_20px_rgba(239,68,68,0.1)]">
+                            <Shield className="h-6 w-6" />
                         </div>
-                    </CardContent>
-                </Card>
-                <Card className="border-l-4 border-indigo-500 shadow-sm">
-                    <CardContent className="pt-6">
-                        <div className="flex items-center justify-between">
-                            <div>
-                                <p className="text-sm font-medium text-gray-500">Standard Time (IST)</p>
-                                <p className="text-xl font-bold text-gray-900 mt-1 font-mono">{currentTime || "--:--:--"}</p>
-                            </div>
-                            <Clock className="h-8 w-8 text-indigo-500 opacity-20" />
+                    </div>
+                </div>
+
+                <div className="p-4 md:p-6 rounded-2xl bg-zinc-950/50 border border-red-900/20 backdrop-blur-md shadow-2xl transition-all hover:border-red-500/30 group">
+                    <div className="flex items-center justify-between">
+                        <div>
+                            <p className="text-xs font-black text-zinc-400 uppercase tracking-widest">Total Reports</p>
+                            <p className="text-2xl md:text-3xl font-black text-white mt-1 tracking-tighter">{firs.length}</p>
                         </div>
-                    </CardContent>
-                </Card>
+                        <div className="p-3 bg-red-950/30 border border-red-900/30 rounded-xl text-red-500 group-hover:scale-110 transition-all duration-500 shadow-[0_0_20px_rgba(239,68,68,0.1)]">
+                            <FileText className="h-6 w-6" />
+                        </div>
+                    </div>
+                </div>
+
+                <div className="p-4 md:p-6 rounded-2xl bg-zinc-950/50 border border-red-900/20 backdrop-blur-md shadow-2xl transition-all hover:border-red-500/30 group">
+                    <div className="flex items-center justify-between">
+                        <div>
+                            <p className="text-xs font-black text-zinc-400 uppercase tracking-widest">Current Time</p>
+                            <p className="text-lg md:text-xl font-black text-white mt-1 font-mono tracking-tighter">{currentTime || "--:--:--"}</p>
+                        </div>
+                        <div className="p-3 bg-red-950/30 border border-red-900/30 rounded-xl text-red-500 group-hover:scale-110 transition-all duration-500 shadow-[0_0_20px_rgba(239,68,68,0.1)]">
+                            <Clock className="h-6 w-6" />
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* Left Column: Filing Form */}
                 <div className="lg:col-span-2 space-y-6">
-                    <Card className="shadow-md border-t-4 border-t-red-600">
-                        <CardHeader className="border-b bg-gray-50/50 pb-4">
-                            <div className="flex items-center gap-3">
-                                <div className="p-2 bg-red-100 rounded-lg">
-                                    <Scale className="h-6 w-6 text-red-700" />
+                    <Card className="overflow-hidden bg-zinc-950/50 border border-red-900/20 backdrop-blur-md shadow-2xl rounded-[2rem]">
+                        <div className="h-1.5 bg-red-500" />
+                        <CardHeader className="p-6 md:p-8 md:pb-4">
+                            <div className="flex items-center gap-4">
+                                <div className="p-3 bg-red-950/30 border border-red-900/30 rounded-2xl text-red-500 shrink-0">
+                                    <Scale className="h-5 w-5 md:h-6 md:w-6" />
                                 </div>
                                 <div>
-                                    <CardTitle className="text-xl text-gray-800">File New Report</CardTitle>
-                                    <CardDescription>Use this secure form to lodge an immutable First Information Report.</CardDescription>
+                                    <CardTitle className="text-xl md:text-2xl font-black text-white tracking-tight uppercase">Report an Incident</CardTitle>
+                                    <CardDescription className="text-zinc-300 font-bold text-xs">Securely report an incident to the authorities for review.</CardDescription>
                                 </div>
                             </div>
                         </CardHeader>
-                        <CardContent className="pt-6 space-y-6">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div className="space-y-2">
-                                    <Label className="text-sm font-semibold text-gray-700">Category of Issue</Label>
+                        <CardContent className="p-6 md:p-8 md:pt-6 space-y-6 md:space-y-8">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
+                                <div className="space-y-3">
+                                    <Label className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.2em] ml-1">Category of Issue</Label>
                                     <Select onValueChange={setCrimeType} value={crimeType}>
-                                        <SelectTrigger className="bg-white">
+                                        <SelectTrigger className="bg-black/40 border-red-900/30 text-white h-12 md:h-14 rounded-2xl focus:ring-red-600 font-bold px-4 md:px-6">
                                             <SelectValue placeholder="Select Category" />
                                         </SelectTrigger>
-                                        <SelectContent>
+                                        <SelectContent className="bg-zinc-950 border-red-900/30 text-white rounded-xl">
                                             <SelectItem value="Theft">Theft / Burglary</SelectItem>
                                             <SelectItem value="Assault">Assault / Battery</SelectItem>
                                             <SelectItem value="Fraud">Fraud / Cybercrime</SelectItem>
@@ -255,25 +263,25 @@ ${description}
                                         </SelectContent>
                                     </Select>
                                 </div>
-                                <div className="space-y-2">
-                                    <Label className="text-sm font-semibold text-gray-700">Date of Incident</Label>
-                                    <div className="relative">
+                                <div className="space-y-3">
+                                    <Label className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.2em] ml-1">Date of Incident</Label>
+                                    <div className="relative group">
                                         <Input
                                             type="date"
-                                            className="bg-white pl-10"
+                                            className="bg-black/40 border-red-900/30 text-white h-12 md:h-14 rounded-2xl focus:ring-red-600 pl-12 font-bold transition-all group-hover:border-red-900/50"
                                             value={incidentDate}
                                             onChange={(e) => setIncidentDate(e.target.value)}
                                         />
-                                        <Calendar className="absolute left-3 top-2.5 h-4 w-4 text-gray-400 pointer-events-none" />
+                                        <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-zinc-500 pointer-events-none group-hover:text-red-500 transition-colors" />
                                     </div>
                                 </div>
-                                <div className="space-y-2">
-                                    <Label className="text-sm font-semibold text-gray-700">State</Label>
+                                <div className="space-y-3">
+                                    <Label className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.2em] ml-1">State</Label>
                                     <Select onValueChange={setState} value={state}>
-                                        <SelectTrigger className="bg-white">
+                                        <SelectTrigger className="bg-black/40 border-red-900/30 text-white h-12 md:h-14 rounded-2xl focus:ring-red-600 font-bold px-4 md:px-6">
                                             <SelectValue placeholder="Select State" />
                                         </SelectTrigger>
-                                        <SelectContent>
+                                        <SelectContent className="bg-zinc-950 border-red-900/30 text-white rounded-xl">
                                             <SelectItem value="Delhi">Delhi</SelectItem>
                                             <SelectItem value="Maharashtra">Maharashtra</SelectItem>
                                             <SelectItem value="Karnataka">Karnataka</SelectItem>
@@ -286,49 +294,49 @@ ${description}
                                         </SelectContent>
                                     </Select>
                                 </div>
-                                <div className="space-y-2">
-                                    <Label className="text-sm font-semibold text-gray-700">City / District</Label>
-                                    <div className="relative">
+                                <div className="space-y-3">
+                                    <Label className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.2em] ml-1">City / District</Label>
+                                    <div className="relative group">
                                         <Input
                                             placeholder="e.g. South Delhi"
-                                            className="bg-white pl-10"
+                                            className="bg-black/40 border-red-900/30 text-white h-12 md:h-14 rounded-2xl focus:ring-red-600 pl-12 font-bold transition-all group-hover:border-red-900/50"
                                             value={city}
                                             onChange={(e) => setCity(e.target.value)}
                                         />
-                                        <MapPin className="absolute left-3 top-2.5 h-4 w-4 text-gray-400 pointer-events-none" />
+                                        <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-zinc-500 pointer-events-none group-hover:text-red-500 transition-colors" />
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="space-y-2">
-                                <Label className="text-sm font-semibold text-gray-700">Incident Details</Label>
+                            <div className="space-y-3">
+                                <Label className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.2em] ml-1">Incident Details</Label>
                                 <Textarea
                                     placeholder="Provide a comprehensive description of the event..."
                                     value={description}
                                     onChange={(e) => setDescription(e.target.value)}
-                                    className="bg-white min-h-[150px] resize-y"
+                                    className="bg-black/40 border-red-900/30 text-white min-h-[180px] rounded-[1.5rem] focus:ring-red-600 p-6 font-bold leading-relaxed resize-none transition-all shadow-inner"
                                 />
                             </div>
 
-                            <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 flex gap-3 text-amber-800">
-                                <AlertTriangle className="h-5 w-5 shrink-0 mt-0.5" />
-                                <div className="text-xs leading-relaxed">
-                                    <strong>Legal Disclaimer:</strong> Information submitted here is permanently recorded on the blockchain.
-                                    False reporting is a punishable offense. Ensure all details are accurate before submission.
+                            <div className="bg-red-950/20 border border-red-900/30 rounded-2xl p-6 flex gap-4 text-red-500 items-start">
+                                <AlertTriangle className="h-6 w-6 shrink-0 text-red-600" />
+                                <div className="text-xs font-bold leading-relaxed">
+                                    <strong className="text-red-600 uppercase tracking-widest block mb-1">Attention:</strong> False reporting is a punishable offense. 
+                                    Ensure all details are accurate before submitting this report to the authorities.
                                 </div>
                             </div>
 
                             <Button
                                 onClick={fileFIR}
                                 disabled={isSubmitting}
-                                className="w-full bg-red-700 hover:bg-red-800 text-white font-semibold h-12 text-base shadow-sm"
+                                className="w-full bg-red-600 hover:bg-red-700 text-white font-black h-16 text-xs uppercase tracking-[0.3em] rounded-2xl shadow-[0_10px_30px_rgba(255,0,0,0.2)] transition-all hover:scale-[1.01] active:scale-[0.98]"
                             >
                                 {isSubmitting ? (
-                                    <span className="flex items-center gap-2">
-                                        <RefreshCw className="h-4 w-4 animate-spin" />
-                                        Processing securely...
+                                    <span className="flex items-center gap-3">
+                                        <RefreshCw className="h-5 w-5 animate-spin" />
+                                        Processing...
                                     </span>
-                                ) : "Submit Official Report"}
+                                ) : "Submit Report Now"}
                             </Button>
                         </CardContent>
                     </Card>
@@ -336,51 +344,59 @@ ${description}
 
                 {/* Right Column: History */}
                 <div className="lg:col-span-1">
-                    <Card className="shadow-md h-full border-t-4 border-t-gray-600 flex flex-col">
-                        <CardHeader className="border-b bg-gray-50/50 pb-4">
+                    <Card className="overflow-hidden bg-zinc-950/50 border border-red-900/20 backdrop-blur-md shadow-2xl flex flex-col h-full rounded-[2rem]">
+                        <CardHeader className="p-8 pb-4">
                             <div className="flex items-center justify-between">
-                                <CardTitle className="text-lg text-gray-800">Recent Activity</CardTitle>
-                                <Button variant="ghost" size="icon" onClick={fetchFIRs} disabled={isLoading} className="h-8 w-8 text-gray-500">
-                                    <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
+                                <CardTitle className="text-xl font-black text-white tracking-tight uppercase">Recent Reports</CardTitle>
+                                <Button variant="ghost" size="icon" onClick={fetchFIRs} disabled={isLoading} className="h-10 w-10 text-zinc-400 hover:text-red-500 hover:bg-red-950/30 rounded-xl transition-all">
+                                    <RefreshCw className={`h-5 w-5 ${isLoading ? 'animate-spin' : ''}`} />
                                 </Button>
                             </div>
                         </CardHeader>
-                        <CardContent className="pt-0 flex-1 overflow-hidden flex flex-col p-0">
+                        <CardContent className="pt-0 flex-1 overflow-hidden flex flex-col p-0 px-6 pb-6">
                             {error && (
-                                <div className="p-4 bg-red-50 text-red-600 text-sm border-b border-red-100 flex items-center gap-2">
+                                <div className="mx-2 mb-4 p-4 bg-red-950/20 text-red-500 text-[10px] font-black uppercase tracking-widest rounded-xl border border-red-900/30 flex items-center gap-3">
                                     <AlertTriangle className="h-4 w-4" /> {error}
                                 </div>
                             )}
 
-                            <div className="flex-1 overflow-y-auto p-4 space-y-3 max-h-[600px]">
+                            <div className="flex-1 overflow-y-auto pr-2 space-y-4 max-h-[700px] scrollbar-thin scrollbar-thumb-red-900/30">
                                 {firs.length === 0 && !isLoading ? (
-                                    <div className="text-center py-10 text-gray-400">
-                                        <FileText className="h-10 w-10 mx-auto mb-2 opacity-20" />
-                                        <p className="text-sm">No records found</p>
+                                    <div className="text-center py-20 text-zinc-600">
+                                        <div className="h-16 w-16 bg-black/40 rounded-3xl flex items-center justify-center mx-auto mb-4 border border-red-900/10">
+                                            <FileText className="h-8 w-8 opacity-20" />
+                                        </div>
+                                        <p className="text-[10px] font-black uppercase tracking-widest">No records found</p>
                                     </div>
                                 ) : (
-                                    firs.map((fir: any) => (
-                                        <div key={fir.id} className="bg-white border rounded-lg p-3 hover:border-indigo-300 transition-colors shadow-sm">
-                                            <div className="flex justify-between items-start mb-2">
-                                                <span className="text-[10px] font-mono font-medium text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded">
-                                                    #{fir.id}
+                                    firs.map((fir: any, idx: number) => (
+                                        <div 
+                                            key={fir.id} 
+                                            className="bg-black/60 border border-red-900/10 hover:border-red-500/40 transition-all group p-5 rounded-[1.5rem] relative overflow-hidden animate-in"
+                                            style={{ animationDelay: `${idx * 0.05}s` }}
+                                        >
+                                            <div className="absolute top-0 left-0 w-1 h-full bg-red-900/30 group-hover:bg-red-500 transition-colors" />
+                                            <div className="flex justify-between items-start mb-3">
+                                                <span className="text-[10px] font-black text-red-500/50 bg-red-950/20 px-2 py-0.5 rounded border border-red-900/30">
+                                                    ID-{fir.id}
                                                 </span>
-                                                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase ${fir.status === 'Open' ? 'bg-green-100 text-green-700' :
-                                                        fir.status === 'Closed' ? 'bg-gray-100 text-gray-700' :
-                                                            'bg-amber-100 text-amber-700'
-                                                    }`}>
+                                                <span className={`text-[9px] font-black px-2.5 py-1 rounded-full uppercase border ${
+                                                    fir.status === 'Open' ? 'border-emerald-900/30 text-emerald-500 bg-emerald-950/10' :
+                                                    fir.status === 'Closed' ? 'border-zinc-800 text-zinc-500 bg-zinc-900/20' :
+                                                    'border-amber-900/30 text-amber-500 bg-amber-950/10'
+                                                }`}>
                                                     {fir.status}
                                                 </span>
                                             </div>
-                                            <p className="text-xs text-gray-800 font-medium line-clamp-2 mb-2 leading-relaxed">
+                                            <p className="text-xs text-zinc-200 font-bold line-clamp-2 mb-4 leading-relaxed group-hover:text-white transition-colors">
                                                 {fir.description.split('\n')[0] || fir.description}
                                             </p>
-                                            <div className="flex items-center justify-between text-[10px] text-gray-400">
+                                            <div className="flex items-center justify-between text-[10px] text-zinc-500 font-black uppercase tracking-widest border-t border-red-900/5 pt-3">
                                                 <span>{new Date(fir.timestamp).toLocaleDateString()}</span>
                                                 {fir.resolutionNotes && (
-                                                    <div className="flex items-center gap-1 text-indigo-600">
+                                                    <div className="flex items-center gap-1.5 text-red-500">
                                                         <CheckCircle2 className="h-3 w-3" />
-                                                        <span>Updated</span>
+                                                        <span>Official Response</span>
                                                     </div>
                                                 )}
                                             </div>
