@@ -11,6 +11,22 @@ import MessageCard from '@/components/MessageCard';
 import JusticePortal from '@/components/JusticePortal';
 import { getUserGrievances, getDepartments, createGrievance, reopenGrievance, getPublicEmployees } from '@/lib/api';
 import { useRouter } from 'next/navigation';
+import { 
+    Activity, 
+    CheckCircle, 
+    Clock, 
+    Send, 
+    History, 
+    User as UserIcon, 
+    Building2, 
+    ShieldCheck, 
+    ArrowRight,
+    MessageSquare,
+    AlertCircle,
+    BarChart3
+} from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { CardDescription, CardFooter } from '@/components/ui/card';
 
 export default function UserDashboard() {
     const [grievances, setGrievances] = useState([]);
@@ -19,6 +35,7 @@ export default function UserDashboard() {
     const [description, setDescription] = useState('');
     const [departmentId, setDepartmentId] = useState('');
     const [user, setUser] = useState<any>(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const router = useRouter();
 
     useEffect(() => {
@@ -58,6 +75,7 @@ export default function UserDashboard() {
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
+        setIsSubmitting(true);
         try {
             await createGrievance({
                 title,
@@ -71,6 +89,8 @@ export default function UserDashboard() {
             setDescription('');
         } catch (error) {
             alert('Error submitting grievance');
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -115,32 +135,31 @@ export default function UserDashboard() {
             window.location.reload(); // Refresh to show new message
         };
 
-        if (officials.length === 0) return <p className="text-xs text-gray-700">No public contacts listed.</p>;
+        if (officials.length === 0) return <p className="text-[10px] font-black text-zinc-500 uppercase tracking-widest italic">No public contacts listed.</p>;
 
         return (
             <>
-                <div className="space-y-3 max-h-[300px] overflow-y-auto pr-2">
+                <div className="space-y-3 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
                     {officials.map((emp: any) => (
-                        <div key={emp._id} className="flex items-start justify-between gap-3 bg-white p-3 rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-all">
-                            <div className="flex gap-3">
-                                <div className="bg-red-50 text-red-700 h-8 w-8 rounded-full flex items-center justify-center font-bold text-xs shrink-0">
+                        <div key={emp._id} className="flex items-start justify-between gap-3 bg-black/40 p-4 rounded-2xl border border-red-900/10 hover:border-red-500/30 transition-all group">
+                            <div className="flex gap-4">
+                                <div className="bg-red-600 text-white h-10 w-10 rounded-xl flex items-center justify-center font-black text-sm shrink-0 shadow-[0_0_15px_rgba(239,68,68,0.2)]">
                                     {emp.name.charAt(0)}
                                 </div>
-                                <div>
-                                    <p className="text-sm font-bold text-gray-900">{emp.name}</p>
-                                    <p className="text-xs text-red-600 font-medium">{emp.role}</p>
-                                    <p className="text-[10px] text-gray-700 mt-0.5">{emp.email}</p>
+                                <div className="space-y-0.5">
+                                    <p className="text-sm font-black text-white group-hover:text-red-500 transition-colors">{emp.name}</p>
+                                    <p className="text-[10px] text-red-600 font-black uppercase tracking-widest">{emp.role}</p>
+                                    <p className="text-[10px] text-zinc-400 font-bold">{emp.email}</p>
                                 </div>
                             </div>
 
-                            {/* Message Button - Opens Beautiful Modal */}
                             <Button
                                 size="sm"
-                                variant="secondary"
-                                className="h-7 text-[10px] px-2 bg-red-50 hover:bg-red-100 text-red-700 border border-red-200"
+                                variant="outline"
+                                className="h-8 text-[10px] px-3 border-red-900/30 text-red-500 hover:bg-red-600 hover:text-white rounded-xl transition-all"
                                 onClick={() => handleMessageClick(emp)}
                             >
-                                ✉️ Message
+                                MESSAGE
                             </Button>
                         </div>
                     ))}
@@ -163,225 +182,248 @@ export default function UserDashboard() {
     if (!user) return null; // Or loading spinner
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-            {/* Modern Header */}
-            <header className="bg-gradient-to-r from-red-600 to-red-700 shadow-lg">
-                <div className="container mx-auto px-6 py-6">
-                    <div className="flex justify-between items-center">
-                        <div>
-                            <h1 className="text-3xl font-bold text-white">Welcome, {user.name}</h1>
-                            <p className="text-red-100 text-sm mt-1">Citizen Dashboard</p>
-                        </div>
-                        <Button
-                            variant="outline"
-                            onClick={() => {
-                                localStorage.removeItem('user');
-                                router.push('/login');
-                            }}
-                            className="bg-white/10 border-white/30 text-white hover:bg-white/20 hover:border-white/50 backdrop-blur-sm"
-                        >
-                            Logout
-                        </Button>
+        <div className="min-h-screen dashboard-container">
+            {/* Top Bar for User Info */}
+            <div className="sticky top-0 z-20 bg-black/60 backdrop-blur-xl border-b border-red-900/20 px-4 md:px-8 py-3 md:py-4 flex justify-between items-center">
+                <div>
+                    <h2 className="text-[8px] md:text-[10px] font-black text-red-500 uppercase tracking-[0.3em] text-red-glow">GOVERNMENT PORTAL</h2>
+                    <p className="text-base md:text-xl font-black text-white leading-none mt-0.5">Welcome, {user.name}</p>
+                </div>
+                <div className="flex items-center gap-4">
+                    <div className="h-8 w-8 md:h-10 md:w-10 rounded-xl md:rounded-2xl bg-red-600 flex items-center justify-center text-white font-black shadow-[0_0_20px_rgba(239,68,68,0.4)] text-xs md:text-base">
+                        {user.name.charAt(0)}
                     </div>
                 </div>
-            </header>
+            </div>
 
-            <div className="container mx-auto p-6 space-y-6">
-
-                {/* Department Progress Section */}
-                <Card>
-                    <CardHeader>
-                        <CardTitle>Check Department Progress</CardTitle>
+            <div className="p-4 md:p-8 space-y-6 md:space-y-8 max-w-7xl mx-auto bg-grid-red pb-24 md:pb-8">
+                {/* Department Selection Card */}
+                <Card className="overflow-hidden border border-red-900/20 bg-zinc-950/50 backdrop-blur-md shadow-2xl shadow-black rounded-[1.5rem] md:rounded-[2rem]">
+                    <div className="h-1 bg-gradient-to-r from-red-600 via-red-500 to-red-900" />
+                    <CardHeader className="p-5 md:p-6 md:pb-4">
+                        <div className="flex items-center gap-3 mb-2">
+                            <div className="p-2 bg-red-950/50 rounded-lg text-red-500 border border-red-900/30">
+                                <BarChart3 className="h-5 w-5" />
+                            </div>
+                            <CardTitle className="text-white text-lg md:text-xl">Public Services</CardTitle>
+                        </div>
+                        <CardDescription className="text-zinc-300 text-[10px] md:text-xs font-bold">Access government services and check department resolution status.</CardDescription>
                     </CardHeader>
-                    <CardContent className="space-y-4">
-                        <div className="flex flex-col space-y-2">
-                            <label className="text-sm font-medium">Select Department</label>
+                    <CardContent className="p-5 md:p-6 md:pt-6">
+                        <div className="relative group">
                             <select
-                                className="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                                className="appearance-none w-full bg-black/40 border border-red-900/30 text-white text-sm rounded-xl focus:ring-red-600 focus:border-red-600 block p-4 shadow-inner transition-all hover:bg-black/60 hover:border-red-500 outline-none font-bold"
                                 value={departmentId}
                                 onChange={handleDeptChange}
                             >
-                                <option value="">-- Choose Department --</option>
-                                {/* Special Logic for Police */}
-                                <option value="POLICE_FLOW">👮 Department of Police (Decentralized)</option>
-                                <option disabled>----------------</option>
-                                {departments.filter((d: any) => !d.name.includes('Police')).map((dept: any) => (
-                                    <option key={dept._id} value={dept._id}>{dept.name}</option>
+                                <option value="" className="bg-zinc-900 text-zinc-400">-- Select Department --</option>
+                                <option value="POLICE_FLOW" className="font-black bg-zinc-900 text-red-500">👮 Citizen Grievance Portal</option>
+                                <option disabled className="bg-zinc-900">──────────────────────────────</option>
+                                {departments.map((dept: any) => (
+                                    <option key={dept._id} value={dept._id} className="bg-zinc-900 font-bold">{dept.name}</option>
                                 ))}
                             </select>
-
-                            {/* Secondary Dropdown for Police - REPLACED WITH BLOCKCHAIN PORTAL */}
-                            {departmentId === "POLICE_FLOW" && (
-                                <div className="mt-4">
-                                    {/* We hide the default flow and show the portal below, or we can render it here */}
-                                    {/* For better UX, let's render the Justice Portal in the main content area instead of the card */}
-                                </div>
-                            )}
+                            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-red-900 group-hover:text-red-500 transition-colors">
+                                <ArrowRight className="h-5 w-5 rotate-90" />
+                            </div>
                         </div>
 
                         {departmentId === "POLICE_FLOW" ? (
-                            <JusticePortal user={user} />
-                        ) : (
-                            <div className="md:col-span-1 space-y-6">
-                                {/* Department Context */}
-                                <Card
-                                    className={`transition-all duration-500 hover:shadow-xl border-l-[6px] ${selectedDeptStats ? 'border-l-green-500' : 'border-l-red-500'}`}
-                                >
-                                    <CardHeader>
-                                        <CardTitle className="text-gray-800">
-                                            {selectedDeptStats ? selectedDeptStats.name : "Select a Department"}
-                                        </CardTitle>
-                                    </CardHeader>
-                                    <CardContent>
-                                        {selectedDeptStats ? (
-                                            <div className="space-y-4">
-                                                <div className="grid grid-cols-2 gap-4 text-center">
-                                                    {/* Department Metrics - Now Public */}
-                                                    <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-lg border border-blue-200">
-                                                        <p className="text-2xl font-bold text-blue-900">{selectedDeptStats.metrics?.pendingFiles || 0}</p>
-                                                        <p className="text-xs text-blue-700 font-medium">Pending Files</p>
-                                                    </div>
-                                                    <div className="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-lg border border-green-200">
-                                                        <p className="text-2xl font-bold text-green-900">{selectedDeptStats.metrics?.filesCleared || 0}</p>
-                                                        <p className="text-xs text-green-700 font-medium">Files Cleared</p>
-                                                    </div>
-                                                    <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-lg border border-purple-200 col-span-2">
-                                                        <p className="text-3xl font-bold text-purple-900">{selectedDeptStats.metrics?.efficiency || 0}%</p>
-                                                        <p className="text-xs text-purple-700 font-medium mb-2">Efficiency Score</p>
-                                                        <div className="w-full bg-purple-200 rounded-full h-2">
-                                                            <div
-                                                                className="bg-purple-600 h-2 rounded-full transition-all duration-500"
-                                                                style={{ width: `${selectedDeptStats.metrics?.efficiency || 0}%` }}
-                                                            ></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <p className="text-sm text-gray-800 mt-2">
-                                                    Status: <span className="font-semibold text-gray-900">{selectedDeptStats.status}</span>
-                                                </p>
+                            <div className="mt-6 md:mt-8 animate-in">
+                                <JusticePortal user={user} />
+                            </div>
+                        ) : selectedDeptStats && (
+                            <div className="mt-6 md:mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 animate-in">
+                                <div className="p-5 md:p-6 rounded-2xl bg-zinc-950 border border-red-900/20 shadow-xl transition-all hover:border-red-600/30">
+                                    <div className="flex justify-between items-start mb-4">
+                                        <div className="p-2 bg-red-950/30 rounded-lg border border-red-900/30 text-red-500">
+                                            <Clock className="h-5 w-5" />
+                                        </div>
+                                        <span className="text-[8px] md:text-[10px] font-black text-red-500 bg-red-950/50 border border-red-900/30 px-2 py-0.5 rounded-full uppercase">Current</span>
+                                    </div>
+                                    <p className="text-2xl md:text-3xl font-black text-white">{selectedDeptStats.metrics?.pendingFiles || 0}</p>
+                                    <p className="text-[10px] text-zinc-400 font-black uppercase tracking-widest mt-1">Pending Requests</p>
+                                </div>
 
-                                                {/* Key Officials Section */}
-                                                <div className="pt-4 border-t">
-                                                    <h4 className="text-sm font-bold text-gray-900 mb-3">Key Officials & Contacts</h4>
-                                                    <KeyOfficialsList deptId={departmentId} />
-                                                </div>
-                                            </div>
-                                        ) : (
-                                            <p className="text-gray-700 italic">Please select a department to view its performance metrics and key officials.</p>
-                                        )}
-                                    </CardContent>
-                                </Card>
+                                <div className="p-5 md:p-6 rounded-2xl bg-zinc-950 border border-red-900/20 shadow-xl transition-all hover:border-red-600/30">
+                                    <div className="flex justify-between items-start mb-4">
+                                        <div className="p-2 bg-red-950/30 rounded-lg border border-red-900/30 text-red-500">
+                                            <CheckCircle className="h-5 w-5" />
+                                        </div>
+                                        <span className="text-[8px] md:text-[10px] font-black text-red-500 bg-red-950/50 border border-red-900/30 px-2 py-0.5 rounded-full uppercase">Resolved</span>
+                                    </div>
+                                    <p className="text-2xl md:text-3xl font-black text-white">{selectedDeptStats.metrics?.filesCleared || 0}</p>
+                                    <p className="text-[10px] text-zinc-400 font-black uppercase tracking-widest mt-1">Completed Requests</p>
+                                </div>
+
+                                <div className="p-5 md:p-6 rounded-2xl bg-zinc-950 border border-red-900/20 shadow-xl transition-all hover:border-red-600/30 sm:col-span-2 lg:col-span-1">
+                                    <div className="flex justify-between items-start mb-4">
+                                        <div className="p-2 bg-red-950/30 rounded-lg border border-red-900/30 text-red-500">
+                                            <Activity className="h-5 w-5" />
+                                        </div>
+                                        <span className="text-[8px] md:text-[10px] font-black text-red-500 bg-red-950/50 border border-red-900/30 px-2 py-0.5 rounded-full uppercase">Rating</span>
+                                    </div>
+                                    <div className="flex items-baseline gap-2">
+                                        <p className="text-2xl md:text-3xl font-black text-white">{selectedDeptStats.metrics?.efficiency || 0}%</p>
+                                        <p className="text-[10px] text-red-500 font-black uppercase tracking-widest mt-1">Success Rate</p>
+                                    </div>
+                                    <div className="w-full bg-black/50 rounded-full h-1.5 mt-4 overflow-hidden border border-zinc-900">
+                                        <div
+                                            className="bg-red-600 h-full rounded-full shadow-[0_0_10px_rgba(220,38,38,0.3)] transition-all duration-1000"
+                                            style={{ width: `${selectedDeptStats.metrics?.efficiency || 0}%` }}
+                                        ></div>
+                                    </div>
+                                </div>
                             </div>
                         )}
                     </CardContent>
                 </Card>
 
-                {departmentId !== "POLICE_FLOW" && (
-                    <div className="grid md:grid-cols-2 gap-6">
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>Raise a Grievance / Message Official</CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                <form onSubmit={handleSubmit} className="space-y-4">
-                                    <div className="space-y-2">
-                                        <label className="text-sm font-medium">Department</label>
-                                        <input
-                                            className="flex h-9 w-full rounded-md border border-input bg-muted px-3 py-1 text-sm shadow-sm opacity-50 cursor-not-allowed"
-                                            value={selectedDeptStats ? selectedDeptStats.name : 'Select a department above'}
-                                            readOnly
-                                        />
-                                        <p className="text-xs text-gray-700">Select department from the progress section above.</p>
-                                    </div>
+                {departmentId && departmentId !== "POLICE_FLOW" && (
+                    <div className="grid lg:grid-cols-5 gap-8 animate-in" style={{ animationDelay: '0.2s' }}>
+                        {/* Form Column */}
+                        <div className="lg:col-span-2 space-y-6">
+                            <Card className="h-fit bg-zinc-950/50 border-red-900/20 backdrop-blur-md shadow-2xl rounded-[1.5rem] md:rounded-[2rem]">
+                                <CardHeader className="p-5 md:p-6">
+                                    <CardTitle className="flex items-center gap-2 text-white text-lg">
+                                        <ShieldCheck className="h-5 w-5 text-red-600" />
+                                        Submit Request
+                                    </CardTitle>
+                                    <CardDescription className="text-zinc-300 text-[10px] font-black uppercase tracking-widest">Public Submission</CardDescription>
+                                </CardHeader>
+                                <CardContent className="p-5 md:p-6 md:pt-0">
+                                    <form onSubmit={handleSubmit} className="space-y-5 md:space-y-6">
+                                        <div className="space-y-2">
+                                            <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest ml-1">Subject</label>
+                                            <Input
+                                                value={title}
+                                                className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-700 h-12 md:h-14 rounded-xl focus:ring-red-600 transition-all shadow-inner font-bold"
+                                                placeholder="Enter subject"
+                                                onChange={(e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)}
+                                                required
+                                            />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest ml-1">Description</label>
+                                            <Textarea
+                                                rows={5}
+                                                className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-700 rounded-xl focus:ring-red-600 focus:outline-none transition-all resize-none shadow-inner p-4 font-bold"
+                                                placeholder="Provide detailed description..."
+                                                value={description}
+                                                onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setDescription(e.target.value)}
+                                                required
+                                            />
+                                        </div>
+                                        <Button
+                                            type="submit"
+                                            disabled={isSubmitting}
+                                            className="w-full h-14 md:h-16 bg-red-600 hover:bg-red-700 text-white font-black text-xs uppercase tracking-widest rounded-xl md:rounded-2xl shadow-[0_10px_30px_rgba(239,68,68,0.3)] transition-all active:scale-[0.98]"
+                                        >
+                                            {isSubmitting ? "Submitting..." : "Send Request"}
+                                        </Button>
+                                    </form>
+                                </CardContent>
+                            </Card>
 
-                                    {/* Hidden field simulation for now or simple UI hint */}
-                                    <div className="p-3 bg-yellow-50 text-yellow-800 text-xs rounded border border-yellow-200">
-                                        <span className="font-bold">Tip:</span> To message a specific official privately, find them in the list above and copy their ID or name into the description, or use the "Message" button next to their name (coming soon).
-                                        <br />
-                                        <em>For this demo, all grievances raised here go to the department generally unless addressed specifically.</em>
-                                    </div>
+                            <Card className="bg-zinc-950/50 border border-red-900/20 backdrop-blur-md shadow-2xl rounded-[1.5rem] md:rounded-[2rem]">
+                                <CardHeader className="pb-0 p-5 md:p-8 md:pt-8">
+                                    <CardTitle className="text-red-500 text-[10px] font-black uppercase tracking-[0.2em]">Department Contacts</CardTitle>
+                                </CardHeader>
+                                <CardContent className="p-5 md:p-8 md:pt-6 pb-8">
+                                    <KeyOfficialsList deptId={departmentId} />
+                                </CardContent>
+                            </Card>
+                        </div>
 
-                                    <div className="space-y-2">
-                                        <label className="text-sm font-medium">Title</label>
-                                        <Input
-                                            value={title}
-                                            placeholder="e.g. Visa Issue or 'Private Message for Director'"
-                                            onChange={(e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)}
-                                            required
-                                        />
+                        {/* List Column */}
+                        <div className="lg:col-span-3">
+                            <Card className="min-h-full bg-zinc-950/50 border-red-900/20 backdrop-blur-md shadow-2xl rounded-[1.5rem] md:rounded-[2rem]">
+                                <CardHeader className="flex flex-row items-center justify-between p-5 md:p-8 md:pb-4">
+                                    <div>
+                                        <CardTitle className="text-white text-lg md:text-2xl font-black">Past Requests</CardTitle>
+                                        <CardDescription className="text-zinc-300 text-[10px] font-black uppercase tracking-widest mt-1">Track Interactions</CardDescription>
                                     </div>
-                                    <div className="space-y-2">
-                                        <label className="text-sm font-medium">Description</label>
-                                        <Textarea
-                                            rows={4}
-                                            value={description}
-                                            onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setDescription(e.target.value)}
-                                            required
-                                        />
+                                    <div className="h-10 w-10 md:h-12 md:w-12 rounded-xl md:rounded-2xl bg-red-950/30 border border-red-900/30 flex items-center justify-center text-red-500 shadow-[0_0_15px_rgba(239,68,68,0.1)]">
+                                        <History className="h-5 w-5 md:h-6 md:w-6" />
                                     </div>
-                                    <Button type="submit" disabled={!departmentId}>Submit</Button>
-                                </form>
-                            </CardContent>
-                        </Card>
+                                </CardHeader>
+                                <CardContent className="p-5 md:p-8 md:pt-4">
+                                    <div className="space-y-4">
+                                        {grievances.length === 0 ? (
+                                            <div className="text-center py-24">
+                                                <div className="inline-flex items-center justify-center h-20 w-20 rounded-3xl bg-black/40 mb-6 border border-red-900/20">
+                                                    <AlertCircle className="h-10 w-10 text-zinc-800" />
+                                                </div>
+                                                <p className="text-zinc-500 font-black uppercase tracking-widest text-xs">You haven't submitted any requests yet.</p>
+                                            </div>
+                                        ) : (
+                                            grievances.map((g: any, idx: number) => (
+                                                <div
+                                                    key={g._id}
+                                                    className="group relative p-6 rounded-3xl bg-black/40 border border-red-900/10 hover:border-red-500/30 hover:bg-black/60 transition-all animate-in"
+                                                    style={{ animationDelay: `${0.1 * idx}s` }}
+                                                >
+                                                    <div className="flex justify-between items-start gap-4">
+                                                        <div className="flex-1">
+                                                            <div className="flex items-center gap-3 mb-2">
+                                                                <h4 className="font-black text-white text-lg group-hover:text-red-500 transition-colors tracking-tight">{g.title}</h4>
+                                                                <span className={cn(
+                                                                    "status-badge",
+                                                                    g.status === 'Resolved' ? "status-badge-resolved" :
+                                                                        g.status === 'Rejected' ? "status-badge-rejected" :
+                                                                            "status-badge-pending"
+                                                                )}>
+                                                                    <div className={cn("h-1.5 w-1.5 rounded-full animate-pulse",
+                                                                        g.status === 'Resolved' ? "bg-emerald-500" :
+                                                                            g.status === 'Rejected' ? "bg-red-500" :
+                                                                                "bg-amber-500"
+                                                                    )} />
+                                                                    {g.status}
+                                                                </span>
+                                                            </div>
+                                                            <p className="text-[10px] font-black text-zinc-300 mb-4 flex items-center gap-2 uppercase tracking-widest">
+                                                                <Building2 className="h-3 w-3 text-zinc-400" />
+                                                                {g.addressedTo ? `ASSIGNED OFFICER: ${g.addressedTo}` : g.department?.name}
+                                                                <span className="text-zinc-800">•</span>
+                                                                {new Date(g.createdAt).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' }).toUpperCase()}
+                                                            </p>
 
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>Your Grievances / Messages</CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                <div className="space-y-4">
-                                    {grievances.length === 0 ? (
-                                        <p className="text-gray-800">No records found.</p>
-                                    ) : (
-                                        grievances.map((g: any) => (
-                                            <div key={g._id} className="border p-4 rounded-lg bg-white shadow-sm">
-                                                <div className="flex justify-between items-start">
-                                                    <div className="flex-1">
-                                                        <h4 className="font-semibold text-gray-900">{g.title}</h4>
-                                                        <p className="text-xs text-indigo-600 font-medium mb-1">{g.addressedTo ? `Private Message (ID: ${g.addressedTo})` : `To: ${g.department?.name}`}</p>
-                                                        <p className="text-xs text-gray-700">{new Date(g.createdAt).toLocaleDateString()}</p>
-                                                        {g.reopenedCount > 0 && (
-                                                            <p className="text-xs text-orange-600 font-medium mt-1">🔄 Reopened {g.reopenedCount} time(s)</p>
-                                                        )}
-                                                    </div>
-                                                    <div className="flex flex-col items-end gap-2">
-                                                        <span className={`px-2 py-1 rounded text-xs font-bold ${g.status === 'Resolved' ? 'bg-green-100 text-green-800' :
-                                                            g.status === 'Rejected' ? 'bg-red-100 text-red-800' :
-                                                                'bg-yellow-100 text-yellow-800'
-                                                            }`}>
-                                                            {g.status}
-                                                        </span>
-                                                        {/* Reopen Button */}
-                                                        {(g.status === 'Resolved' || g.status === 'Rejected') && g.canReopen && (
-                                                            <Button
-                                                                size="sm"
-                                                                variant="outline"
-                                                                className="h-7 text-xs px-2 border-orange-300 text-orange-700 hover:bg-orange-50"
-                                                                onClick={async () => {
-                                                                    try {
-                                                                        await reopenGrievance(g._id, user._id);
-                                                                        fetchGrievances();
-                                                                    } catch (error: any) {
-                                                                        alert(error.response?.data?.message || 'Error reopening grievance');
-                                                                    }
-                                                                }}
-                                                            >
-                                                                🔄 Reopen
-                                                            </Button>
-                                                        )}
+                                                            {g.resolutionNotes && (
+                                                                <div className="mt-4 p-5 rounded-2xl bg-black border border-red-900/20 shadow-inner relative overflow-hidden">
+                                                                    <div className="absolute top-0 left-0 w-1 h-full bg-red-600" />
+                                                                    <div className="text-[10px] font-black text-red-600 uppercase tracking-widest mb-2 opacity-50">Officer Response</div>
+                                                                    <p className="text-sm text-zinc-300 font-bold leading-relaxed italic">"{g.resolutionNotes}"</p>
+                                                                </div>
+                                                            )}
+                                                        </div>
+                                                        {/* Actions */}
+                                                        <div className="flex flex-col gap-2">
+                                                            {(g.status === 'Resolved' || g.status === 'Rejected') && g.canReopen && (
+                                                                <Button
+                                                                    size="sm"
+                                                                    variant="outline"
+                                                                    className="rounded-xl border-red-900/30 text-red-500 hover:bg-red-600 hover:text-white hover:border-red-600 gap-2 font-black text-[10px] uppercase tracking-widest transition-all"
+                                                                    onClick={async () => {
+                                                                        try {
+                                                                            await reopenGrievance(g._id, user._id);
+                                                                            fetchGrievances();
+                                                                        } catch (error: any) {
+                                                                            alert(error.response?.data?.message || 'Error reopening grievance');
+                                                                        }
+                                                                    }}
+                                                                >
+                                                                    🔄 REOPEN
+                                                                </Button>
+                                                            )}
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                {g.resolutionNotes && (
-                                                    <div className="mt-3 text-sm bg-gray-50 p-2 rounded border border-gray-100">
-                                                        <span className="font-semibold text-gray-900">Reply:</span> {g.resolutionNotes}
-                                                    </div>
-                                                )}
-                                            </div>
-                                        ))
-                                    )}
-                                </div>
-                            </CardContent>
-                        </Card>
+                                            ))
+                                        )}
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        </div>
                     </div>
                 )}
             </div>
