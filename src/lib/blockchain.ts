@@ -8,25 +8,69 @@ const PRIVATE_KEY = process.env.SERVER_WALLET_PRIVATE_KEY || "0xac0974bec39a17e3
 const RPC_URL = process.env.BLOCKCHAIN_RPC_URL || "http://127.0.0.1:8545";
 const CONTRACT_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 
+// Use global to persist across hot reloads in Next.js dev mode
+const globalForBlockchain = global as unknown as {
+    contract: ethers.Contract | null;
+    isOfflineMode: boolean;
+};
+
+let contract = globalForBlockchain.contract || null;
+let isOfflineMode = globalForBlockchain.isOfflineMode || false;
 let provider: ethers.JsonRpcProvider | null = null;
 let wallet: ethers.Wallet | null = null;
-let contract: ethers.Contract | null = null;
+
+// Simple helper to check if RPC is reachable
+const checkRpc = async () => {
+    try {
+        const response = await fetch(RPC_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ jsonrpc: '2.0', method: 'eth_blockNumber', params: [], id: 1 }),
+            signal: AbortSignal.timeout(1000) // 1 second timeout
+        });
+        return response.ok;
+    } catch {
+        return false;
+    }
+};
 
 const init = () => {
-    if (!contract) {
+    if (isOfflineMode) return null;
+    
+    if (!contract && !isOfflineMode) {
         try {
-            provider = new ethers.JsonRpcProvider(RPC_URL);
+            provider = new ethers.JsonRpcProvider(RPC_URL, undefined, { 
+                staticNetwork: true as any,
+            });
             wallet = new ethers.Wallet(PRIVATE_KEY, provider);
             contract = new ethers.Contract(CONTRACT_ADDRESS, FIRRegistryABI, wallet);
-            console.log("Blockchain connection initialized.");
+            
+            // Persist to global
+            globalForBlockchain.contract = contract;
         } catch (error) {
-            console.error("Failed to initialize blockchain connection:", error);
+            isOfflineMode = true;
+            globalForBlockchain.isOfflineMode = true;
+            return null;
         }
     }
     return contract;
 };
 
+// Modified wrappers to be more silent
 export const getAllFIRs = async () => {
+    if (isOfflineMode) return [];
+    
+    // Perform a quick check if this is the first real call
+    if (!contract) {
+        const isUp = await checkRpc();
+        if (!isUp) {
+            isOfflineMode = true;
+            globalForBlockchain.isOfflineMode = true;
+            console.log("ℹ️ Blockchain node offline. Operating in Mock Mode.");
+            return [];
+        }
+    }
+
     const c = init();
     if (!c) return [];
     try {

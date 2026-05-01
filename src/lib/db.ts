@@ -163,4 +163,16 @@ const fileSchema = new mongoose.Schema({
 
 export const File = mongoose.models.File || mongoose.model('File', fileSchema);
 
+// 8. News Schema (NEW)
+const newsSchema = new mongoose.Schema({
+    title: { type: String, required: true },
+    content: { type: String, required: true },
+    departmentId: { type: mongoose.Schema.Types.ObjectId, ref: 'Department' },
+    category: { type: String, default: 'General' },
+    source: { type: String, default: 'Official Portal' },
+    createdAt: { type: Date, default: Date.now }
+}, { collection: 'News' });
+
+export const News = mongoose.models.News || mongoose.model('News', newsSchema);
+
 export default connectDB;
