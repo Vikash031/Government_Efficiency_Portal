@@ -46,7 +46,7 @@ const departments = [
     },
     {
         name: "IT Department",
-        username: "it_dept",
+        username: "it_",
         password: "password123",
         head: "Arun Gupta",
         budget: 3000000,
