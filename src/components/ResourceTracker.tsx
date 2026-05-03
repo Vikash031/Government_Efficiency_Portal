@@ -95,7 +95,7 @@ export default function ResourceTracker({ departmentId }: { departmentId: string
         <div className="space-y-8 animate-in bg-black p-6">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-zinc-950/50 p-6 rounded-[2rem] border border-red-900/10">
                 <div>
-                    <h2 className="text-[10px] font-black text-zinc-500 uppercase tracking-[0.3em] mb-1">Resource Management</h2>
+                    <h2 className="text-[10px] font-black text-zinc-300 uppercase tracking-[0.3em] mb-1">Resource Management</h2>
                     <p className="text-2xl md:text-3xl font-black text-white tracking-tight uppercase leading-none">Department Resources</p>
                 </div>
                 <div className="flex items-center gap-3 bg-red-600 text-white px-6 py-3 rounded-2xl shadow-[0_10px_30px_rgba(239,68,68,0.2)] w-fit">
@@ -136,7 +136,7 @@ export default function ResourceTracker({ departmentId }: { departmentId: string
                                     </PieChart>
                                 </ResponsiveContainer>
                                 <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                                    <p className="text-[8px] md:text-[10px] font-black text-zinc-500 uppercase tracking-widest">Budget Used</p>
+                                    <p className="text-[8px] md:text-[10px] font-black text-zinc-300 uppercase tracking-widest">Budget Used</p>
                                     <p className="text-xl md:text-2xl font-black text-white">
                                         {((department.expenditure / department.budget) * 100).toFixed(0)}%
                                     </p>
@@ -144,11 +144,11 @@ export default function ResourceTracker({ departmentId }: { departmentId: string
                             </div>
                             <div className="space-y-6 flex-1 w-full">
                                 <div className="p-5 rounded-2xl bg-black/40 border border-red-900/10">
-                                    <p className="text-[10px] font-black text-zinc-500 uppercase tracking-widest mb-1">Total Budget</p>
+                                    <p className="text-[10px] font-black text-zinc-300 uppercase tracking-widest mb-1">Total Budget</p>
                                     <p className="text-2xl font-black text-white tracking-tight">₹{department.budget.toLocaleString()}</p>
                                 </div>
                                 <div className="p-5 rounded-2xl bg-zinc-950/40 border border-red-900/20 shadow-inner">
-                                    <p className="text-[10px] font-black text-zinc-500 uppercase tracking-widest mb-3">Current Spending</p>
+                                    <p className="text-[10px] font-black text-zinc-300 uppercase tracking-widest mb-3">Current Spending</p>
                                     <div className="relative">
                                         <Input
                                             type="number"
@@ -207,7 +207,7 @@ export default function ResourceTracker({ departmentId }: { departmentId: string
                         ) : (
                             <div className="flex flex-col items-center justify-center h-full opacity-30">
                                 <div className="h-0.5 w-8 bg-zinc-800 rounded-full mb-4" />
-                                <p className="text-[9px] font-black uppercase tracking-[0.2em] text-zinc-500">Inventory Offline</p>
+                                <p className="text-[9px] font-black uppercase tracking-[0.2em] text-zinc-300">Inventory Offline</p>
                             </div>
                         )}
                     </CardContent>
@@ -225,7 +225,7 @@ export default function ResourceTracker({ departmentId }: { departmentId: string
                 <CardContent className="pt-8 px-4 md:px-8">
                     <div className="mb-10 flex flex-col md:flex-row gap-6 items-end bg-black/40 p-6 md:p-8 rounded-3xl border border-red-900/10 shadow-inner">
                         <div className="space-y-3 flex-1 w-full">
-                            <label className="text-[10px] font-black text-zinc-500 uppercase tracking-widest ml-1">Resource Name</label>
+                            <label className="text-[10px] font-black text-zinc-300 uppercase tracking-widest ml-1">Resource Name</label>
                             <Input 
                                 placeholder="ENTER ASSET NAME..." 
                                 value={newItemName} 
@@ -234,7 +234,7 @@ export default function ResourceTracker({ departmentId }: { departmentId: string
                             />
                         </div>
                         <div className="space-y-3 w-full md:w-48">
-                            <label className="text-[10px] font-black text-zinc-500 uppercase tracking-widest ml-1">Quantity</label>
+                            <label className="text-[10px] font-black text-zinc-300 uppercase tracking-widest ml-1">Quantity</label>
                             <Input 
                                 type="number" 
                                 placeholder="00" 
@@ -257,7 +257,7 @@ export default function ResourceTracker({ departmentId }: { departmentId: string
                                         <h4 className="font-black text-white tracking-tight uppercase">{res.name}</h4>
                                     </div>
                                     <div className="text-right">
-                                        <span className="text-[9px] font-black text-zinc-600 uppercase tracking-widest">Utilization</span>
+                                        <span className="text-[9px] font-black text-zinc-300 uppercase tracking-widest">Utilization</span>
                                         <p className="text-sm font-black text-white">{res.used} <span className="text-red-900">/</span> {res.allocated}</p>
                                     </div>
                                 </div>
@@ -274,7 +274,7 @@ export default function ResourceTracker({ departmentId }: { departmentId: string
                                     </div>
                                     <div className="flex items-center gap-4 bg-zinc-950/40 p-4 rounded-xl border border-red-900/5">
                                         <div className="flex-1">
-                                            <p className="text-[8px] font-black text-zinc-600 uppercase tracking-[0.2em] mb-2">Update Status</p>
+                                            <p className="text-[8px] font-black text-zinc-300 uppercase tracking-[0.2em] mb-2">Update Status</p>
                                             <Input
                                                 type="number"
                                                 className="h-10 text-sm font-black bg-black/40 border-red-900/30 rounded-lg text-white text-center focus:ring-red-600"
@@ -288,7 +288,7 @@ export default function ResourceTracker({ departmentId }: { departmentId: string
                                                 onBlur={(e) => handleUpdateResourceUsage(index, Number(e.target.value))}
                                             />
                                         </div>
-                                        <div className="h-10 w-10 rounded-xl bg-zinc-900 flex items-center justify-center text-zinc-600 group-hover:bg-red-600 group-hover:text-white transition-all shadow-inner">
+                                        <div className="h-10 w-10 rounded-xl bg-zinc-900 flex items-center justify-center text-zinc-300 group-hover:bg-red-600 group-hover:text-white transition-all shadow-inner">
                                             <Database className="h-4 w-4" />
                                         </div>
                                     </div>

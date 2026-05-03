@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Shield, X, AlertCircle } from 'lucide-react';
+import { Shield, X, AlertCircle, RefreshCw } from 'lucide-react';
 import axios from 'axios';
 
 interface MessageCardProps {
@@ -71,7 +71,7 @@ export default function MessageCard({ isOpen, onClose, recipient, departmentId, 
     return (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-xl animate-in fade-in duration-300 p-4">
             <div className="w-full max-w-xl animate-in zoom-in-95 slide-in-from-bottom-8 duration-500">
-                <Card className="overflow-hidden border border-red-900/30 shadow-[0_0_50px_rgba(0,0,0,1)] bg-zinc-950/90 backdrop-blur-2xl rounded-[2.5rem]">
+                <Card className="overflow-hidden border border-red-900/30 shadow-[0_0_50px_rgba(0,0,0,1)] bg-zinc-950 rounded-[2.5rem]">
                     <div className="h-1.5 bg-gradient-to-r from-red-600 via-orange-500 to-red-600" />
                     <CardHeader className="pb-4">
                         <div className="flex items-center justify-between">
@@ -88,7 +88,7 @@ export default function MessageCard({ isOpen, onClose, recipient, departmentId, 
                                 variant="ghost" 
                                 size="icon" 
                                 onClick={onClose}
-                                className="rounded-full hover:bg-red-950/30 text-zinc-500 hover:text-red-500"
+                                className="rounded-full hover:bg-red-950/30 text-zinc-300 hover:text-red-500"
                                 disabled={loading}
                             >
                                 <X className="h-5 w-5" />
@@ -105,12 +105,12 @@ export default function MessageCard({ isOpen, onClose, recipient, departmentId, 
                             )}
 
                             {/* Recipient Info Card */}
-                            <div className="p-5 rounded-2xl bg-black/40 border border-red-900/10 flex items-center gap-4 group transition-all hover:bg-black/60 hover:border-red-600/30 shadow-inner">
+                            <div className="p-5 rounded-2xl bg-black border border-red-900/10 flex items-center gap-4 group transition-all hover:border-red-600/30 shadow-inner">
                                 <div className="h-14 w-14 rounded-2xl bg-red-600 shadow-[0_0_20px_rgba(239,68,68,0.3)] flex items-center justify-center font-black text-xl text-white transition-all">
                                     {recipient.name.charAt(0)}
                                 </div>
                                 <div className="flex-1">
-                                    <p className="text-[10px] font-black text-zinc-500 uppercase tracking-widest mb-1">Recipient</p>
+                                    <p className="text-[10px] font-black text-zinc-300 uppercase tracking-widest mb-1">Recipient</p>
                                     <p className="text-lg font-black text-white leading-none mb-1">{recipient.name}</p>
                                     <p className="text-xs font-black text-red-500 uppercase tracking-wider">{recipient.role}</p>
                                 </div>
@@ -122,7 +122,7 @@ export default function MessageCard({ isOpen, onClose, recipient, departmentId, 
                                     <label htmlFor="anonymous" className="text-xs font-black text-white uppercase tracking-widest cursor-pointer">
                                         Anonymous Message
                                     </label>
-                                    <p className="text-[10px] font-black text-zinc-500 mt-1 uppercase tracking-wider">
+                                    <p className="text-[10px] font-black text-zinc-300 mt-1 uppercase tracking-wider">
                                         Hide sender details from recipient
                                     </p>
                                 </div>
@@ -137,9 +137,9 @@ export default function MessageCard({ isOpen, onClose, recipient, departmentId, 
                                     />
                                     <label
                                         htmlFor="anonymous"
-                                        className="block w-14 h-8 bg-black/60 border border-red-900/30 peer-checked:bg-red-600 rounded-full cursor-pointer transition-all duration-300"
+                                        className={`block w-14 h-8 border border-red-900/30 rounded-full cursor-pointer transition-all duration-300 ${isAnonymous ? 'bg-red-600' : 'bg-black'}`}
                                     >
-                                        <span className="block w-6 h-6 bg-white rounded-full shadow-lg transform transition-transform duration-300 translate-x-1 translate-y-1 peer-checked:translate-x-7" />
+                                        <span className={`block w-6 h-6 bg-white rounded-full shadow-lg transform transition-transform duration-300 translate-y-1 ${isAnonymous ? 'translate-x-7' : 'translate-x-1'}`} />
                                     </label>
                                 </div>
                             </div>
@@ -156,7 +156,7 @@ export default function MessageCard({ isOpen, onClose, recipient, departmentId, 
                                     onChange={(e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)}
                                     required
                                     disabled={loading}
-                                    className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-700 h-14 rounded-xl focus:ring-red-600 font-bold"
+                                    className="bg-black border-red-900/30 text-white placeholder:text-zinc-200 h-14 rounded-xl focus:ring-red-600 font-bold"
                                 />
                             </div>
 
@@ -173,9 +173,9 @@ export default function MessageCard({ isOpen, onClose, recipient, departmentId, 
                                     onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setMessage(e.target.value)}
                                     required
                                     disabled={loading}
-                                    className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-700 rounded-xl focus:ring-red-600 font-bold resize-none p-4"
+                                    className="bg-black border-red-900/30 text-white placeholder:text-zinc-200 rounded-xl focus:ring-red-600 font-bold resize-none p-4"
                                 />
-                                <p className="text-[10px] font-black text-zinc-600 uppercase tracking-widest text-right">
+                                <p className="text-[10px] font-black text-zinc-300 uppercase tracking-widest text-right">
                                     {message.length} CHARS
                                 </p>
                             </div>
@@ -187,7 +187,7 @@ export default function MessageCard({ isOpen, onClose, recipient, departmentId, 
                                      variant="outline"
                                      onClick={onClose}
                                      disabled={loading}
-                                     className="flex-1 border-red-900/30 text-zinc-400 hover:bg-zinc-900 h-14 rounded-xl font-black text-[10px] uppercase tracking-widest"
+                                     className="flex-1 border-red-900/30 text-zinc-200 hover:bg-zinc-900 h-14 rounded-xl font-black text-[10px] uppercase tracking-widest"
                                 >
                                      Cancel
                                 </Button>
