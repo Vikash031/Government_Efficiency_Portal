@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Dialog as UIDialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
-import { getDepartments, getDepartmentGrievances, getCensusStats, updateGrievanceStatus, updateDepartmentMetrics, createScheme, getNews, createNews } from '@/lib/api';
+import { getDepartments, getDepartmentGrievances, getCensusStats, updateGrievanceStatus, updateDepartmentMetrics, createScheme, getSchemes, getNews, createNews } from '@/lib/api';
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer, BarChart, Bar, XAxis, YAxis } from 'recharts';
 import { FileText, LayoutDashboard, Database, Briefcase, ShieldCheck, LogOut, Clock, CheckCircle, AlertCircle, Users } from 'lucide-react';
 import { cn } from '@/lib/utils';
