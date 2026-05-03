@@ -191,7 +191,7 @@ export default function ResourceTracker({ departmentId }: { departmentId: string
                                         dataKey="name" 
                                         axisLine={false} 
                                         tickLine={false} 
-                                        tick={{ fontSize: 9, fontWeight: 900, fill: '#52525b', textTransform: 'uppercase' }} 
+                                        tick={{ fontSize: 9, fontWeight: 900, fill: '#52525b' }} 
                                     />
                                     <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 9, fontWeight: 900, fill: '#52525b' }} />
                                     <Tooltip 
