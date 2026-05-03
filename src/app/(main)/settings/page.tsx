@@ -48,6 +48,11 @@ export default function Settings() {
     const [gender, setGender] = useState('');
     const [annualIncome, setAnnualIncome] = useState('');
     const [employmentStatus, setEmploymentStatus] = useState('');
+    const [educationLevel, setEducationLevel] = useState('');
+    const [maritalStatus, setMaritalStatus] = useState('');
+    const [housingType, setHousingType] = useState('');
+    const [dependents, setDependents] = useState('');
+    const [disabilityStatus, setDisabilityStatus] = useState('');
 
     // Initialize state from user object once mounted
     useState(() => {
@@ -61,6 +66,11 @@ export default function Settings() {
             setGender(user.gender || '');
             setAnnualIncome(user.annualIncome || '');
             setEmploymentStatus(user.employmentStatus || '');
+            setEducationLevel(user.educationLevel || '');
+            setMaritalStatus(user.maritalStatus || '');
+            setHousingType(user.housingType || '');
+            setDependents(user.dependents || '');
+            setDisabilityStatus(user.disabilityStatus || '');
         }
     });
 
@@ -101,7 +111,12 @@ export default function Settings() {
                 age,
                 gender,
                 annualIncome,
-                employmentStatus
+                employmentStatus,
+                educationLevel,
+                maritalStatus,
+                housingType,
+                dependents,
+                disabilityStatus
             });
             const newUser = { ...user, ...res.data };
             localStorage.setItem('user', JSON.stringify(newUser));
@@ -150,7 +165,7 @@ export default function Settings() {
                                                     value={occupation} 
                                                     onChange={(e) => setOccupation(e.target.value)} 
                                                     placeholder="e.g. Student, Officer, etc." 
-                                                    className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-700 h-14 rounded-2xl focus:ring-red-600 transition-all px-6 font-bold"
+                                                    className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-200 h-14 rounded-2xl focus:ring-red-600 transition-all px-6 font-bold"
                                                 />
                                             </div>
                                             <div className="space-y-2">
@@ -159,7 +174,7 @@ export default function Settings() {
                                                     value={phone} 
                                                     onChange={(e) => setPhone(e.target.value)} 
                                                     placeholder="+91 XXXXX XXXXX" 
-                                                    className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-700 h-14 rounded-2xl focus:ring-red-600 transition-all px-6 font-bold"
+                                                    className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-200 h-14 rounded-2xl focus:ring-red-600 transition-all px-6 font-bold"
                                                 />
                                             </div>
                                         </div>
@@ -170,7 +185,7 @@ export default function Settings() {
                                                 value={address} 
                                                 onChange={(e) => setAddress(e.target.value)} 
                                                 placeholder="Street address as per official ID" 
-                                                className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-700 h-14 rounded-2xl focus:ring-red-600 transition-all px-6 font-bold"
+                                                className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-200 h-14 rounded-2xl focus:ring-red-600 transition-all px-6 font-bold"
                                             />
                                         </div>
 
@@ -181,7 +196,7 @@ export default function Settings() {
                                                     value={city} 
                                                     onChange={(e) => setCity(e.target.value)} 
                                                     placeholder="e.g. New Delhi" 
-                                                    className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-700 h-14 rounded-2xl focus:ring-red-600 transition-all px-6 font-bold"
+                                                    className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-200 h-14 rounded-2xl focus:ring-red-600 transition-all px-6 font-bold"
                                                 />
                                             </div>
                                             <div className="space-y-2">
@@ -190,7 +205,7 @@ export default function Settings() {
                                                     value={state} 
                                                     onChange={(e) => setState(e.target.value)} 
                                                     placeholder="e.g. Delhi" 
-                                                    className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-700 h-14 rounded-2xl focus:ring-red-600 transition-all px-6 font-bold"
+                                                    className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-200 h-14 rounded-2xl focus:ring-red-600 transition-all px-6 font-bold"
                                                 />
                                             </div>
                                         </div>
@@ -203,8 +218,11 @@ export default function Settings() {
                                                     <Input 
                                                         type="number" 
                                                         value={age} 
-                                                        onChange={(e) => setAge(e.target.value)} 
-                                                        className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-700 h-14 rounded-2xl focus:ring-red-600 transition-all px-6 font-bold"
+                                                        onChange={(e) => {
+                                                            const val = e.target.value;
+                                                            if (val.length <= 3) setAge(val);
+                                                        }} 
+                                                        className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-200 h-14 rounded-2xl focus:ring-red-600 transition-all px-6 font-bold"
                                                     />
                                                 </div>
                                                 <div className="space-y-2">
@@ -213,7 +231,7 @@ export default function Settings() {
                                                         type="number" 
                                                         value={annualIncome} 
                                                         onChange={(e) => setAnnualIncome(e.target.value)} 
-                                                        className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-700 h-14 rounded-2xl focus:ring-red-600 transition-all px-6 font-bold"
+                                                        className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-200 h-14 rounded-2xl focus:ring-red-600 transition-all px-6 font-bold"
                                                     />
                                                 </div>
                                                 <div className="space-y-2">
@@ -241,6 +259,72 @@ export default function Settings() {
                                                         <option value="Unemployed" className="bg-zinc-950">Unemployed</option>
                                                         <option value="Student" className="bg-zinc-950">Student</option>
                                                         <option value="Retired" className="bg-zinc-950">Retired</option>
+                                                    </select>
+                                                </div>
+                                                <div className="space-y-2">
+                                                    <label className="text-[10px] font-black text-zinc-300 uppercase tracking-widest ml-1">Education Level</label>
+                                                    <select 
+                                                        className="flex h-14 w-full rounded-2xl border border-red-900/30 bg-black/40 px-6 font-bold text-white focus:bg-black transition-all appearance-none outline-none focus:ring-2 focus:ring-red-600" 
+                                                        value={educationLevel} 
+                                                        onChange={(e) => setEducationLevel(e.target.value)}
+                                                    >
+                                                        <option value="" className="bg-zinc-950">Select Education</option>
+                                                        <option value="None" className="bg-zinc-950">None</option>
+                                                        <option value="High School" className="bg-zinc-950">High School</option>
+                                                        <option value="Bachelor's" className="bg-zinc-950">Bachelor's</option>
+                                                        <option value="Master's" className="bg-zinc-950">Master's</option>
+                                                        <option value="Doctorate" className="bg-zinc-950">Doctorate</option>
+                                                    </select>
+                                                </div>
+                                                <div className="space-y-2">
+                                                    <label className="text-[10px] font-black text-zinc-300 uppercase tracking-widest ml-1">Marital Status</label>
+                                                    <select 
+                                                        className="flex h-14 w-full rounded-2xl border border-red-900/30 bg-black/40 px-6 font-bold text-white focus:bg-black transition-all appearance-none outline-none focus:ring-2 focus:ring-red-600" 
+                                                        value={maritalStatus} 
+                                                        onChange={(e) => setMaritalStatus(e.target.value)}
+                                                    >
+                                                        <option value="" className="bg-zinc-950">Select Status</option>
+                                                        <option value="Single" className="bg-zinc-950">Single</option>
+                                                        <option value="Married" className="bg-zinc-950">Married</option>
+                                                        <option value="Divorced" className="bg-zinc-950">Divorced</option>
+                                                        <option value="Widowed" className="bg-zinc-950">Widowed</option>
+                                                    </select>
+                                                </div>
+                                                <div className="space-y-2">
+                                                    <label className="text-[10px] font-black text-zinc-300 uppercase tracking-widest ml-1">Housing Type</label>
+                                                    <select 
+                                                        className="flex h-14 w-full rounded-2xl border border-red-900/30 bg-black/40 px-6 font-bold text-white focus:bg-black transition-all appearance-none outline-none focus:ring-2 focus:ring-red-600" 
+                                                        value={housingType} 
+                                                        onChange={(e) => setHousingType(e.target.value)}
+                                                    >
+                                                        <option value="" className="bg-zinc-950">Select Type</option>
+                                                        <option value="Owned" className="bg-zinc-950">Owned</option>
+                                                        <option value="Rented" className="bg-zinc-950">Rented</option>
+                                                        <option value="Government Provided" className="bg-zinc-950">Government Provided</option>
+                                                    </select>
+                                                </div>
+                                                <div className="space-y-2">
+                                                    <label className="text-[10px] font-black text-zinc-300 uppercase tracking-widest ml-1">Number of Dependents</label>
+                                                    <Input 
+                                                        type="number" 
+                                                        value={dependents} 
+                                                        onChange={(e) => setDependents(e.target.value)} 
+                                                        className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-200 h-14 rounded-2xl focus:ring-red-600 transition-all px-6 font-bold"
+                                                    />
+                                                </div>
+                                                <div className="space-y-2">
+                                                    <label className="text-[10px] font-black text-zinc-300 uppercase tracking-widest ml-1">Disability Status</label>
+                                                    <select 
+                                                        className="flex h-14 w-full rounded-2xl border border-red-900/30 bg-black/40 px-6 font-bold text-white focus:bg-black transition-all appearance-none outline-none focus:ring-2 focus:ring-red-600" 
+                                                        value={disabilityStatus} 
+                                                        onChange={(e) => setDisabilityStatus(e.target.value)}
+                                                    >
+                                                        <option value="" className="bg-zinc-950">Select Status</option>
+                                                        <option value="None" className="bg-zinc-950">None</option>
+                                                        <option value="Physical" className="bg-zinc-950">Physical</option>
+                                                        <option value="Visual" className="bg-zinc-950">Visual</option>
+                                                        <option value="Hearing" className="bg-zinc-950">Hearing</option>
+                                                        <option value="Other" className="bg-zinc-950">Other</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -276,7 +360,7 @@ export default function Settings() {
                                                 value={currentPassword}
                                                 onChange={(e: ChangeEvent<HTMLInputElement>) => setCurrentPassword(e.target.value)}
                                                 required
-                                                className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-700 h-14 rounded-2xl focus:ring-red-600 transition-all px-6 pr-14 font-bold"
+                                                className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-200 h-14 rounded-2xl focus:ring-red-600 transition-all px-6 pr-14 font-bold"
                                             />
                                             <button 
                                                 type="button" 
@@ -295,7 +379,7 @@ export default function Settings() {
                                                 value={newPassword}
                                                 onChange={(e: ChangeEvent<HTMLInputElement>) => setNewPassword(e.target.value)}
                                                 required
-                                                className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-700 h-14 rounded-2xl focus:ring-red-600 transition-all px-6 pr-14 font-bold"
+                                                className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-200 h-14 rounded-2xl focus:ring-red-600 transition-all px-6 pr-14 font-bold"
                                             />
                                             <button 
                                                 type="button" 
@@ -314,7 +398,7 @@ export default function Settings() {
                                                 value={confirmPassword}
                                                 onChange={(e: ChangeEvent<HTMLInputElement>) => setConfirmPassword(e.target.value)}
                                                 required
-                                                className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-700 h-14 rounded-2xl focus:ring-red-600 transition-all px-6 pr-14 font-bold"
+                                                className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-200 h-14 rounded-2xl focus:ring-red-600 transition-all px-6 pr-14 font-bold"
                                             />
                                             <button 
                                                 type="button" 

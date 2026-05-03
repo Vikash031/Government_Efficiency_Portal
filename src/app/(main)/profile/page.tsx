@@ -111,13 +111,6 @@ export default function Profile() {
                     </CardContent>
                 </Card>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="p-8 rounded-[2.5rem] bg-zinc-950/80 border border-red-900/10 text-white shadow-2xl relative overflow-hidden group backdrop-blur-sm">
-                        <div className="absolute -top-4 -right-4 h-24 w-24 bg-red-600/10 rounded-full blur-2xl group-hover:bg-red-600/20 transition-all duration-700" />
-                        <h1 className="text-5xl font-black tracking-tight leading-[1.1] max-w-2xl text-white">Digital Services Initiative 2026</h1>
-                        <p className="text-zinc-300 font-bold max-w-xl leading-relaxed">The government has launched a major update to the digital services infrastructure to provide better access across the nation.</p>
-                    </div>
-                </div>
             </div>
         </div>
     );
