@@ -44,22 +44,22 @@ export default function Login() {
             <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-red-600/10 rounded-full blur-[120px] pointer-events-none"></div>
             <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-red-900/10 rounded-full blur-[120px] pointer-events-none"></div>
 
-            <Card className="w-full sm:max-w-[420px] mx-0 sm:mx-4 bg-zinc-950/40 border-0 sm:border border-white/5 backdrop-blur-3xl shadow-[0_0_100px_rgba(0,0,0,0.8)] relative z-10 rounded-none sm:rounded-[3rem] overflow-hidden transition-all duration-500">
+            <Card className="w-full max-w-[380px] mx-6 bg-zinc-950/40 border border-white/5 backdrop-blur-3xl shadow-[0_0_80px_rgba(0,0,0,0.8)] relative z-10 rounded-[2rem] overflow-hidden transition-all duration-500">
                 <div className="h-1.5 bg-gradient-to-r from-red-600 via-red-500 to-red-900" />
                 
                 <CardHeader className="space-y-4 pb-8 pt-10">
                     <div className="flex justify-center mb-2">
-                        <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-red-600 to-red-900 rounded-2xl sm:rounded-3xl flex items-center justify-center shadow-[0_0_40px_rgba(239,68,68,0.3)] group hover:scale-110 transition-transform duration-500">
-                            <svg className="w-10 h-10 sm:w-12 sm:h-12 text-white/90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div className="w-14 h-14 bg-gradient-to-br from-red-600 to-red-900 rounded-2xl flex items-center justify-center shadow-[0_0_20px_rgba(239,68,68,0.2)] group hover:scale-105 transition-transform duration-500">
+                            <svg className="w-8 h-8 text-white/90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4" />
                             </svg>
                         </div>
                     </div>
                     <div className="space-y-1">
-                        <CardTitle className="text-3xl text-center font-black text-white uppercase tracking-tighter">
+                        <CardTitle className="text-xl text-center font-black text-white uppercase tracking-tighter">
                             SIGN IN
                         </CardTitle>
-                        <p className="text-[10px] text-center text-red-500 font-black uppercase tracking-[0.4em] ml-1">Welcome Back</p>
+                        <p className="text-[8px] text-center text-red-500 font-black uppercase tracking-[0.4em] ml-1">Secure Authorization</p>
                     </div>
                 </CardHeader>
 
@@ -124,32 +124,32 @@ export default function Login() {
                         <Button
                             type="submit"
                             disabled={loading}
-                            className="w-full h-14 sm:h-16 bg-red-600 hover:bg-red-700 text-white font-black text-[10px] sm:text-xs uppercase tracking-[0.3em] rounded-xl sm:rounded-2xl shadow-[0_10px_40px_rgba(239,68,68,0.2)] disabled:opacity-50 transition-all active:scale-95 hover:shadow-[0_0_30px_rgba(239,68,68,0.4)]"
+                            className="w-full h-12 bg-red-600 hover:bg-red-700 text-white font-black text-[10px] uppercase tracking-[0.3em] rounded-xl shadow-[0_5px_20px_rgba(239,68,68,0.2)] disabled:opacity-50 transition-all active:scale-95"
                         >
                             {loading ? (
                                 <span className="flex items-center gap-2">
-                                    <svg className="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
+                                    <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
                                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                     </svg>
-                                    AUTHENTICATING...
+                                    PROCESSING...
                                 </span>
                             ) : (
-                                'ACCESS PORTAL'
+                                'LOGIN'
                             )}
                         </Button>
                     </form>
                 </CardContent>
 
-                <CardFooter className="flex flex-col items-center gap-6 bg-white/[0.02] py-10 border-t border-white/5">
-                    <p className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.2em]">
-                        NEW CITIZEN? <Link href="/signup" className="text-red-500 hover:text-red-400 transition-colors ml-1 underline underline-offset-4">REGISTER NOW</Link>
+                <CardFooter className="flex flex-col items-center gap-4 bg-white/[0.01] py-8 border-t border-white/5">
+                    <p className="text-[9px] font-black text-zinc-400 uppercase tracking-[0.2em]">
+                        NEW CITIZEN? <Link href="/signup" className="text-red-500 hover:text-red-400 transition-colors ml-1">REGISTER</Link>
                     </p>
-                    <div className="grid grid-cols-2 gap-3 w-full px-6 sm:px-10">
-                        <Link href="/employee/login" className="text-[9px] text-center text-zinc-400 hover:text-white font-black uppercase tracking-widest transition-all py-3 bg-white/5 border border-white/5 rounded-xl hover:bg-red-600 hover:border-red-600">
+                    <div className="grid grid-cols-2 gap-2 w-full px-8">
+                        <Link href="/employee/login" className="text-[8px] text-center text-zinc-400 hover:text-white font-black uppercase tracking-widest transition-all py-2.5 bg-white/5 border border-white/5 rounded-lg">
                             STAFF
                         </Link>
-                        <Link href="/admin/login" className="text-[9px] text-center text-zinc-400 hover:text-white font-black uppercase tracking-widest transition-all py-3 bg-white/5 border border-white/5 rounded-xl hover:bg-red-600 hover:border-red-600">
+                        <Link href="/admin/login" className="text-[8px] text-center text-zinc-400 hover:text-white font-black uppercase tracking-widest transition-all py-2.5 bg-white/5 border border-white/5 rounded-lg">
                             ADMIN
                         </Link>
                     </div>
