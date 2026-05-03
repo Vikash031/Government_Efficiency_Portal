@@ -75,7 +75,7 @@ export default function AdminLogin() {
                     )}
                     <form onSubmit={handleLogin} className="space-y-6">
                         <div className="space-y-2">
-                            <label htmlFor="username" className="text-[10px] font-black text-zinc-500 uppercase tracking-widest ml-1">Username</label>
+                            <label htmlFor="username" className="text-[10px] font-black text-zinc-300 uppercase tracking-widest ml-1">Username</label>
                             <Input
                                 id="username"
                                 type="text"
@@ -88,7 +88,7 @@ export default function AdminLogin() {
                             />
                         </div>
                         <div className="space-y-2">
-                            <label htmlFor="password" className="text-[10px] font-black text-zinc-500 uppercase tracking-widest ml-1">Password</label>
+                            <label htmlFor="password" className="text-[10px] font-black text-zinc-300 uppercase tracking-widest ml-1">Password</label>
                             <div className="relative">
                                 <Input
                                     id="password"
@@ -102,7 +102,7 @@ export default function AdminLogin() {
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-600 hover:text-red-500 transition-colors"
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-300 hover:text-red-500 transition-colors"
                                 >
                                     {showPassword ? (
                                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -136,7 +136,7 @@ export default function AdminLogin() {
                         </Button>
 
                         <div className="mt-6 text-center">
-                            <Link href="/login" className="text-[10px] font-black text-zinc-400 hover:text-red-500 uppercase tracking-widest transition-colors inline-flex items-center gap-2">
+                            <Link href="/login" className="text-[10px] font-black text-zinc-200 hover:text-red-500 uppercase tracking-widest transition-colors inline-flex items-center gap-2">
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                                 </svg>

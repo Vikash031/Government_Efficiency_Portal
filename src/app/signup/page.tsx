@@ -43,7 +43,7 @@ export default function Signup() {
             router.push('/dashboard/user');
         } catch (error: any) {
             console.error(error);
-            const errorMessage = error.response?.data?.message || 'Error creating account. Please try again.';
+            const errorMessage = error.response?.data?.message || 'Could not create account. Please try again.';
             setError(errorMessage);
         } finally {
             setLoading(false);
@@ -74,7 +74,7 @@ export default function Signup() {
                         <CardTitle className="text-3xl text-center font-black text-white uppercase tracking-tighter">
                             CREATE ACCOUNT
                         </CardTitle>
-                        <p className="text-[10px] text-center text-red-500 font-black uppercase tracking-[0.4em] ml-1">Official Registry</p>
+                        <p className="text-[10px] text-center text-red-500 font-black uppercase tracking-[0.4em] ml-1">New User</p>
                     </div>
                 </CardHeader>
 
@@ -100,7 +100,7 @@ export default function Signup() {
                                 disabled={loading}
                                 autoCapitalize="words"
                                 autoCorrect="off"
-                                className="h-14 bg-black/40 border-red-900/30 text-white placeholder:text-zinc-600 rounded-xl focus:ring-red-600 focus:border-red-600 transition-all font-bold"
+                                className="h-14 bg-black/40 border-red-900/30 text-white placeholder:text-zinc-300 rounded-xl focus:ring-red-600 focus:border-red-600 transition-all font-bold"
                             />
                         </div>
                         
@@ -115,7 +115,7 @@ export default function Signup() {
                                 required
                                 disabled={loading}
                                 autoCapitalize="none"
-                                className="h-14 bg-black/40 border-red-900/30 text-white placeholder:text-zinc-600 rounded-xl focus:ring-red-600 focus:border-red-600 transition-all font-bold"
+                                className="h-14 bg-black/40 border-red-900/30 text-white placeholder:text-zinc-300 rounded-xl focus:ring-red-600 focus:border-red-600 transition-all font-bold"
                             />
                         </div>
 
@@ -131,13 +131,13 @@ export default function Signup() {
                                     required
                                     disabled={loading}
                                     autoCapitalize="none"
-                                    className="h-14 bg-black/40 border-red-900/30 text-white placeholder:text-zinc-600 rounded-xl focus:ring-red-600 focus:border-red-600 pr-14 transition-all font-bold"
+                                    className="h-14 bg-black/40 border-red-900/30 text-white placeholder:text-zinc-300 rounded-xl focus:ring-red-600 focus:border-red-600 pr-14 transition-all font-bold"
                                 />
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
                                     disabled={loading}
-                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-red-500 transition-colors"
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-200 hover:text-red-500 transition-colors"
                                 >
                                     {showPassword ? (
                                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -151,7 +151,7 @@ export default function Signup() {
                                     )}
                                 </button>
                             </div>
-                            <p className="text-[9px] text-zinc-500 font-black uppercase tracking-widest ml-1">Complexity: Minimum 6 characters</p>
+                            <p className="text-[9px] text-zinc-300 font-black uppercase tracking-widest ml-1">Must be at least 6 characters</p>
                         </div>
 
                         <Button

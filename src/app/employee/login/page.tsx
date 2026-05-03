@@ -84,7 +84,7 @@ export default function EmployeeLogin() {
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
                                 required
                                 autoCapitalize="none"
-                                className="h-14 bg-black/40 border-red-900/30 text-white placeholder:text-zinc-600 rounded-xl focus:ring-red-600 focus:border-red-600 transition-all font-bold"
+                                className="h-14 bg-black/40 border-red-900/30 text-white placeholder:text-zinc-300 rounded-xl focus:ring-red-600 focus:border-red-600 transition-all font-bold"
                             />
                         </div>
                         <div className="space-y-2">
@@ -97,12 +97,12 @@ export default function EmployeeLogin() {
                                     value={password}
                                     onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
                                     required
-                                    className="h-14 bg-black/40 border-red-900/30 text-white placeholder:text-zinc-600 rounded-xl focus:ring-red-600 focus:border-red-600 pr-14 transition-all font-bold"
+                                    className="h-14 bg-black/40 border-red-900/30 text-white placeholder:text-zinc-300 rounded-xl focus:ring-red-600 focus:border-red-600 pr-14 transition-all font-bold"
                                 />
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-600 hover:text-red-500 transition-colors"
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-300 hover:text-red-500 transition-colors"
                                 >
                                     {showPassword ? (
                                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -136,7 +136,7 @@ export default function EmployeeLogin() {
                         </Button>
 
                         <div className="mt-6 text-center">
-                            <Link href="/login" className="text-[10px] font-black text-zinc-400 hover:text-red-500 uppercase tracking-widest transition-colors inline-flex items-center gap-2">
+                            <Link href="/login" className="text-[10px] font-black text-zinc-200 hover:text-red-500 uppercase tracking-widest transition-colors inline-flex items-center gap-2">
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                                 </svg>
