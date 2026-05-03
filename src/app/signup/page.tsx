@@ -59,7 +59,7 @@ export default function Signup() {
             <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-red-600/10 rounded-full blur-[120px] pointer-events-none"></div>
             <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-red-900/10 rounded-full blur-[120px] pointer-events-none"></div>
 
-            <Card className="w-full max-w-[450px] mx-4 bg-zinc-950/50 border border-red-900/20 backdrop-blur-2xl shadow-[0_0_50px_rgba(0,0,0,0.5)] relative z-10 rounded-[2.5rem] overflow-hidden">
+            <Card className="w-full max-w-[480px] mx-4 bg-zinc-950/50 border border-red-900/20 backdrop-blur-2xl shadow-[0_0_50px_rgba(0,0,0,0.5)] relative z-10 rounded-[2.5rem] overflow-hidden">
                 <div className="h-1.5 bg-gradient-to-r from-red-600 via-red-500 to-red-900" />
                 
                 <CardHeader className="space-y-4 pb-8 pt-10">

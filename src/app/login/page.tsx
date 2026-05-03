@@ -44,7 +44,7 @@ export default function Login() {
             <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-red-600/10 rounded-full blur-[120px] pointer-events-none"></div>
             <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-red-900/10 rounded-full blur-[120px] pointer-events-none"></div>
 
-            <Card className="w-full max-w-[450px] mx-4 bg-zinc-950/50 border border-red-900/20 backdrop-blur-2xl shadow-[0_0_50px_rgba(0,0,0,0.5)] relative z-10 rounded-[2.5rem] overflow-hidden">
+            <Card className="w-full max-w-[480px] mx-4 bg-zinc-950/50 border border-red-900/20 backdrop-blur-2xl shadow-[0_0_50px_rgba(0,0,0,0.5)] relative z-10 rounded-[2.5rem] overflow-hidden">
                 <div className="h-1.5 bg-gradient-to-r from-red-600 via-red-500 to-red-900" />
                 
                 <CardHeader className="space-y-4 pb-8 pt-10">
@@ -147,10 +147,10 @@ export default function Login() {
                     </p>
                     <div className="flex flex-col gap-2 w-full px-6 md:px-10">
                         <Link href="/employee/login" className="text-[9px] text-center text-zinc-200 hover:text-red-500 font-black uppercase tracking-widest transition-all py-2 border border-red-900/10 rounded-lg hover:border-red-900/30">
-                            STAFF LOGIN â†’
+                            STAFF LOGIN →
                         </Link>
                         <Link href="/admin/login" className="text-[9px] text-center text-zinc-200 hover:text-red-500 font-black uppercase tracking-widest transition-all py-2 border border-red-900/10 rounded-lg hover:border-red-900/30">
-                            ADMIN LOGIN â†’
+                            ADMIN LOGIN →
                         </Link>
                     </div>
                 </CardFooter>
