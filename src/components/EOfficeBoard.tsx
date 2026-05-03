@@ -106,7 +106,7 @@ export default function EOfficeBoard({ departmentId }: { departmentId: string })
         <div className="space-y-8 animate-in bg-black p-6">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end bg-zinc-950/50 p-6 md:p-8 rounded-[2rem] border border-red-900/20 shadow-2xl backdrop-blur-xl gap-4">
                 <div>
-                    <h2 className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.3em] mb-1">Department Records</h2>
+                    <h2 className="text-[10px] font-black text-zinc-200 uppercase tracking-[0.3em] mb-1">Department Records</h2>
                     <p className="text-2xl md:text-3xl font-black text-white tracking-tight uppercase leading-none">Digital Documents</p>
                     <p className="text-[10px] font-bold text-red-600 mt-2 uppercase tracking-widest">Document Tracking & Updates</p>
                 </div>
@@ -120,7 +120,7 @@ export default function EOfficeBoard({ departmentId }: { departmentId: string })
                 {stages.map((stage, idx) => (
                     <div key={stage} className="min-w-[280px] md:min-w-0 bg-zinc-950/30 backdrop-blur-md rounded-[2rem] p-6 border border-red-900/10 flex flex-col h-[600px] md:h-[680px] shadow-sm animate-in snap-center" style={{ animationDelay: `${idx * 0.1}s` }}>
                         <div className="flex justify-between items-center mb-6 px-1">
-                            <h3 className="font-black text-[10px] uppercase tracking-[0.2em] text-zinc-400">{stage}</h3>
+                            <h3 className="font-black text-[10px] uppercase tracking-[0.2em] text-zinc-200">{stage}</h3>
                             <span className="h-6 w-6 rounded-lg bg-red-950/30 border border-red-900/30 flex items-center justify-center text-[10px] font-black text-red-500 shadow-sm">{files.filter(f => f.status === stage).length}</span>
                         </div>
 
@@ -128,7 +128,7 @@ export default function EOfficeBoard({ departmentId }: { departmentId: string })
                             {files.filter(f => f.status === stage).length === 0 && (
                                 <div className="flex flex-col items-center justify-center h-32 text-center opacity-40">
                                     <div className="h-0.5 w-6 bg-red-900 rounded-full mb-3" />
-                                    <p className="text-[9px] font-black text-zinc-600 uppercase tracking-widest">No Documents</p>
+                                    <p className="text-[9px] font-black text-zinc-300 uppercase tracking-widest">No Documents</p>
                                 </div>
                             )}
                             {files.filter(f => f.status === stage).map(file => (
@@ -152,13 +152,13 @@ export default function EOfficeBoard({ departmentId }: { departmentId: string })
                                         </span>
                                     </div>
                                     <h4 className="font-black text-sm text-white mb-2 line-clamp-2 leading-tight group-hover:text-red-500 transition-colors uppercase tracking-tight">{file.title}</h4>
-                                    <p className="text-[11px] text-zinc-400 line-clamp-2 mb-4 leading-relaxed font-medium italic">"{file.description}"</p>
+                                    <p className="text-[11px] text-zinc-200 line-clamp-2 mb-4 leading-relaxed font-medium italic">"{file.description}"</p>
                                     <div className="flex items-center justify-between border-t border-red-900/5 pt-3">
-                                        <div className="flex items-center gap-1.5 text-[9px] font-black text-zinc-400 uppercase tracking-widest">
+                                        <div className="flex items-center gap-1.5 text-[9px] font-black text-zinc-200 uppercase tracking-widest">
                                             <Clock className="h-3 w-3" />
                                             {new Date(file.updatedAt).toLocaleDateString(undefined, { day: 'numeric', month: 'short' })}
                                         </div>
-                                        <div className="h-6 w-6 rounded-full bg-zinc-900 flex items-center justify-center text-zinc-600 group-hover:text-red-500 group-hover:bg-red-900/20 transition-all">
+                                        <div className="h-6 w-6 rounded-full bg-zinc-900 flex items-center justify-center text-zinc-300 group-hover:text-red-500 group-hover:bg-red-900/20 transition-all">
                                             <ArrowRight className="h-3 w-3" />
                                         </div>
                                     </div>
@@ -174,15 +174,15 @@ export default function EOfficeBoard({ departmentId }: { departmentId: string })
                 <DialogContent className="bg-zinc-950 border-red-900/30 text-white rounded-[2rem] overflow-hidden">
                     <DialogHeader>
                         <DialogTitle className="text-xl font-black uppercase tracking-tight">Create New Document</DialogTitle>
-                        <DialogDescription className="text-zinc-500 font-bold text-xs uppercase tracking-widest">Register a digital document to track approvals.</DialogDescription>
+                        <DialogDescription className="text-zinc-300 font-bold text-xs uppercase tracking-widest">Register a digital document to track approvals.</DialogDescription>
                     </DialogHeader>
                     <div className="space-y-4 py-4">
                         <div className="space-y-2">
-                            <label className="text-[10px] font-black text-zinc-500 uppercase tracking-widest ml-1">Document Title</label>
+                            <label className="text-[10px] font-black text-zinc-300 uppercase tracking-widest ml-1">Document Title</label>
                             <Input value={newFileTitle} onChange={(e) => setNewFileTitle(e.target.value)} placeholder="ENTER DOCUMENT TITLE..." className="h-12 bg-black/40 border-red-900/30 text-white placeholder:text-zinc-800 rounded-xl focus:ring-red-600 font-bold uppercase" />
                         </div>
                         <div className="space-y-2">
-                            <label className="text-[10px] font-black text-zinc-500 uppercase tracking-widest ml-1">Priority Level</label>
+                            <label className="text-[10px] font-black text-zinc-300 uppercase tracking-widest ml-1">Priority Level</label>
                             <Select value={newFilePriority} onValueChange={setNewFilePriority}>
                                 <SelectTrigger className="h-12 bg-black/40 border-red-900/30 text-white rounded-xl focus:ring-red-600 font-bold">
                                     <SelectValue />
@@ -195,12 +195,12 @@ export default function EOfficeBoard({ departmentId }: { departmentId: string })
                             </Select>
                         </div>
                         <div className="space-y-2">
-                            <label className="text-[10px] font-black text-zinc-500 uppercase tracking-widest ml-1">Document Description</label>
+                            <label className="text-[10px] font-black text-zinc-300 uppercase tracking-widest ml-1">Document Description</label>
                             <Textarea value={newFileDesc} onChange={(e) => setNewFileDesc(e.target.value)} placeholder="PROVIDE DETAILS..." rows={4} className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-800 rounded-xl focus:ring-red-600 font-medium" />
                         </div>
                     </div>
                     <DialogFooter className="gap-3 pt-4">
-                        <Button variant="outline" onClick={() => setIsCreateOpen(false)} className="border-red-900/30 text-zinc-500 hover:bg-zinc-900 font-black text-[10px] tracking-widest uppercase rounded-xl">CANCEL</Button>
+                        <Button variant="outline" onClick={() => setIsCreateOpen(false)} className="border-red-900/30 text-zinc-300 hover:bg-zinc-900 font-black text-[10px] tracking-widest uppercase rounded-xl">CANCEL</Button>
                         <Button onClick={handleCreateFile} className="bg-red-600 hover:bg-red-700 text-white font-black text-[10px] tracking-widest uppercase rounded-xl h-12 px-8">CREATE DOCUMENT</Button>
                     </DialogFooter>
                 </DialogContent>
@@ -229,12 +229,12 @@ export default function EOfficeBoard({ departmentId }: { departmentId: string })
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 py-6">
                         <div className="space-y-6">
                             <div className="bg-black/60 p-4 rounded-xl border border-red-900/10">
-                                <label className="text-[9px] font-black text-zinc-600 uppercase tracking-widest block mb-2">Description</label>
+                                <label className="text-[9px] font-black text-zinc-300 uppercase tracking-widest block mb-2">Description</label>
                                 <p className="text-sm text-zinc-300 mt-1 whitespace-pre-wrap leading-relaxed italic">"{selectedFile?.description}"</p>
                             </div>
 
                             <div className="space-y-3">
-                                <label className="text-[10px] font-black text-zinc-500 uppercase tracking-widest ml-1">Add Remark</label>
+                                <label className="text-[10px] font-black text-zinc-300 uppercase tracking-widest ml-1">Add Remark</label>
                                 <Textarea
                                     value={moveNote}
                                     onChange={(e) => setMoveNote(e.target.value)}
@@ -254,8 +254,8 @@ export default function EOfficeBoard({ departmentId }: { departmentId: string })
                                         <div key={i} className="text-xs border-l-2 border-red-900/20 pl-4 relative pb-4 last:pb-0">
                                             <div className="absolute -left-[5px] top-0 w-2 h-2 rounded-full bg-red-600 shadow-[0_0_8px_rgba(239,68,68,0.5)]"></div>
                                             <p className="font-black text-white uppercase tracking-tight mb-1">{h.stage}</p>
-                                            <p className="text-zinc-600 text-[9px] font-bold">{new Date(h.timestamp).toLocaleString()}</p>
-                                            {h.notes && <p className="text-zinc-400 italic mt-2 text-[11px] leading-relaxed">"{h.notes}"</p>}
+                                            <p className="text-zinc-300 text-[9px] font-bold">{new Date(h.timestamp).toLocaleString()}</p>
+                                            {h.notes && <p className="text-zinc-200 italic mt-2 text-[11px] leading-relaxed">"{h.notes}"</p>}
                                         </div>
                                     ))}
                                 </div>
@@ -272,7 +272,7 @@ export default function EOfficeBoard({ departmentId }: { departmentId: string })
                             )}
                             {selectedFile?.status === 'In Review' && (
                                 <>
-                                    <Button onClick={() => handleMoveFile('Draft')} variant="outline" className="border-red-900/30 text-zinc-500 hover:bg-zinc-900 font-black text-[10px] tracking-widest uppercase rounded-xl h-12">
+                                    <Button onClick={() => handleMoveFile('Draft')} variant="outline" className="border-red-900/30 text-zinc-300 hover:bg-zinc-900 font-black text-[10px] tracking-widest uppercase rounded-xl h-12">
                                         RETURN TO DRAFT
                                     </Button>
                                     <Button onClick={() => handleMoveFile('Pending Approval')} className="bg-red-600 hover:bg-red-700 text-white font-black text-[10px] tracking-widest uppercase rounded-xl h-12 px-8">
@@ -282,7 +282,7 @@ export default function EOfficeBoard({ departmentId }: { departmentId: string })
                             )}
                             {selectedFile?.status === 'Pending Approval' && (
                                 <>
-                                    <Button onClick={() => handleMoveFile('In Review')} variant="outline" className="border-red-900/30 text-zinc-500 hover:bg-zinc-900 font-black text-[10px] tracking-widest uppercase rounded-xl h-12">
+                                    <Button onClick={() => handleMoveFile('In Review')} variant="outline" className="border-red-900/30 text-zinc-300 hover:bg-zinc-900 font-black text-[10px] tracking-widest uppercase rounded-xl h-12">
                                         SEND BACK
                                     </Button>
                                     <Button onClick={() => handleMoveFile('Approved')} className="bg-emerald-600 hover:bg-emerald-700 text-white font-black text-[10px] tracking-widest uppercase rounded-xl h-12 px-8">

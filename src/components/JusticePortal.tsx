@@ -190,7 +190,7 @@ ${description}
                 <div className="p-4 md:p-6 rounded-2xl bg-zinc-950/50 border border-red-900/20 backdrop-blur-md shadow-2xl transition-all hover:border-red-500/30 group">
                     <div className="flex items-center justify-between">
                         <div>
-                            <p className="text-xs font-black text-zinc-400 uppercase tracking-widest">Portal Status</p>
+                            <p className="text-xs font-black text-zinc-200 uppercase tracking-widest">Portal Status</p>
                             <div className="flex items-center gap-2 mt-1">
                                 <div className="h-2.5 w-2.5 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
                                 <span className="text-white font-black uppercase tracking-tight">Active</span>
@@ -205,7 +205,7 @@ ${description}
                 <div className="p-4 md:p-6 rounded-2xl bg-zinc-950/50 border border-red-900/20 backdrop-blur-md shadow-2xl transition-all hover:border-red-500/30 group">
                     <div className="flex items-center justify-between">
                         <div>
-                            <p className="text-xs font-black text-zinc-400 uppercase tracking-widest">Total Reports</p>
+                            <p className="text-xs font-black text-zinc-200 uppercase tracking-widest">Total Reports</p>
                             <p className="text-2xl md:text-3xl font-black text-white mt-1 tracking-tighter">{firs.length}</p>
                         </div>
                         <div className="p-3 bg-red-950/30 border border-red-900/30 rounded-xl text-red-500 group-hover:scale-110 transition-all duration-500 shadow-[0_0_20px_rgba(239,68,68,0.1)]">
@@ -217,7 +217,7 @@ ${description}
                 <div className="p-4 md:p-6 rounded-2xl bg-zinc-950/50 border border-red-900/20 backdrop-blur-md shadow-2xl transition-all hover:border-red-500/30 group">
                     <div className="flex items-center justify-between">
                         <div>
-                            <p className="text-xs font-black text-zinc-400 uppercase tracking-widest">Current Time</p>
+                            <p className="text-xs font-black text-zinc-200 uppercase tracking-widest">Current Time</p>
                             <p className="text-lg md:text-xl font-black text-white mt-1 font-mono tracking-tighter">{currentTime || "--:--:--"}</p>
                         </div>
                         <div className="p-3 bg-red-950/30 border border-red-900/30 rounded-xl text-red-500 group-hover:scale-110 transition-all duration-500 shadow-[0_0_20px_rgba(239,68,68,0.1)]">
@@ -246,7 +246,7 @@ ${description}
                         <CardContent className="p-6 md:p-8 md:pt-6 space-y-6 md:space-y-8">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
                                 <div className="space-y-3">
-                                    <Label className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.2em] ml-1">Category of Issue</Label>
+                                    <Label className="text-[10px] font-black text-zinc-200 uppercase tracking-[0.2em] ml-1">Category of Issue</Label>
                                     <Select onValueChange={setCrimeType} value={crimeType}>
                                         <SelectTrigger className="bg-black/40 border-red-900/30 text-white h-12 md:h-14 rounded-2xl focus:ring-red-600 font-bold px-4 md:px-6">
                                             <SelectValue placeholder="Select Category" />
@@ -264,7 +264,7 @@ ${description}
                                     </Select>
                                 </div>
                                 <div className="space-y-3">
-                                    <Label className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.2em] ml-1">Date of Incident</Label>
+                                    <Label className="text-[10px] font-black text-zinc-200 uppercase tracking-[0.2em] ml-1">Date of Incident</Label>
                                     <div className="relative group">
                                         <Input
                                             type="date"
@@ -272,11 +272,11 @@ ${description}
                                             value={incidentDate}
                                             onChange={(e) => setIncidentDate(e.target.value)}
                                         />
-                                        <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-zinc-500 pointer-events-none group-hover:text-red-500 transition-colors" />
+                                        <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-zinc-300 pointer-events-none group-hover:text-red-500 transition-colors" />
                                     </div>
                                 </div>
                                 <div className="space-y-3">
-                                    <Label className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.2em] ml-1">State</Label>
+                                    <Label className="text-[10px] font-black text-zinc-200 uppercase tracking-[0.2em] ml-1">State</Label>
                                     <Select onValueChange={setState} value={state}>
                                         <SelectTrigger className="bg-black/40 border-red-900/30 text-white h-12 md:h-14 rounded-2xl focus:ring-red-600 font-bold px-4 md:px-6">
                                             <SelectValue placeholder="Select State" />
@@ -295,7 +295,7 @@ ${description}
                                     </Select>
                                 </div>
                                 <div className="space-y-3">
-                                    <Label className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.2em] ml-1">City / District</Label>
+                                    <Label className="text-[10px] font-black text-zinc-200 uppercase tracking-[0.2em] ml-1">City / District</Label>
                                     <div className="relative group">
                                         <Input
                                             placeholder="e.g. South Delhi"
@@ -303,13 +303,13 @@ ${description}
                                             value={city}
                                             onChange={(e) => setCity(e.target.value)}
                                         />
-                                        <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-zinc-500 pointer-events-none group-hover:text-red-500 transition-colors" />
+                                        <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-zinc-300 pointer-events-none group-hover:text-red-500 transition-colors" />
                                     </div>
                                 </div>
                             </div>
 
                             <div className="space-y-3">
-                                <Label className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.2em] ml-1">Incident Details</Label>
+                                <Label className="text-[10px] font-black text-zinc-200 uppercase tracking-[0.2em] ml-1">Incident Details</Label>
                                 <Textarea
                                     placeholder="Provide a comprehensive description of the event..."
                                     value={description}
@@ -348,7 +348,7 @@ ${description}
                         <CardHeader className="p-8 pb-4">
                             <div className="flex items-center justify-between">
                                 <CardTitle className="text-xl font-black text-white tracking-tight uppercase">Recent Reports</CardTitle>
-                                <Button variant="ghost" size="icon" onClick={fetchFIRs} disabled={isLoading} className="h-10 w-10 text-zinc-400 hover:text-red-500 hover:bg-red-950/30 rounded-xl transition-all">
+                                <Button variant="ghost" size="icon" onClick={fetchFIRs} disabled={isLoading} className="h-10 w-10 text-zinc-200 hover:text-red-500 hover:bg-red-950/30 rounded-xl transition-all">
                                     <RefreshCw className={`h-5 w-5 ${isLoading ? 'animate-spin' : ''}`} />
                                 </Button>
                             </div>
@@ -362,7 +362,7 @@ ${description}
 
                             <div className="flex-1 overflow-y-auto pr-2 space-y-4 max-h-[700px] scrollbar-thin scrollbar-thumb-red-900/30">
                                 {firs.length === 0 && !isLoading ? (
-                                    <div className="text-center py-20 text-zinc-600">
+                                    <div className="text-center py-20 text-zinc-300">
                                         <div className="h-16 w-16 bg-black/40 rounded-3xl flex items-center justify-center mx-auto mb-4 border border-red-900/10">
                                             <FileText className="h-8 w-8 opacity-20" />
                                         </div>
@@ -382,7 +382,7 @@ ${description}
                                                 </span>
                                                 <span className={`text-[9px] font-black px-2.5 py-1 rounded-full uppercase border ${
                                                     fir.status === 'Open' ? 'border-emerald-900/30 text-emerald-500 bg-emerald-950/10' :
-                                                    fir.status === 'Closed' ? 'border-zinc-800 text-zinc-500 bg-zinc-900/20' :
+                                                    fir.status === 'Closed' ? 'border-zinc-800 text-zinc-300 bg-zinc-900/20' :
                                                     'border-amber-900/30 text-amber-500 bg-amber-950/10'
                                                 }`}>
                                                     {fir.status}
@@ -391,7 +391,7 @@ ${description}
                                             <p className="text-xs text-zinc-200 font-bold line-clamp-2 mb-4 leading-relaxed group-hover:text-white transition-colors">
                                                 {fir.description.split('\n')[0] || fir.description}
                                             </p>
-                                            <div className="flex items-center justify-between text-[10px] text-zinc-500 font-black uppercase tracking-widest border-t border-red-900/5 pt-3">
+                                            <div className="flex items-center justify-between text-[10px] text-zinc-300 font-black uppercase tracking-widest border-t border-red-900/5 pt-3">
                                                 <span>{new Date(fir.timestamp).toLocaleDateString()}</span>
                                                 {fir.resolutionNotes && (
                                                     <div className="flex items-center gap-1.5 text-red-500">
