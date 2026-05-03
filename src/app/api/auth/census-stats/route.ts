@@ -24,10 +24,40 @@ export async function GET() {
             { $limit: 10 }
         ]);
 
+        const educationDistribution = await User.aggregate([
+            { $group: { _id: "$educationLevel", count: { $sum: 1 } } },
+            { $match: { _id: { $nin: [null, ""] } } }
+        ]);
+
+        const maritalDistribution = await User.aggregate([
+            { $group: { _id: "$maritalStatus", count: { $sum: 1 } } },
+            { $match: { _id: { $nin: [null, ""] } } }
+        ]);
+
+        const housingDistribution = await User.aggregate([
+            { $group: { _id: "$housingType", count: { $sum: 1 } } },
+            { $match: { _id: { $nin: [null, ""] } } }
+        ]);
+
+        const incomeDistribution = await User.aggregate([
+            {
+                $bucket: {
+                    groupBy: "$annualIncome",
+                    boundaries: [0, 50000, 100000, 500000, 1000000, 5000000],
+                    default: "5000000+",
+                    output: { count: { $sum: 1 } }
+                }
+            }
+        ]);
+
         return NextResponse.json({
             genderDistribution,
             employmentDistribution,
-            occupationDistribution
+            occupationDistribution,
+            educationDistribution,
+            maritalDistribution,
+            housingDistribution,
+            incomeDistribution
         });
     } catch (error: any) {
         return NextResponse.json(
