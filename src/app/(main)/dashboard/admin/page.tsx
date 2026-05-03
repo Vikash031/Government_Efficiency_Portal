@@ -163,7 +163,7 @@ export default function AdminDashboard() {
             setIsModalOpen(false);
             fetchGrievances();
             // Show success message in console for now
-            console.log(`✅ Grievance marked as ${status}`);
+            console.log(`âœ… Grievance marked as ${status}`);
         } catch (error) {
             console.error('Error updating status:', error);
             setError(`Failed to update grievance status`);
@@ -189,7 +189,7 @@ export default function AdminDashboard() {
             localStorage.setItem('department', JSON.stringify(updatedDept));
             setError(null);
             alert('Statistics updated successfully!');
-            console.log('✅ Department Statistics Updated!');
+            console.log('âœ… Department Statistics Updated!');
         } catch (error) {
             console.error(error);
             setError('Failed to update statistics. Please try again.');
@@ -311,7 +311,7 @@ export default function AdminDashboard() {
                             <span className="text-[8px] md:text-[10px] font-black text-red-500 bg-red-950/50 border border-red-900/30 px-2 py-0.5 rounded-full uppercase">Queue</span>
                         </div>
                         <p className="text-2xl md:text-3xl font-black text-white">{grievances.filter((g: any) => g.status === 'Pending').length}</p>
-                        <p className="text-[10px] text-zinc-400 font-black uppercase tracking-widest mt-1">Pending Grievances</p>
+                        <p className="text-[10px] text-zinc-200 font-black uppercase tracking-widest mt-1">Pending Grievances</p>
                     </div>
 
                     <div className="p-5 md:p-6 rounded-[1.5rem] md:rounded-[2rem] bg-zinc-950 border border-red-900/20 shadow-xl">
@@ -322,7 +322,7 @@ export default function AdminDashboard() {
                             <span className="text-[8px] md:text-[10px] font-black text-emerald-500 bg-emerald-950/50 border border-emerald-900/30 px-2 py-0.5 rounded-full uppercase">Success</span>
                         </div>
                         <p className="text-2xl md:text-3xl font-black text-white">{grievances.filter((g: any) => g.status === 'Resolved').length}</p>
-                        <p className="text-[10px] text-zinc-400 font-black uppercase tracking-widest mt-1">Resolved Tasks</p>
+                        <p className="text-[10px] text-zinc-200 font-black uppercase tracking-widest mt-1">Resolved Tasks</p>
                     </div>
 
                     <div className="p-5 md:p-6 rounded-[1.5rem] md:rounded-[2rem] bg-zinc-950 border border-red-900/20 shadow-xl">
@@ -333,18 +333,18 @@ export default function AdminDashboard() {
                             <span className="text-[8px] md:text-[10px] font-black text-amber-500 bg-amber-950/50 border border-amber-900/30 px-2 py-0.5 rounded-full uppercase">Alert</span>
                         </div>
                         <p className="text-2xl md:text-3xl font-black text-white">{grievances.filter((g: any) => g.status === 'Under Review').length}</p>
-                        <p className="text-[10px] text-zinc-400 font-black uppercase tracking-widest mt-1">Critical Review</p>
+                        <p className="text-[10px] text-zinc-200 font-black uppercase tracking-widest mt-1">Critical Review</p>
                     </div>
 
                     <div className="p-5 md:p-6 rounded-[1.5rem] md:rounded-[2rem] bg-zinc-950 border border-red-900/20 shadow-xl">
                         <div className="flex justify-between items-start mb-4">
-                            <div className="p-2 bg-zinc-900 rounded-lg border border-zinc-800 text-zinc-400">
+                            <div className="p-2 bg-zinc-900 rounded-lg border border-zinc-800 text-zinc-200">
                                 <Users className="h-5 w-5" />
                             </div>
-                            <span className="text-[8px] md:text-[10px] font-black text-zinc-500 bg-zinc-900 border border-zinc-800 px-2 py-0.5 rounded-full uppercase">Staff</span>
+                            <span className="text-[8px] md:text-[10px] font-black text-zinc-300 bg-zinc-900 border border-zinc-800 px-2 py-0.5 rounded-full uppercase">Staff</span>
                         </div>
                         <p className="text-2xl md:text-3xl font-black text-white">{department?.employees?.length || 0}</p>
-                        <p className="text-[10px] text-zinc-400 font-black uppercase tracking-widest mt-1">Personnel Active</p>
+                        <p className="text-[10px] text-zinc-200 font-black uppercase tracking-widest mt-1">Personnel Active</p>
                     </div>
                 </div>
 
@@ -358,7 +358,7 @@ export default function AdminDashboard() {
                                 "whitespace-nowrap px-6 md:px-8 py-2 md:py-3 rounded-xl md:rounded-2xl font-black text-[10px] tracking-widest uppercase transition-all duration-300",
                                 activeTab === tab
                                     ? "bg-red-600 text-white shadow-[0_5px_20px_rgba(239,68,68,0.3)] scale-[1.02]"
-                                    : "text-zinc-500 hover:text-white hover:bg-red-950/30"
+                                    : "text-zinc-300 hover:text-white hover:bg-red-950/30"
                             )}
                         >
                             {tab === 'dashboard' ? 'Stats Center' : tab === 'files' ? 'Digital Desk' : tab === 'resources' ? 'Asset Tracker' : 'Broadcasts'}
@@ -375,7 +375,7 @@ export default function AdminDashboard() {
                             className="absolute top-0 bottom-0 right-0 px-4 py-3"
                             onClick={() => setError(null)}
                         >
-                            <span className="text-red-500 text-xl">×</span>
+                            <span className="text-red-500 text-xl">Ã—</span>
                         </button>
                     </div>
                 )}
@@ -393,13 +393,13 @@ export default function AdminDashboard() {
                                     {isLoadingMetrics ? (
                                         <div className="flex flex-col items-center justify-center py-12 gap-4">
                                             <div className="h-8 w-8 border-4 border-red-900/30 border-t-red-600 rounded-full animate-spin" />
-                                            <p className="text-zinc-400 font-bold text-[10px] uppercase tracking-widest">Loading stats...</p>
+                                            <p className="text-zinc-200 font-bold text-[10px] uppercase tracking-widest">Loading stats...</p>
                                         </div>
                                     ) : (
                                         <form onSubmit={handleUpdateMetrics} className="space-y-6 md:space-y-8">
                                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
                                                 <div className="space-y-3">
-                                                    <label className="text-[10px] font-black text-zinc-500 uppercase tracking-widest ml-1">Resolved Items</label>
+                                                    <label className="text-[10px] font-black text-zinc-300 uppercase tracking-widest ml-1">Resolved Items</label>
                                                     <Input
                                                         type="number"
                                                         value={metrics.filesCleared || 0}
@@ -408,7 +408,7 @@ export default function AdminDashboard() {
                                                     />
                                                 </div>
                                                 <div className="space-y-3">
-                                                    <label className="text-[10px] font-black text-zinc-500 uppercase tracking-widest ml-1">Queue Size</label>
+                                                    <label className="text-[10px] font-black text-zinc-300 uppercase tracking-widest ml-1">Queue Size</label>
                                                     <Input
                                                         type="number"
                                                         value={metrics.pendingFiles || 0}
@@ -448,7 +448,7 @@ export default function AdminDashboard() {
                                     {isLoadingCensus ? (
                                         <div className="flex flex-col items-center justify-center py-12 gap-4">
                                             <div className="h-8 w-8 border-4 border-red-900/30 border-t-red-600 rounded-full animate-spin" />
-                                            <p className="text-zinc-400 font-bold text-[10px] uppercase tracking-widest">Analyzing data...</p>
+                                            <p className="text-zinc-200 font-bold text-[10px] uppercase tracking-widest">Analyzing data...</p>
                                         </div>
                                     ) : censusData && censusData.genderDistribution ? (
                                         <div className="w-full h-[280px] md:h-[320px]">
@@ -478,8 +478,96 @@ export default function AdminDashboard() {
                                         </div>
                                     ) : (
                                         <div className="flex flex-col items-center justify-center py-12 opacity-50">
-                                            <Database className="h-12 w-12 text-zinc-700 mb-4" />
-                                            <p className="text-zinc-600 font-black text-[10px] uppercase tracking-widest">Regional Data Unavailable</p>
+                                            <Database className="h-12 w-12 text-zinc-200 mb-4" />
+                                            <p className="text-zinc-300 font-black text-[10px] uppercase tracking-widest">Regional Data Unavailable</p>
+                                        </div>
+                                    )}
+                                </CardContent>
+                            </Card>
+                        </div>
+
+                        {/* Policy Analysis Data for Admin */}
+                        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 md:gap-8">
+                            {/* Education & Employment */}
+                            <Card className="bg-zinc-950/50 border-red-900/20 backdrop-blur-md shadow-2xl rounded-[1.5rem] md:rounded-[2rem] overflow-hidden">
+                                <CardHeader className="border-b border-red-900/10 p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                    <div>
+                                        <CardTitle className="text-white text-base md:text-lg font-black uppercase tracking-widest">Education Policy Analysis</CardTitle>
+                                        <p className="text-[10px] text-zinc-200 font-bold uppercase tracking-widest mt-1">Data for educational schemes</p>
+                                    </div>
+                                </CardHeader>
+                                <CardContent className="p-6 md:p-8">
+                                    {isLoadingCensus ? (
+                                        <div className="flex flex-col items-center justify-center py-12 gap-4">
+                                            <div className="h-8 w-8 border-4 border-red-900/30 border-t-red-600 rounded-full animate-spin" />
+                                        </div>
+                                    ) : censusData && censusData.educationDistribution && censusData.educationDistribution.length > 0 ? (
+                                        <div className="w-full h-[280px] md:h-[320px]">
+                                            <ResponsiveContainer width="100%" height="100%">
+                                                <BarChart data={censusData.educationDistribution} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
+                                                    <XAxis dataKey="_id" stroke="#52525b" tick={{ fill: '#a1a1aa', fontSize: 10, fontWeight: 900 }} />
+                                                    <YAxis stroke="#52525b" tick={{ fill: '#a1a1aa', fontSize: 10, fontWeight: 900 }} />
+                                                    <Tooltip 
+                                                        cursor={{ fill: 'rgba(239, 68, 68, 0.1)' }}
+                                                        contentStyle={{ backgroundColor: 'rgba(0,0,0,0.9)', border: '1px solid #991b1b', borderRadius: '16px', backdropFilter: 'blur(10px)' }}
+                                                        itemStyle={{ color: '#fff', fontSize: '10px', fontWeight: '900', textTransform: 'uppercase' }}
+                                                    />
+                                                    <Bar dataKey="count" fill="#dc2626" radius={[4, 4, 0, 0]} />
+                                                </BarChart>
+                                            </ResponsiveContainer>
+                                        </div>
+                                    ) : (
+                                        <div className="flex flex-col items-center justify-center py-12 opacity-50">
+                                            <Database className="h-12 w-12 text-zinc-200 mb-4" />
+                                            <p className="text-zinc-300 font-black text-[10px] uppercase tracking-widest">Insufficient Data</p>
+                                        </div>
+                                    )}
+                                </CardContent>
+                            </Card>
+
+                            {/* Housing & Marital Stats */}
+                            <Card className="bg-zinc-950/50 border-red-900/20 backdrop-blur-md shadow-2xl rounded-[1.5rem] md:rounded-[2rem] overflow-hidden">
+                                <CardHeader className="border-b border-red-900/10 p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                    <div>
+                                        <CardTitle className="text-white text-base md:text-lg font-black uppercase tracking-widest">Housing & Welfare Analysis</CardTitle>
+                                        <p className="text-[10px] text-zinc-200 font-bold uppercase tracking-widest mt-1">Data for housing & family policies</p>
+                                    </div>
+                                </CardHeader>
+                                <CardContent className="p-6 md:p-8">
+                                    {isLoadingCensus ? (
+                                        <div className="flex flex-col items-center justify-center py-12 gap-4">
+                                            <div className="h-8 w-8 border-4 border-red-900/30 border-t-red-600 rounded-full animate-spin" />
+                                        </div>
+                                    ) : censusData && censusData.housingDistribution && censusData.housingDistribution.length > 0 ? (
+                                        <div className="w-full h-[280px] md:h-[320px]">
+                                            <ResponsiveContainer width="100%" height="100%">
+                                                <PieChart>
+                                                    <Pie
+                                                        data={censusData.housingDistribution}
+                                                        cx="50%"
+                                                        cy="50%"
+                                                        innerRadius={70}
+                                                        outerRadius={100}
+                                                        paddingAngle={8}
+                                                        dataKey="count"
+                                                        nameKey="_id"
+                                                        label={(props: any) => props._id}
+                                                    >
+                                                        {censusData.housingDistribution.map((_entry: any, index: number) => (
+                                                            <Cell key={`cell-${index}`} fill={COLORS[(index + 2) % COLORS.length]} stroke="rgba(0,0,0,0.5)" strokeWidth={2} />
+                                                        ))}
+                                                    </Pie>
+                                                    <Tooltip 
+                                                        contentStyle={{ backgroundColor: 'rgba(0,0,0,0.9)', border: '1px solid #991b1b', borderRadius: '16px', backdropFilter: 'blur(10px)' }}
+                                                        itemStyle={{ color: '#fff', fontSize: '10px', fontWeight: '900', textTransform: 'uppercase' }}
+                                                    />
+                                                </PieChart>
+                                            </ResponsiveContainer>
+                                        </div>
+                                    ) : (
+                                        <div className="flex flex-col items-center justify-center py-12 opacity-50">
+                                            <Database className="h-12 w-12 text-zinc-200 mb-4" />
+                                            <p className="text-zinc-300 font-black text-[10px] uppercase tracking-widest">Insufficient Data</p>
                                         </div>
                                     )}
                                 </CardContent>
@@ -491,7 +579,7 @@ export default function AdminDashboard() {
                             <CardHeader className="border-b border-red-900/10 p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
                                 <div>
                                     <CardTitle className="text-white text-base md:text-lg font-black uppercase tracking-widest">Grievance Registry</CardTitle>
-                                    <p className="text-[10px] text-zinc-400 font-bold uppercase tracking-widest mt-1">Live incoming records</p>
+                                    <p className="text-[10px] text-zinc-200 font-bold uppercase tracking-widest mt-1">Live incoming records</p>
                                 </div>
                                 <span className="w-fit px-4 py-1.5 bg-red-950/30 border border-red-900/30 text-red-500 text-[10px] font-black rounded-full uppercase tracking-widest">
                                     {grievances.length} Active Records
@@ -502,11 +590,11 @@ export default function AdminDashboard() {
                                     {isLoadingGrievances ? (
                                         <div className="flex flex-col items-center justify-center py-12 gap-4">
                                             <div className="h-8 w-8 border-4 border-red-900/30 border-t-red-600 rounded-full animate-spin" />
-                                            <p className="text-zinc-400 font-bold text-[10px] uppercase tracking-widest">Scanning Registry...</p>
+                                            <p className="text-zinc-200 font-bold text-[10px] uppercase tracking-widest">Scanning Registry...</p>
                                         </div>
                                     ) : grievances.length === 0 ? (
                                         <div className="text-center py-12">
-                                            <p className="text-zinc-600 font-black text-[10px] uppercase tracking-[0.2em] italic mb-2">Registry Clear</p>
+                                            <p className="text-zinc-300 font-black text-[10px] uppercase tracking-[0.2em] italic mb-2">Registry Clear</p>
                                             <p className="text-zinc-800 text-[10px] font-bold uppercase tracking-widest">No pending items in queue</p>
                                         </div>
                                     ) : (
@@ -520,8 +608,8 @@ export default function AdminDashboard() {
                                                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                                                     <div className="space-y-1">
                                                         <h4 className="font-black text-base md:text-lg text-white uppercase tracking-tight group-hover:text-red-500 transition-colors">{g.title}</h4>
-                                                        <p className="text-[11px] md:text-sm text-zinc-500 line-clamp-1 italic mb-2 md:mb-4">"{g.description}"</p>
-                                                        <div className="flex flex-wrap items-center gap-3 md:gap-4 text-[9px] md:text-[10px] font-black text-zinc-500 uppercase tracking-widest">
+                                                        <p className="text-[11px] md:text-sm text-zinc-300 line-clamp-1 italic mb-2 md:mb-4">"{g.description}"</p>
+                                                        <div className="flex flex-wrap items-center gap-3 md:gap-4 text-[9px] md:text-[10px] font-black text-zinc-300 uppercase tracking-widest">
                                                             <span className="flex items-center gap-1.5 text-red-600"><Users className="h-3 w-3" /> {g.raisedBy?.name || 'Anonymous User'}</span>
                                                             <span className="hidden md:inline text-zinc-800">•</span>
                                                             <span className="flex items-center gap-1.5"><Clock className="h-3 w-3" /> {new Date(g.createdAt).toLocaleDateString()}</span>
@@ -569,7 +657,7 @@ export default function AdminDashboard() {
                                 <CardHeader className="border-b border-red-900/10 p-6 md:p-8 flex flex-row items-center justify-between">
                                     <div>
                                         <CardTitle className="text-white text-base md:text-lg font-black uppercase tracking-widest">Public Programs</CardTitle>
-                                        <p className="text-[10px] text-zinc-400 font-bold uppercase tracking-widest mt-1">Welfare & Schemes</p>
+                                        <p className="text-[10px] text-zinc-200 font-bold uppercase tracking-widest mt-1">Welfare & Schemes</p>
                                     </div>
                                     <Button onClick={() => setIsSchemeModalOpen(true)} className="bg-red-600 hover:bg-red-700 h-10 px-4 text-[10px] font-black uppercase tracking-widest rounded-xl">
                                         + Create
@@ -578,9 +666,9 @@ export default function AdminDashboard() {
                                 <CardContent className="p-4 md:p-8">
                                     <div className="space-y-4 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar">
                                         {isLoadingSchemes ? (
-                                            <p className="text-center py-12 animate-pulse text-zinc-600 font-black text-[10px] uppercase tracking-widest">Loading Records...</p>
+                                            <p className="text-center py-12 animate-pulse text-zinc-300 font-black text-[10px] uppercase tracking-widest">Loading Records...</p>
                                         ) : schemesList.filter((s: any) => s.departmentId?._id === department._id).length === 0 ? (
-                                            <p className="text-center py-12 text-zinc-700 font-black text-[10px] uppercase tracking-widest">No Active Programs</p>
+                                            <p className="text-center py-12 text-zinc-200 font-black text-[10px] uppercase tracking-widest">No Active Programs</p>
                                         ) : (
                                             schemesList.filter((s: any) => s.departmentId?._id === department._id).map((s: any) => (
                                                 <div key={s._id} className="p-5 bg-black/40 rounded-2xl border border-red-900/10 hover:border-red-500/30 transition-all group">
@@ -588,7 +676,7 @@ export default function AdminDashboard() {
                                                         <h5 className="font-black text-white text-sm md:text-base uppercase tracking-tight group-hover:text-red-500 transition-colors">{s.title}</h5>
                                                         <span className="text-[8px] font-black text-emerald-500 bg-emerald-950/30 border border-emerald-900/30 px-2 py-0.5 rounded uppercase shrink-0">Active</span>
                                                     </div>
-                                                    <p className="text-[11px] text-zinc-500 line-clamp-2 leading-relaxed italic">"{s.description}"</p>
+                                                    <p className="text-[11px] text-zinc-300 line-clamp-2 leading-relaxed italic">"{s.description}"</p>
                                                 </div>
                                             ))
                                         )}
@@ -600,7 +688,7 @@ export default function AdminDashboard() {
                                 <CardHeader className="border-b border-red-900/10 p-6 md:p-8 flex flex-row items-center justify-between">
                                     <div>
                                         <CardTitle className="text-white text-base md:text-lg font-black uppercase tracking-widest">Official News</CardTitle>
-                                        <p className="text-[10px] text-zinc-400 font-bold uppercase tracking-widest mt-1">Global Updates</p>
+                                        <p className="text-[10px] text-zinc-200 font-bold uppercase tracking-widest mt-1">Global Updates</p>
                                     </div>
                                     <Button onClick={() => setIsNewsModalOpen(true)} className="bg-red-600 hover:bg-red-700 h-10 px-4 text-[10px] font-black uppercase tracking-widest rounded-xl">
                                         + Publish
@@ -609,9 +697,9 @@ export default function AdminDashboard() {
                                 <CardContent className="p-4 md:p-8">
                                     <div className="space-y-4 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar">
                                         {isLoadingNews ? (
-                                            <p className="text-center py-12 animate-pulse text-zinc-600 font-black text-[10px] uppercase tracking-widest">Fetching Feed...</p>
+                                            <p className="text-center py-12 animate-pulse text-zinc-300 font-black text-[10px] uppercase tracking-widest">Fetching Feed...</p>
                                         ) : news.filter((n: any) => n.departmentId?._id === department._id).length === 0 ? (
-                                            <p className="text-center py-12 text-zinc-700 font-black text-[10px] uppercase tracking-widest">No Recent Updates</p>
+                                            <p className="text-center py-12 text-zinc-200 font-black text-[10px] uppercase tracking-widest">No Recent Updates</p>
                                         ) : (
                                             news.filter((n: any) => n.departmentId?._id === department._id).map((n: any) => (
                                                 <div key={n._id} className="p-5 bg-black/40 rounded-2xl border border-red-900/10 hover:border-red-500/30 transition-all group">
@@ -619,7 +707,7 @@ export default function AdminDashboard() {
                                                         <h5 className="font-black text-white text-sm md:text-base uppercase tracking-tight group-hover:text-red-500 transition-colors">{n.title}</h5>
                                                         <span className="text-[8px] font-black text-red-500 bg-red-950/30 border border-red-900/30 px-2 py-0.5 rounded uppercase shrink-0">{n.category}</span>
                                                     </div>
-                                                    <p className="text-[11px] text-zinc-500 line-clamp-2 leading-relaxed">"{n.content}"</p>
+                                                    <p className="text-[11px] text-zinc-300 line-clamp-2 leading-relaxed">"{n.content}"</p>
                                                 </div>
                                             ))
                                         )}
@@ -645,26 +733,26 @@ export default function AdminDashboard() {
                     <div className="space-y-6 md:space-y-8 max-h-[60vh] overflow-y-auto py-6 md:py-8 custom-scrollbar">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div className="p-4 md:p-6 bg-black/40 rounded-2xl border border-red-900/10 shadow-inner">
-                                <p className="text-[9px] md:text-[10px] font-black text-zinc-500 uppercase tracking-widest mb-2">Submitted By</p>
+                                <p className="text-[9px] md:text-[10px] font-black text-zinc-300 uppercase tracking-widest mb-2">Submitted By</p>
                                 <p className="font-black text-white text-base md:text-lg mb-1">{selectedGrievance?.raisedBy?.name || 'Anonymous User'}</p>
                                 <p className="text-[10px] md:text-xs text-red-500/70 font-bold uppercase tracking-widest">{selectedGrievance?.raisedBy?.email}</p>
                             </div>
                             <div className="p-4 md:p-6 bg-black/40 rounded-2xl border border-red-900/10 shadow-inner">
-                                <p className="text-[9px] md:text-[10px] font-black text-zinc-500 uppercase tracking-widest mb-2">Timestamp</p>
+                                <p className="text-[9px] md:text-[10px] font-black text-zinc-300 uppercase tracking-widest mb-2">Timestamp</p>
                                 <p className="font-black text-white text-base md:text-lg mb-1">{new Date(selectedGrievance?.createdAt).toLocaleDateString()}</p>
-                                <p className="text-[10px] md:text-xs text-zinc-500 font-bold uppercase tracking-widest">{new Date(selectedGrievance?.createdAt).toLocaleTimeString()}</p>
+                                <p className="text-[10px] md:text-xs text-zinc-300 font-bold uppercase tracking-widest">{new Date(selectedGrievance?.createdAt).toLocaleTimeString()}</p>
                             </div>
                         </div>
 
                         <div className="space-y-3">
-                            <label className="text-[10px] font-black text-zinc-500 uppercase tracking-widest ml-1">Case Description</label>
+                            <label className="text-[10px] font-black text-zinc-300 uppercase tracking-widest ml-1">Case Description</label>
                             <div className="bg-black/60 p-5 md:p-8 rounded-2xl md:rounded-3xl border border-red-900/10 text-zinc-100 text-sm md:text-base leading-relaxed italic shadow-inner">
                                 "{selectedGrievance?.description}"
                             </div>
                         </div>
 
                         <div className="space-y-3">
-                            <label className="text-[10px] font-black text-zinc-500 uppercase tracking-widest ml-1">Official Response</label>
+                            <label className="text-[10px] font-black text-zinc-300 uppercase tracking-widest ml-1">Official Response</label>
                             <Textarea
                                 placeholder="Type the resolution details..."
                                 value={resolutionNote}
@@ -676,7 +764,7 @@ export default function AdminDashboard() {
                     </div>
 
                     <DialogFooter className="flex-col md:flex-row gap-3 border-t border-red-900/10 pt-6 md:pt-8">
-                        <Button variant="ghost" onClick={() => setIsModalOpen(false)} className="w-full md:w-auto text-zinc-500 font-black text-[10px] tracking-widest uppercase hover:text-white">Cancel</Button>
+                        <Button variant="ghost" onClick={() => setIsModalOpen(false)} className="w-full md:w-auto text-zinc-300 font-black text-[10px] tracking-widest uppercase hover:text-white">Cancel</Button>
                         <div className="flex gap-3 w-full md:w-auto">
                             <Button 
                                 variant="destructive" 
@@ -705,7 +793,7 @@ export default function AdminDashboard() {
                     </DialogHeader>
                     <div className="space-y-6 py-6 md:py-8">
                         <div className="space-y-2">
-                            <label className="text-[10px] font-black text-zinc-500 uppercase tracking-widest ml-1">Headline</label>
+                            <label className="text-[10px] font-black text-zinc-300 uppercase tracking-widest ml-1">Headline</label>
                             <Input
                                 placeholder="Update title..."
                                 value={newsTitle}
@@ -714,7 +802,7 @@ export default function AdminDashboard() {
                             />
                         </div>
                         <div className="space-y-2">
-                            <label className="text-[10px] font-black text-zinc-500 uppercase tracking-widest ml-1">Category Tag</label>
+                            <label className="text-[10px] font-black text-zinc-300 uppercase tracking-widest ml-1">Category Tag</label>
                             <select 
                                 className="w-full bg-black/40 border border-red-900/20 text-white h-12 md:h-14 rounded-xl md:rounded-2xl px-4 md:px-6 focus:ring-red-600 focus:outline-none font-black text-[10px] md:text-xs uppercase tracking-widest appearance-none"
                                 value={newsCategory}
@@ -727,7 +815,7 @@ export default function AdminDashboard() {
                             </select>
                         </div>
                         <div className="space-y-2">
-                            <label className="text-[10px] font-black text-zinc-500 uppercase tracking-widest ml-1">Brief Content</label>
+                            <label className="text-[10px] font-black text-zinc-300 uppercase tracking-widest ml-1">Brief Content</label>
                             <Textarea
                                 placeholder="Public information..."
                                 value={newsContent}
@@ -738,7 +826,7 @@ export default function AdminDashboard() {
                         </div>
                     </div>
                     <DialogFooter className="flex-col md:flex-row gap-3 border-t border-red-900/10 pt-6 md:pt-8">
-                        <Button variant="ghost" onClick={() => setIsNewsModalOpen(false)} className="text-zinc-500 font-black text-[10px] tracking-widest uppercase">Discard</Button>
+                        <Button variant="ghost" onClick={() => setIsNewsModalOpen(false)} className="text-zinc-300 font-black text-[10px] tracking-widest uppercase">Discard</Button>
                         <Button 
                             onClick={handleCreateNews}
                             className="bg-red-600 hover:bg-red-700 text-white font-black text-[10px] tracking-widest rounded-xl md:rounded-2xl px-10 h-12 md:h-14 shadow-lg w-full md:w-auto"
@@ -757,7 +845,7 @@ export default function AdminDashboard() {
                     </DialogHeader>
                     <div className="space-y-6 py-6 md:py-8">
                         <div className="space-y-2">
-                            <label className="text-[10px] font-black text-zinc-500 uppercase tracking-widest ml-1">Program Name</label>
+                            <label className="text-[10px] font-black text-zinc-300 uppercase tracking-widest ml-1">Program Name</label>
                             <Input
                                 placeholder="Official name..."
                                 value={newSchemeTitle}
@@ -766,7 +854,7 @@ export default function AdminDashboard() {
                             />
                         </div>
                         <div className="space-y-2">
-                            <label className="text-[10px] font-black text-zinc-500 uppercase tracking-widest ml-1">Program Scope</label>
+                            <label className="text-[10px] font-black text-zinc-300 uppercase tracking-widest ml-1">Program Scope</label>
                             <Textarea
                                 placeholder="Describe the objectives..."
                                 value={newSchemeDesc}
@@ -777,7 +865,7 @@ export default function AdminDashboard() {
                         </div>
                     </div>
                     <DialogFooter className="flex-col md:flex-row gap-3 border-t border-red-900/10 pt-6 md:pt-8">
-                        <Button variant="ghost" onClick={() => setIsSchemeModalOpen(false)} className="text-zinc-500 font-black text-[10px] tracking-widest uppercase">Discard</Button>
+                        <Button variant="ghost" onClick={() => setIsSchemeModalOpen(false)} className="text-zinc-300 font-black text-[10px] tracking-widest uppercase">Discard</Button>
                         <Button 
                             onClick={handleCreateScheme}
                             className="bg-red-600 hover:bg-red-700 text-white font-black text-[10px] tracking-widest rounded-xl md:rounded-2xl px-10 h-12 md:h-14 shadow-lg w-full md:w-auto"

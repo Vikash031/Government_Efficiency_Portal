@@ -77,7 +77,7 @@ export default function JusticeAdminDashboard() {
                             </div>
                             <div>
                                 <CardTitle className="text-2xl font-black text-white tracking-tight uppercase">Investigation Registry</CardTitle>
-                                <p className="text-[10px] font-black text-zinc-400 uppercase tracking-widest">Case Management</p>
+                                <p className="text-[10px] font-black text-zinc-200 uppercase tracking-widest">Case Management</p>
                             </div>
                         </div>
                         <div className="flex items-center gap-2">
@@ -104,11 +104,11 @@ export default function JusticeAdminDashboard() {
                         {isLoading ? (
                             <div className="text-center py-20 bg-black/40 rounded-3xl border border-dashed border-red-900/20">
                                 <RefreshCw className="h-10 w-10 text-red-900/40 animate-spin mx-auto mb-4" />
-                                <p className="text-zinc-400 font-black tracking-[0.2em] text-[10px] uppercase">Loading Records...</p>
+                                <p className="text-zinc-200 font-black tracking-[0.2em] text-[10px] uppercase">Loading Records...</p>
                             </div>
                         ) : firs.length === 0 ? (
                             <div className="text-center py-20 bg-black/40 rounded-3xl border border-dashed border-red-900/20">
-                                <p className="text-zinc-500 font-bold uppercase tracking-widest text-xs">No records found.</p>
+                                <p className="text-zinc-300 font-bold uppercase tracking-widest text-xs">No records found.</p>
                             </div>
                         ) : (
                             <div className="grid gap-4">
@@ -123,7 +123,7 @@ export default function JusticeAdminDashboard() {
                                                 <span className="font-black bg-red-600 text-white px-3 py-1 rounded-lg text-[10px] tracking-widest">RECORD-ID-#{fir.id}</span>
                                                 <span className={`text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full border ${
                                                     fir.status === 'Open' ? 'bg-red-600/10 text-red-500 border-red-600/20' :
-                                                    fir.status === 'Closed' ? 'bg-zinc-900 text-zinc-500 border-zinc-800' :
+                                                    fir.status === 'Closed' ? 'bg-zinc-900 text-zinc-300 border-zinc-800' :
                                                     'bg-amber-600/10 text-amber-500 border-amber-600/20'
                                                 }`}>{fir.status}</span>
                                                 <span className="text-[10px] font-bold text-zinc-300 uppercase tracking-wider">
@@ -134,7 +134,7 @@ export default function JusticeAdminDashboard() {
                                                 {fir.description}
                                             </div>
                                             
-                                            <div className="flex items-center gap-2 text-[10px] font-black text-zinc-400 uppercase tracking-widest">
+                                            <div className="flex items-center gap-2 text-[10px] font-black text-zinc-200 uppercase tracking-widest">
                                                 <div className="h-1.5 w-1.5 rounded-full bg-red-900/50" />
                                                 CITIZEN ID: {fir.reporter.substring(0, 16)}...
                                             </div>
@@ -173,7 +173,7 @@ export default function JusticeAdminDashboard() {
                     </DialogHeader>
                     <div className="space-y-4 py-4">
                         <div className="bg-black/60 p-4 rounded-xl border border-red-900/10 text-sm text-zinc-200 max-h-[150px] overflow-y-auto mb-2 font-bold">
-                            <strong className="text-[10px] font-black text-zinc-400 uppercase tracking-widest block mb-2">Original Description</strong>
+                            <strong className="text-[10px] font-black text-zinc-200 uppercase tracking-widest block mb-2">Original Description</strong>
                             {selectedFIR?.description}
                         </div>
                         <div className="space-y-2">
@@ -183,7 +183,7 @@ export default function JusticeAdminDashboard() {
                                 onChange={(e) => setActionNote(e.target.value)}
                                 placeholder="Enter investigation details or closure reason..."
                                 rows={4}
-                                className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-700 rounded-xl focus:ring-red-600 focus:border-red-600 font-bold"
+                                className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-200 rounded-xl focus:ring-red-600 focus:border-red-600 font-bold"
                             />
                         </div>
                     </div>
