@@ -67,7 +67,8 @@ export default function UserDashboard() {
     const fetchDepartments = async () => {
         try {
             const data = await getDepartments();
-            setDepartments(data);
+            const filteredData = data.filter((d: any) => !d.name.toLowerCase().includes("police") && !d.name.toLowerCase().includes("decentralized justice"));
+            setDepartments(filteredData);
         } catch (error) {
             console.error(error);
         }
@@ -113,6 +114,78 @@ export default function UserDashboard() {
         }
     };
 
+    function InfoSlideshow() {
+        const slides = [
+            {
+                title: "Welcome to the Digital Citizen Portal",
+                desc: "A transparent, fast, and unified hub for all government services.",
+                icon: <Building2 className="h-10 w-10 text-red-500" />
+            },
+            {
+                title: "Direct Department Communication",
+                desc: "Submit requests, track resolutions in real-time, and message officials securely.",
+                icon: <MessageSquare className="h-10 w-10 text-red-500" />
+            },
+            {
+                title: "Stay Updated with Official News",
+                desc: "Access the latest broadcasts, policy updates, and welfare programs directly.",
+                icon: <BarChart3 className="h-10 w-10 text-red-500" />
+            },
+            {
+                title: "Secure & Private Data Handling",
+                desc: "Your data is protected with state-of-the-art encryption and strict privacy protocols.",
+                icon: <ShieldCheck className="h-10 w-10 text-red-500" />
+            }
+        ];
+        
+        const [currentSlide, setCurrentSlide] = useState(0);
+
+        useEffect(() => {
+            const timer = setInterval(() => {
+                setCurrentSlide((prev) => (prev + 1) % slides.length);
+            }, 5000);
+            return () => clearInterval(timer);
+        }, [slides.length]);
+
+        return (
+            <Card className="overflow-hidden border border-red-900/40 bg-zinc-950/80 backdrop-blur-2xl shadow-[0_0_50px_rgba(239,68,68,0.15)] rounded-[2rem] md:rounded-[2.5rem] relative min-h-[350px] md:min-h-[400px] flex items-center justify-center group">
+                <div className="absolute inset-0 bg-gradient-to-tr from-red-900/20 via-black to-red-950/10 opacity-80" />
+                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20 group-hover:opacity-30 transition-opacity duration-1000 pointer-events-none" />
+                <CardContent className="p-8 md:p-12 pb-16 md:pb-20 text-center relative z-10 w-full h-full">
+                    {slides.map((slide, index) => (
+                        <div 
+                            key={index}
+                            className={cn(
+                                "absolute inset-0 flex flex-col items-center justify-center p-8 transition-all duration-1000 ease-in-out",
+                                currentSlide === index ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-12 scale-95 pointer-events-none"
+                            )}
+                        >
+                            <div className="mb-6 p-5 bg-black/60 rounded-3xl border border-red-500/30 shadow-[0_0_40px_rgba(239,68,68,0.3)] backdrop-blur-xl">
+                                {slide.icon}
+                            </div>
+                            <h3 className="text-2xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-zinc-400 tracking-tight uppercase mb-4 leading-tight max-w-2xl mx-auto">{slide.title}</h3>
+                            <p className="text-sm md:text-lg font-bold text-zinc-200 max-w-xl mx-auto leading-relaxed">{slide.desc}</p>
+                        </div>
+                    ))}
+                </CardContent>
+                
+                {/* Dots */}
+                <div className="absolute bottom-6 md:bottom-8 left-0 right-0 flex justify-center gap-3 z-20">
+                    {slides.map((_, idx) => (
+                        <button
+                            key={idx}
+                            onClick={() => setCurrentSlide(idx)}
+                            className={cn(
+                                "h-2 rounded-full transition-all duration-700",
+                                currentSlide === idx ? "w-10 bg-red-500 shadow-[0_0_15px_rgba(239,68,68,0.8)]" : "w-2.5 bg-red-950 hover:bg-red-800"
+                            )}
+                        />
+                    ))}
+                </div>
+            </Card>
+        );
+    }
+
     // Sub-component to fetch and display officials
     function KeyOfficialsList({ deptId }: { deptId: string }) {
         const [officials, setOfficials] = useState([]);
@@ -135,7 +208,7 @@ export default function UserDashboard() {
             window.location.reload(); // Refresh to show new message
         };
 
-        if (officials.length === 0) return <p className="text-[10px] font-black text-zinc-500 uppercase tracking-widest italic">No public contacts listed.</p>;
+        if (officials.length === 0) return <p className="text-[10px] font-black text-zinc-300 uppercase tracking-widest italic">No public contacts listed.</p>;
 
         return (
             <>
@@ -149,7 +222,7 @@ export default function UserDashboard() {
                                 <div className="space-y-0.5">
                                     <p className="text-sm font-black text-white group-hover:text-red-500 transition-colors">{emp.name}</p>
                                     <p className="text-[10px] text-red-600 font-black uppercase tracking-widest">{emp.role}</p>
-                                    <p className="text-[10px] text-zinc-400 font-bold">{emp.email}</p>
+                                    <p className="text-[10px] text-zinc-200 font-bold">{emp.email}</p>
                                 </div>
                             </div>
 
@@ -184,13 +257,13 @@ export default function UserDashboard() {
     return (
         <div className="min-h-screen dashboard-container">
             {/* Top Bar for User Info */}
-            <div className="sticky top-0 z-20 bg-black/60 backdrop-blur-xl border-b border-red-900/20 px-4 md:px-8 py-3 md:py-4 flex justify-between items-center">
+            <div className="sticky top-0 z-20 bg-black/80 backdrop-blur-2xl border-b border-red-900/30 px-4 md:px-8 py-4 md:py-5 flex justify-between items-center shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
                 <div>
-                    <h2 className="text-[8px] md:text-[10px] font-black text-red-500 uppercase tracking-[0.3em] text-red-glow">GOVERNMENT PORTAL</h2>
-                    <p className="text-base md:text-xl font-black text-white leading-none mt-0.5">Welcome, {user.name}</p>
+                    <h2 className="text-[8px] md:text-[10px] font-black text-red-500 uppercase tracking-[0.4em] text-red-glow mb-1">GOVERNMENT PORTAL</h2>
+                    <p className="text-lg md:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-zinc-400 leading-none">Welcome, {user.name}</p>
                 </div>
                 <div className="flex items-center gap-4">
-                    <div className="h-8 w-8 md:h-10 md:w-10 rounded-xl md:rounded-2xl bg-red-600 flex items-center justify-center text-white font-black shadow-[0_0_20px_rgba(239,68,68,0.4)] text-xs md:text-base">
+                    <div className="h-10 w-10 md:h-12 md:w-12 rounded-xl md:rounded-2xl bg-gradient-to-br from-red-500 to-red-800 flex items-center justify-center text-white font-black shadow-[0_0_30px_rgba(239,68,68,0.5)] text-sm md:text-xl border border-red-400/30">
                         {user.name.charAt(0)}
                     </div>
                 </div>
@@ -198,26 +271,27 @@ export default function UserDashboard() {
 
             <div className="p-4 md:p-8 space-y-6 md:space-y-8 max-w-7xl mx-auto bg-grid-red pb-24 md:pb-8">
                 {/* Department Selection Card */}
-                <Card className="overflow-hidden border border-red-900/20 bg-zinc-950/50 backdrop-blur-md shadow-2xl shadow-black rounded-[1.5rem] md:rounded-[2rem]">
-                    <div className="h-1 bg-gradient-to-r from-red-600 via-red-500 to-red-900" />
-                    <CardHeader className="p-5 md:p-6 md:pb-4">
-                        <div className="flex items-center gap-3 mb-2">
-                            <div className="p-2 bg-red-950/50 rounded-lg text-red-500 border border-red-900/30">
-                                <BarChart3 className="h-5 w-5" />
+                <Card className="relative overflow-hidden border border-red-900/30 bg-black/60 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-[1.5rem] md:rounded-[2.5rem] group">
+                    <div className="absolute inset-0 bg-gradient-to-b from-red-900/10 to-transparent pointer-events-none" />
+                    <div className="h-1.5 w-full bg-gradient-to-r from-red-600 via-red-500 to-red-900" />
+                    <CardHeader className="p-6 md:p-8 md:pb-4 relative z-10">
+                        <div className="flex items-center gap-4 mb-2">
+                            <div className="p-3 bg-red-950/40 rounded-xl text-red-500 border border-red-500/20 shadow-[0_0_20px_rgba(239,68,68,0.2)]">
+                                <BarChart3 className="h-6 w-6" />
                             </div>
-                            <CardTitle className="text-white text-lg md:text-xl">Public Services</CardTitle>
+                            <CardTitle className="text-transparent bg-clip-text bg-gradient-to-r from-white to-zinc-400 text-xl md:text-2xl font-black tracking-tight">Public Services</CardTitle>
                         </div>
-                        <CardDescription className="text-zinc-300 text-[10px] md:text-xs font-bold">Access government services and check department resolution status.</CardDescription>
+                        <CardDescription className="text-zinc-200 text-xs md:text-sm font-bold tracking-wide">Access government services and check department resolution status.</CardDescription>
                     </CardHeader>
-                    <CardContent className="p-5 md:p-6 md:pt-6">
-                        <div className="relative group">
+                    <CardContent className="p-6 md:p-8 md:pt-6 relative z-10">
+                        <div className="relative group/select">
                             <select
-                                className="appearance-none w-full bg-black/40 border border-red-900/30 text-white text-sm rounded-xl focus:ring-red-600 focus:border-red-600 block p-4 shadow-inner transition-all hover:bg-black/60 hover:border-red-500 outline-none font-bold"
+                                className="appearance-none w-full bg-zinc-950/80 border-2 border-red-900/30 text-white text-base rounded-2xl focus:ring-0 focus:border-red-500 block p-5 shadow-inner transition-all hover:bg-zinc-900/90 outline-none font-bold tracking-wide"
                                 value={departmentId}
                                 onChange={handleDeptChange}
                             >
-                                <option value="" className="bg-zinc-900 text-zinc-400">-- Select Department --</option>
-                                <option value="POLICE_FLOW" className="font-black bg-zinc-900 text-red-500">👮 Citizen Grievance Portal</option>
+                                <option value="" className="bg-zinc-900 text-zinc-300">-- Select Department --</option>
+                                <option value="POLICE_FLOW" className="font-black bg-zinc-900 text-red-500">Department of Justice</option>
                                 <option disabled className="bg-zinc-900">──────────────────────────────</option>
                                 {departments.map((dept: any) => (
                                     <option key={dept._id} value={dept._id} className="bg-zinc-900 font-bold">{dept.name}</option>
@@ -242,7 +316,7 @@ export default function UserDashboard() {
                                         <span className="text-[8px] md:text-[10px] font-black text-red-500 bg-red-950/50 border border-red-900/30 px-2 py-0.5 rounded-full uppercase">Current</span>
                                     </div>
                                     <p className="text-2xl md:text-3xl font-black text-white">{selectedDeptStats.metrics?.pendingFiles || 0}</p>
-                                    <p className="text-[10px] text-zinc-400 font-black uppercase tracking-widest mt-1">Pending Requests</p>
+                                    <p className="text-[10px] text-zinc-200 font-black uppercase tracking-widest mt-1">Pending Requests</p>
                                 </div>
 
                                 <div className="p-5 md:p-6 rounded-2xl bg-zinc-950 border border-red-900/20 shadow-xl transition-all hover:border-red-600/30">
@@ -253,7 +327,7 @@ export default function UserDashboard() {
                                         <span className="text-[8px] md:text-[10px] font-black text-red-500 bg-red-950/50 border border-red-900/30 px-2 py-0.5 rounded-full uppercase">Resolved</span>
                                     </div>
                                     <p className="text-2xl md:text-3xl font-black text-white">{selectedDeptStats.metrics?.filesCleared || 0}</p>
-                                    <p className="text-[10px] text-zinc-400 font-black uppercase tracking-widest mt-1">Completed Requests</p>
+                                    <p className="text-[10px] text-zinc-200 font-black uppercase tracking-widest mt-1">Completed Requests</p>
                                 </div>
 
                                 <div className="p-5 md:p-6 rounded-2xl bg-zinc-950 border border-red-900/20 shadow-xl transition-all hover:border-red-600/30 sm:col-span-2 lg:col-span-1">
@@ -279,6 +353,13 @@ export default function UserDashboard() {
                     </CardContent>
                 </Card>
 
+                {/* Slideshow when no department is selected */}
+                {!departmentId && (
+                    <div className="mt-8 animate-in fade-in duration-1000 slide-in-from-bottom-8">
+                        <InfoSlideshow />
+                    </div>
+                )}
+
                 {departmentId && departmentId !== "POLICE_FLOW" && (
                     <div className="grid lg:grid-cols-5 gap-8 animate-in" style={{ animationDelay: '0.2s' }}>
                         {/* Form Column */}
@@ -294,20 +375,20 @@ export default function UserDashboard() {
                                 <CardContent className="p-5 md:p-6 md:pt-0">
                                     <form onSubmit={handleSubmit} className="space-y-5 md:space-y-6">
                                         <div className="space-y-2">
-                                            <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest ml-1">Subject</label>
+                                            <label className="text-[10px] font-black text-zinc-200 uppercase tracking-widest ml-1">Subject</label>
                                             <Input
                                                 value={title}
-                                                className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-700 h-12 md:h-14 rounded-xl focus:ring-red-600 transition-all shadow-inner font-bold"
+                                                className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-200 h-12 md:h-14 rounded-xl focus:ring-red-600 transition-all shadow-inner font-bold"
                                                 placeholder="Enter subject"
                                                 onChange={(e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)}
                                                 required
                                             />
                                         </div>
                                         <div className="space-y-2">
-                                            <label className="text-[10px] font-black text-zinc-400 uppercase tracking-widest ml-1">Description</label>
+                                            <label className="text-[10px] font-black text-zinc-200 uppercase tracking-widest ml-1">Description</label>
                                             <Textarea
                                                 rows={5}
-                                                className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-700 rounded-xl focus:ring-red-600 focus:outline-none transition-all resize-none shadow-inner p-4 font-bold"
+                                                className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-200 rounded-xl focus:ring-red-600 focus:outline-none transition-all resize-none shadow-inner p-4 font-bold"
                                                 placeholder="Provide detailed description..."
                                                 value={description}
                                                 onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setDescription(e.target.value)}
@@ -354,7 +435,7 @@ export default function UserDashboard() {
                                                 <div className="inline-flex items-center justify-center h-20 w-20 rounded-3xl bg-black/40 mb-6 border border-red-900/20">
                                                     <AlertCircle className="h-10 w-10 text-zinc-800" />
                                                 </div>
-                                                <p className="text-zinc-500 font-black uppercase tracking-widest text-xs">You haven't submitted any requests yet.</p>
+                                                <p className="text-zinc-300 font-black uppercase tracking-widest text-xs">You haven't submitted any requests yet.</p>
                                             </div>
                                         ) : (
                                             grievances.map((g: any, idx: number) => (
@@ -382,7 +463,7 @@ export default function UserDashboard() {
                                                                 </span>
                                                             </div>
                                                             <p className="text-[10px] font-black text-zinc-300 mb-4 flex items-center gap-2 uppercase tracking-widest">
-                                                                <Building2 className="h-3 w-3 text-zinc-400" />
+                                                                <Building2 className="h-3 w-3 text-zinc-200" />
                                                                 {g.addressedTo ? `ASSIGNED OFFICER: ${g.addressedTo}` : g.department?.name}
                                                                 <span className="text-zinc-800">•</span>
                                                                 {new Date(g.createdAt).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' }).toUpperCase()}
@@ -412,7 +493,7 @@ export default function UserDashboard() {
                                                                         }
                                                                     }}
                                                                 >
-                                                                    🔄 REOPEN
+                                                                    ðŸ”„ REOPEN
                                                                 </Button>
                                                             )}
                                                         </div>
