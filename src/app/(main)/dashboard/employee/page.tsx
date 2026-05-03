@@ -77,7 +77,7 @@ export default function EmployeeDashboard() {
                             localStorage.removeItem('employee');
                             router.push('/employee/login');
                         }}
-                        className="text-zinc-400 hover:text-red-500 font-black text-[10px] uppercase tracking-widest"
+                        className="text-zinc-200 hover:text-red-500 font-black text-[10px] uppercase tracking-widest"
                     >
                         LOGOUT
                     </Button>
@@ -93,14 +93,14 @@ export default function EmployeeDashboard() {
                         <MessageSquare className="h-6 w-6 text-red-600" /> 
                         Incoming Grievances
                     </h2>
-                    <span className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.2em]">{grievances.length} Active Grievances</span>
+                    <span className="text-[10px] font-black text-zinc-200 uppercase tracking-[0.2em]">{grievances.length} Active Grievances</span>
                 </div>
 
                 <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                     {grievances.length === 0 ? (
                         <div className="col-span-full py-32 text-center bg-zinc-950/50 border border-red-900/10 rounded-[3rem] backdrop-blur-md">
                             <Briefcase className="h-16 w-16 text-red-900/20 mx-auto mb-4" />
-                            <p className="text-zinc-400 font-black uppercase tracking-widest text-xs">No pending tasks assigned in the system.</p>
+                            <p className="text-zinc-200 font-black uppercase tracking-widest text-xs">No pending tasks assigned in the system.</p>
                         </div>
                     ) : (
                         grievances.map((g: any, idx: number) => (
@@ -120,7 +120,7 @@ export default function EmployeeDashboard() {
                                         </p>
                                     </div>
                                     <div className="space-y-2">
-                                        <label className="text-[10px] font-black text-zinc-500 uppercase tracking-widest ml-1">Resolution Response</label>
+                                        <label className="text-[10px] font-black text-zinc-300 uppercase tracking-widest ml-1">Resolution Response</label>
                                         <Textarea
                                             placeholder="Enter resolution notes..."
                                             className="bg-black/40 border-red-900/30 text-white placeholder:text-zinc-800 rounded-2xl focus:ring-red-600 focus:outline-none transition-all resize-none shadow-inner p-4 font-bold text-xs"
@@ -146,7 +146,7 @@ export default function EmployeeDashboard() {
                                         </Button>
                                         <Button
                                             variant="outline"
-                                            className="flex-1 border-red-900/10 text-zinc-700 hover:bg-zinc-900 hover:text-white rounded-xl h-12 text-[9px] font-black uppercase tracking-widest transition-all"
+                                            className="flex-1 border-red-900/10 text-zinc-200 hover:bg-zinc-900 hover:text-white rounded-xl h-12 text-[9px] font-black uppercase tracking-widest transition-all"
                                             onClick={() => handleAction(g._id, 'Rejected')}
                                         >
                                             <XCircle className="mr-2 h-4 w-4" /> Discard

@@ -20,6 +20,10 @@ const userSchema = new mongoose.Schema({
     annualIncome: { type: Number },
     employmentStatus: { type: String, enum: ['Employed', 'Unemployed', 'Student', 'Retired'] },
     educationLevel: { type: String },
+    maritalStatus: { type: String, enum: ['Single', 'Married', 'Divorced', 'Widowed'] },
+    housingType: { type: String, enum: ['Owned', 'Rented', 'Government Provided'] },
+    dependents: { type: Number },
+    disabilityStatus: { type: String, enum: ['None', 'Physical', 'Visual', 'Hearing', 'Other'] },
 
     createdAt: { type: Date, default: Date.now },
 }, {
