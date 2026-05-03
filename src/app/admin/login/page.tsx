@@ -47,13 +47,13 @@ export default function AdminLogin() {
                 <div className="absolute bottom-20 right-20 w-96 h-96 bg-red-900/10 rounded-full blur-3xl"></div>
             </div>
 
-            <Card className="w-full max-w-[420px] mx-4 bg-zinc-950/50 border border-red-900/20 backdrop-blur-2xl shadow-[0_0_50px_rgba(0,0,0,0.5)] relative z-10 rounded-[2.5rem] overflow-hidden">
+            <Card className="w-full sm:max-w-[420px] mx-0 sm:mx-4 bg-zinc-950/40 border-0 sm:border border-white/5 backdrop-blur-3xl shadow-[0_0_100px_rgba(0,0,0,0.8)] relative z-10 rounded-none sm:rounded-[3rem] overflow-hidden transition-all duration-500">
                 <div className="h-1.5 bg-gradient-to-r from-red-600 via-red-500 to-red-900" />
                 <CardHeader className="space-y-4 pb-8 pt-10">
                     <div className="flex justify-center mb-2">
-                        <div className="w-20 h-20 bg-red-600 rounded-2xl flex items-center justify-center shadow-[0_0_30px_rgba(239,68,68,0.4)]">
-                            <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-red-600 to-red-900 rounded-2xl sm:rounded-3xl flex items-center justify-center shadow-[0_0_40px_rgba(239,68,68,0.3)] group hover:scale-110 transition-transform duration-500">
+                            <svg className="w-10 h-10 sm:w-12 sm:h-12 text-white/90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                             </svg>
                         </div>
                     </div>
