@@ -73,7 +73,7 @@ export function Sidebar({ children }: { children: React.ReactNode }) {
                                     "flex items-center gap-4 rounded-2xl px-5 py-4 text-xs font-black uppercase tracking-widest transition-all duration-500 group relative overflow-hidden",
                                     isActive
                                         ? "bg-red-600 text-white shadow-2xl shadow-red-900/40"
-                                        : "text-zinc-600 hover:bg-white/5 hover:text-white"
+                                        : "text-zinc-300 hover:bg-white/5 hover:text-white"
                                 )}
                             >
                                 <Icon className={cn("h-5 w-5 transition-all duration-500", isActive ? "text-white" : "text-zinc-800 group-hover:text-red-500 group-hover:scale-110")} />
@@ -91,13 +91,13 @@ export function Sidebar({ children }: { children: React.ReactNode }) {
                         <div className="absolute -top-4 -right-4 h-24 w-24 bg-red-600/20 rounded-full blur-2xl group-hover:bg-red-600/40 transition-all duration-700" />
                         <div className="relative z-10">
                             <p className="text-[10px] font-black text-red-500 uppercase tracking-widest mb-2">Support</p>
-                            <p className="text-xs font-bold text-zinc-400 leading-relaxed">Help Desk Available</p>
+                            <p className="text-xs font-bold text-zinc-200 leading-relaxed">Help Desk Available</p>
                         </div>
                     </div>
                     <Button
                         variant="ghost"
                         onClick={handleLogout}
-                        className="w-full justify-start text-zinc-700 hover:text-white hover:bg-red-600 rounded-2xl h-14 px-6 gap-4 font-black text-[10px] uppercase tracking-widest transition-all"
+                        className="w-full justify-start text-zinc-200 hover:text-white hover:bg-red-600 rounded-2xl h-14 px-6 gap-4 font-black text-[10px] uppercase tracking-widest transition-all"
                     >
                         <LogOut className="h-5 w-5" />
                         Logout
@@ -120,7 +120,7 @@ export function Sidebar({ children }: { children: React.ReactNode }) {
                             href={item.path}
                             className={cn(
                                 "flex flex-col items-center justify-center gap-1 transition-all duration-300",
-                                isActive ? "text-red-500 scale-110" : "text-zinc-600 hover:text-white"
+                                isActive ? "text-red-500 scale-110" : "text-zinc-300 hover:text-white"
                             )}
                         >
                             <Icon className={cn("h-6 w-6", isActive && "red-glow")} />
@@ -133,7 +133,7 @@ export function Sidebar({ children }: { children: React.ReactNode }) {
                 })}
                 <button
                     onClick={handleLogout}
-                    className="flex flex-col items-center justify-center gap-1 text-zinc-600 hover:text-red-500"
+                    className="flex flex-col items-center justify-center gap-1 text-zinc-300 hover:text-red-500"
                 >
                     <LogOut className="h-6 w-6" />
                     <span className="text-[8px] font-black uppercase tracking-tighter">Exit</span>
