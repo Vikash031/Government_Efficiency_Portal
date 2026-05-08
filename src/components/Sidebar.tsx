@@ -87,13 +87,6 @@ export function Sidebar({ children }: { children: React.ReactNode }) {
                 </nav>
 
                 <div className="p-8 mt-auto">
-                    <div className="p-6 rounded-[2rem] bg-red-950/30 border border-red-900/30 text-white shadow-2xl mb-6 relative overflow-hidden group">
-                        <div className="absolute -top-4 -right-4 h-24 w-24 bg-red-600/20 rounded-full blur-2xl group-hover:bg-red-600/40 transition-all duration-700" />
-                        <div className="relative z-10">
-                            <p className="text-[10px] font-black text-red-500 uppercase tracking-widest mb-2">Support</p>
-                            <p className="text-xs font-bold text-zinc-200 leading-relaxed">Help Desk Available</p>
-                        </div>
-                    </div>
                     <Button
                         variant="ghost"
                         onClick={handleLogout}
